@@ -28,6 +28,13 @@ $f3->route('GET /login', function() {
     echo $view->render('views/login.html');
 });
 
+//Define a login route
+$f3->route('GET /register', function() {
+    //Display a view
+    $view = new Template();
+    echo $view->render('views/register.html');
+});
+
 //Define a budget route
 $f3->route('GET /budget', function() {
     //Display a view
