@@ -35,5 +35,13 @@ $f3->route('GET /budget', function() {
     echo $view->render('views/budget.html');
 });
 
+//Define a budget route
+$f3->route('GET|POST /budgetSummary', function() {
+    //Display a view
+    $_SESSION["budgetSummary"] = $_POST;
+    $view = new Template();
+    echo $view->render('views/budget-summary.html');
+});
+
 //Run Fat-Free
 $f3->run();
