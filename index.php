@@ -22,5 +22,12 @@ $f3->route('GET /', function() {
     echo $view->render('views/home.html');
 });
 
+//Define a login route
+$f3->route('GET /login', function() {
+    //Display a view
+    $view = new Template();
+    echo $view->render('views/login.html');
+});
+
 //Run Fat-Free
 $f3->run();
