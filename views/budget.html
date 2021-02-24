@@ -6,8 +6,13 @@
             <form action="#" method="post">
 
                 <div class="form-group">
-                    <label for="baseFunds">Base Fund:<br></label>
+                    <label for="baseFunds">Base Fund: <br></label>
                     <input type="number" class="form-control pl-2" id="baseFunds" name="baseFunds">
+                    <div class="text-danger">
+                        <check if="{{ isset(@errors['baseFunds']) }}">
+                            {{ @errors['baseFunds'] }}
+                        </check>
+                    </div>
                 </div>
                 <br>
 
@@ -20,12 +25,22 @@
                 <div class="form-group">
                     <label for="startDate">Starting Date:<br></label>
                     <input type="number" class="form-control pl-2" id="startDate" name="startDate" placeholder="mmddyyyy">
+                    <div class="text-danger">
+                        <check if="{{ isset(@errors['startDate']) }}">
+                            {{ @errors['startDate'] }}
+                        </check>
+                    </div>
                 </div>
                 <br>
 
                 <div class="form-group">
                     <label for="endDate">End Date:<br></label>
                     <input type="number" class="form-control pl-2" id="endDate" name="endDate" placeholder="mmddyyyy">
+                    <div class="text-danger">
+                        <check if="{{ isset(@errors['endDate']) }}">
+                            {{ @errors['endDate'] }}
+                        </check>
+                    </div>
                 </div>
                 <br>
 
@@ -47,6 +62,11 @@
                     <label class="form-check-label" for="gridRadios3">
                         Low
                     </label>
+                </div>
+                <div class="text-danger">
+                    <check if="{{ isset(@errors['priority']) }}">
+                        {{ @errors['priority'] }}
+                    </check>
                 </div>
                 <br>
 
