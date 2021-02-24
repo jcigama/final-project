@@ -1,52 +1,108 @@
 <?php
 
-class budget {
+class Budget
+{
 
-    private $_alottedAmount;
-    private $_timeFrame;
+    private $_baseFunds;
+    private $_description;
+    private $_startDate;
+    private $_endDate;
+    private $_priority;
 
     /**
      * budget constructor.
-     * @param $_alottedAmount
-     * @param $_timeFrame
+     * @param $_baseFunds
+     * @param $_description
+     * @param $_startDate
+     * @param $_endDate
+     * @param $_priority
      */
-    public function __construct($_alottedAmount, $_timeFrame)
+    public function __construct($_baseFunds, $_description, $_startDate, $_endDate, $_priority)
     {
-        $this->_alottedAmount = $_alottedAmount;
-        $this->_timeFrame = $_timeFrame;
+        $this->_baseFunds = $_baseFunds;
+        $this->_description = $_description;
+        $this->_startDate = $_startDate;
+        $this->_endDate = $_endDate;
+        $this->_priority = $_priority;
     }
 
     /**
      * @return mixed
      */
-    public function getAlottedAmount()
+    public function getBaseFunds()
     {
-        return $this->_alottedAmount;
-    }
-
-    /**
-     * @param mixed $alottedAmount
-     */
-    public function setAlottedAmount($alottedAmount)
-    {
-        $this->_alottedAmount = $alottedAmount;
+        return $this->_baseFunds;
     }
 
     /**
      * @return mixed
      */
-    public function getTimeFrame()
+    public function getDescription()
     {
-        return $this->_timeFrame;
+        return $this->_description;
     }
 
     /**
-     * @param mixed $timeFrame
+     * @return mixed
      */
-    public function setTimeFrame($timeFrame)
+    public function getStartDate()
     {
-        $this->_timeFrame = $timeFrame;
+        return $this->_startDate;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getEndDate()
+    {
+        return $this->_endDate;
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getPriority()
+    {
+        return $this->_priority;
+    }
+
+    /**
+     * @param mixed $baseFunds
+     */
+    public function setBaseFunds($baseFunds): void
+    {
+        $this->_baseFunds = $baseFunds;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description): void
+    {
+        $this->_description = $description;
+    }
+
+    /**
+     * @param mixed $startDate
+     */
+    public function setStartDate($startDate): void
+    {
+        $this->_startDate = $startDate;
+    }
+
+    /**
+     * @param mixed $endDate
+     */
+    public function setEndDate($endDate): void
+    {
+        $this->_endDate = $endDate;
+    }
+
+    /**
+     * @param mixed $priority
+     */
+    public function setPriority($priority): void
+    {
+        $this->_priority = $priority;
+    }
 }
