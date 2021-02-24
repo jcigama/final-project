@@ -5,17 +5,53 @@
     <link rel="stylesheet" href="styles/general-styles.css">
     <meta charset="UTF-8">
     <title>Expense Tracker</title>
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="{{ @BASE }}">Expense Tracker</a>
-        <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="login">Login <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link active" href="register">Register <span class="sr-only">(current)</span></a>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{{ @BASE }}">
+                <img src="images/credit-card-8x.png" width="30" height="30" alt="Credit card">
+                Expense Tracker</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup" style="">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="login">Login</a>
+                    <a class="nav-item nav-link" href="register">Register</a>
+                </div>
+            </div>
         </div>
     </nav>
+
+
+
+    <!-- HEADER -->
+    <header class="bg-primary-color text-black text-center" id="header">
+        <div class="py-5 align-self-center">
+            <h1 class="align-self-center" id="userWelcomeMessage">Welcome back, {{ @SESSION.fname }}!</h1>
+            <h2 class="align-self-center" id="userBalanceMessage">Your current balance is {{ @SESSION.amount }} .</h2>
+        </div>
+        <!--        <img src="images/starfieldLibrary.jpg" class="img-fluid w-100" alt="Image of library in Korea">-->
+    </header>
+
 </head>
 
-<footer class="footer mt-auto py-3 bg-light text-center fixed-bottom">
-    <div class="container">
-        <span class="text-muted">Created by 404Found</span>
-    </div>
-</footer>
+
+<!--<footer class="footer mt-auto py-3 bg-light fixed-bottom">-->
+<!--    <div class="top-container row row-cols-1 row-cols-md-2 justify-content-center pt-3">-->
+<!--        <div class="col">-->
+<!--            <p>Is it time to finally start tracking your spending? With this expense tracker not only will you be able to-->
+<!--                create a budget for every situation you find yourself in, you'll also be able to create financial goals as-->
+<!--                well! </p>-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--            <p>Is it time to finally start tracking your spending? With this expense tracker not only will you be able to-->
+<!--                create a budget for every situation you find yourself in, you'll also be able to create financial goals as-->
+<!--                well! </p>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="container text-center align-self-center">-->
+<!--        <span class="text-muted">Created by 404Found</span>-->
+<!--    </div>-->
+<!--</footer>-->
