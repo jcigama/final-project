@@ -7,5 +7,10 @@
 
 class DataLayer
 {
+
+    function getPriorities()
+    {
+        return array("high", "medium", "low");
+    }
 }
 

@@ -7,68 +7,86 @@
 
                 <div class="form-group">
                     <label for="baseFunds">Base Fund: <br></label>
-                    <input type="number" class="form-control pl-2" id="baseFunds" name="baseFunds">
+                    <input type="number" class="form-control pl-2" id="baseFunds" name="baseFunds" value="{{ @baseFunds }}">
+
+                    <!--Inline error if base fund isn't entered-->
                     <div class="text-danger">
                         <check if="{{ isset(@errors['baseFunds']) }}">
                             {{ @errors['baseFunds'] }}
                         </check>
                     </div>
+
                 </div>
                 <br>
 
                 <div class="form-group">
                     <label for="description">Description:<br></label>
-                    <input type="text" class="form-control pl-2" id="description" name="description">
+                    <input type="text" class="form-control pl-2" id="description" name="description" value="{{ @description }}">
                 </div>
                 <br>
 
                 <div class="form-group">
                     <label for="startDate">Starting Date:<br></label>
-                    <input type="number" class="form-control pl-2" id="startDate" name="startDate" placeholder="mmddyyyy">
+                    <input type="number" class="form-control pl-2" id="startDate" name="startDate" placeholder="mmddyyyy" value="{{ @startDate }}">
+
+                    <!--Inline error if start date isn't entered-->
                     <div class="text-danger">
                         <check if="{{ isset(@errors['startDate']) }}">
                             {{ @errors['startDate'] }}
                         </check>
                     </div>
+
                 </div>
+
                 <br>
 
                 <div class="form-group">
                     <label for="endDate">End Date:<br></label>
-                    <input type="number" class="form-control pl-2" id="endDate" name="endDate" placeholder="mmddyyyy">
+                    <input type="number" class="form-control pl-2" id="endDate" name="endDate" placeholder="mmddyyyy" value="{{ @endDate }}">
+
+                    <!--Inline error if end date isn't entered-->
                     <div class="text-danger">
                         <check if="{{ isset(@errors['endDate']) }}">
                             {{ @errors['endDate'] }}
                         </check>
                     </div>
+
                 </div>
+
                 <br>
 
                 <label>Priority</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="priority" id="gridRadios1" value="high">
-                    <label class="form-check-label" for="gridRadios1">
-                        High
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="priority" id="gridRadios2" value="medium">
-                    <label class="form-check-label" for="gridRadios2">
-                        Medium
-                    </label>
-                </div>
-                <div class="form-check disabled">
-                    <input class="form-check-input" type="radio" name="priority" id="gridRadios3" value="low">
-                    <label class="form-check-label" for="gridRadios3">
-                        Low
-                    </label>
-                </div>
+
+                <!--Displays priority choices retrieved from data-layer-->
+                <repeat group="{{ @priorities }}" value="{{ @priority }}">
+                    <br>
+                    <check if="{{ @priority == $priorityChoice }}">
+                        <true>
+                            <label> <input type="radio" name="priority" value="{{ @priority }}" checked>
+                                {{ ucfirst(@priority) }}
+                            </label>
+                        </true>
+                        <false>
+                            <label> <input type="radio" name="priority" value="{{ @priority }}">
+                                {{ ucfirst(@priority) }}
+                            </label>
+                        </false>
+                    </check>
+                </repeat>
+
+                <!--Inline error if no priority level is chosen-->
                 <div class="text-danger">
-                    <check if="{{ isset(@errors['priority']) }}">
-                        {{ @errors['priority'] }}
+                    <check if="{{ isset(@errors['priorityEmpty']) }}">
+                        {{ @errors['priorityEmpty'] }}
                     </check>
                 </div>
-                <br>
+
+                <!--Inline error if spoofing is attempted-->
+                <div class="text-danger">
+                    <check if="{{ isset(@errors['prioritySpoof']) }}">
+                        {{ @errors['prioritySpoof'] }}
+                    </check>
+                </div>
 
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <br><br>
