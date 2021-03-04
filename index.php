@@ -33,7 +33,7 @@ $f3->route('GET /login', function() {
 });
 
 //Define a register route
-$f3->route('GET /register', function() {
+$f3->route('GET|POST /register', function() {
     global $controller;
     $controller->register();
 });
