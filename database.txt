@@ -1,0 +1,31 @@
+CREATE TABLE account (
+    userNum INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    userName VARCHAR(30),
+    email VARCHAR(50),
+    notification BIT(1),
+    fname VARCHAR(30),
+    lname VARCHAR(30),
+    gender VARCHAR(10),
+    age INT(5),
+    startingFunds DECIMAL(10, 2),
+    situation VARCHAR(20)
+);
+
+CREATE TABLE budget (
+    baseFunds DECIMAL(10, 2),
+    description VARCHAR(50),
+    startDate DATE,
+    endDate DATE,
+    priority VARCHAR(20)
+);
+
+CREATE TABLE expenses (
+    price DECIMAL(10, 2),
+    description VARCHAR(30)
+);
+
+CREATE TABLE goal (
+    startDate DATE,
+    endDate DATE,
+    preferredEndDate DATE
+);
