@@ -58,12 +58,12 @@
         <!-- Situation -->
         <div class="form-group">
             <legend>Situation</legend>
-
             <select class="form-control" id="situation" name="situation">
-                <repeat group="{{ @situations }}" value="{{ @situation}}">
-                    <option value="{{ @situation }}"> {{ ucfirst(@situation) }}</option>
+                <repeat group="{{ @situations }}" value="{{ @situation }}">
+                    <option value="{{ @situation }}">{{ ucfirst(@situation) }}</option>
                 </repeat>
             </select>
+
 
             <!-- Inline warning -->
             <div class="text-danger">
@@ -127,12 +127,22 @@
                             {{ ucfirst(@gender) }}
                         </label>
                     </repeat>
+                    <div class="text-danger">
+                        <check if="{{ isset(@errors['gender']) }}">
+                            {{ @errors['gender'] }}
+                        </check>
+                    </div>
                 </div>
 
                 <!-- Age -->
                 <div class="col">
                     <label for="age">Age</label>
                     <input type="number" class="form-control pl-2 col-5" id="age" name="age" value="{{ @userAge }}">
+                    <div class="text-danger">
+                        <check if="{{ isset(@errors['age']) }}">
+                            {{ @errors['age'] }}
+                        </check>
+                    </div>
                 </div>
             </div>
         </div>

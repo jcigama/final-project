@@ -51,109 +51,58 @@ class Controller
             $userSituation = $_POST['situation'];
 
 
-            //instantiate a new person
-            $person = new Person($username, $userEmail, $userPassword, $userNotification, $userFname, $userLname, $userGender, $userAge, $userStartingfunds, $userSituation);
-
             //validate username
-            if($validator->validUsername($username)){
-                //$_SESSION['fname'] = $userFname;
-                $person->setUserName($username);
-            }
-            //if data is not valid -> set an error in f3 hive
-            else {
+            if(!$validator->validUsername($username)){
                 $this->_f3->set('errors["username"]', "Please enter a username that is longer than 3 characters");
             }
 
             //validate email
-            if($validator->validEmail($userEmail)){
-//                $_SESSION['email'] = $userEmail;
-                $person->setEmail($userEmail);
-            }
-            //if data is not valid -> set an error in f3 hive
-            else {
+            if(!$validator->validEmail($userEmail)){
                 $this->_f3->set('errors["email"]', "Email must contain an @.");
             }
 
             //validate password
-            if($validator->validPassword($userPassword)){
-//                $_SESSION['email'] = $userEmail;
-                $person->setPassword($userPassword);
-            }
-            //if data is not valid -> set an error in f3 hive
-            else {
+            if(!$validator->validPassword($userPassword)){
                 $this->_f3->set('errors["password"]', "Password cannot be empty and has to be longer than 5 characters.");
             }
 
-            //validate notification
-            if(isset($userGender)){
-                $person->setGender($userGender);
-            }
-
             //validate first name
-            if($validator->validFname($userFname)){
-                //$_SESSION['fname'] = $userFname;
-                $person->setFname($userFname);
-            }
-            //if data is not valid -> set an error in f3 hive
-            else {
+            if(!$validator->validFname($userFname)){
                 $this->_f3->set('errors["fname"]', "Please enter a first name that only contains characters");
             }
 
             //validate last name
-            if($validator->validLname($userLname)){
-                //$_SESSION['lname'] = $userLname;
-                $person->setLname($userLname);
-            }
-            //if data is not valid -> set an error in f3 hive
-            else {
+            if(!$validator->validLname($userLname)){
                 $this->_f3->set('errors["lname"]', "Please enter a last name that only contains characters");
             }
 
-            //validate gender
-            if(isset($userGender)){
-                //$_SESSION['gender'] = $userGender;
-                $person->setGender($userGender);
-            }
-
-            //validate age
-            if(isset($userAge)){
-                //$_SESSION['gender'] = $userGender;
-                $person->setAge($userAge);
-            }
-
             //validate starting funds
-            if($validator->validStartingfunds($userStartingfunds)){
-                //$_SESSION['pnumber'] = $userPhone;
-                $person->setStartingFunds($userStartingfunds);
-            }
-            //if data is not valid -> set an error in f3 hive
-            else {
+            if(!$validator->validStartingfunds($userStartingfunds)){
                 $this->_f3->set('errors["startingFunds"]', "Starting funds cannot be empty and has to be more than 0.");
             }
 
             //validate situation
-            if($validator->validSituation($userSituation)){
-                //$_SESSION['pnumber'] = $userPhone;
-                $person->setSituation($userSituation);
-            }
-            //if data is not valid -> set an error in f3 hive
-            else {
+            if(!$validator->validSituation($userSituation)){
                 $this->_f3->set('errors["situation"]', "Please pick a valid situation.");
             }
 
             //validate gender
-            if(isset($userGender)){
-                //$_SESSION['gender'] = $userGender;
-                $person->setGender($userGender);
+            if(!isset($userGender)){
+                $this->_f3->set('errors["gender"]', "Please pick a gender.");
+            }
+
+            //validate age
+            if(!isset($userGender)){
+                $this->_f3->set('errors["age"]', "Please enter age.");
             }
 
             //if there are no errors, redirect to /profile
             if(empty($this->_f3->get('errors'))){
-                $_SESSION['person'] = $person;
-                echo "success";
-                //$this->_f3->reroute('/profile');
-            }
+                //instantiate a new person
+                $person = new Person($username, $userEmail, $userPassword, $userNotification, $userFname, $userLname, $userGender, $userAge, $userStartingfunds, $userSituation);
 
+                $_SESSION['person'] = $person;
+            }
         }
 
         //make form sticky
@@ -173,13 +122,11 @@ class Controller
         //Display a register view
         $view = new Template();
         echo $view->render('views/register.html');
-
     }
 
     function budget()
     {
         global $validator;
-        global $budget;
         global $dataLayer;
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -188,6 +135,7 @@ class Controller
             $startDate = $_POST['startDate'];
             $endDate = $_POST['endDate'];
             $priority = $_POST['priority'];
+
 
             // baseFunds validation
             if (!$validator->baseFundsValidation($baseFunds)) {
@@ -224,20 +172,13 @@ class Controller
             //if no errors set in f3 hive, store variables in sessions and set in $budget class
             if (empty($this->_f3->get('errors'))) {
 
-                //save data to object
-                $budget->setBaseFunds($baseFunds);
-                $budget->setStartDate($startDate);
-                $budget->setEndDate($endDate);
-                $budget->setPriority($priority);
+                //instantiate budget with parameters
+                $budget = new Budget($baseFunds, $description, $startDate, $endDate, $priority);
 
                 //save data to session
-                $_SESSION['baseFunds'] = $baseFunds;
-                $_SESSION['startDate'] = $startDate;
-                $_SESSION['endDate'] = $endDate;
-                $_SESSION['priority'] = $priority;
+                $_SESSION['budget'] = $baseFunds;
 
                 echo "success";
-                //$this->_f3->reroute('/summary');
             }
 
             //optional sticky data

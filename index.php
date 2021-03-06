@@ -14,7 +14,6 @@ session_start();
 $f3 = Base::instance();
 $validator = new Validate();
 $dataLayer = new DataLayer();
-$budget = new Budget();
 $controller = new Controller($f3);
 
 //Turn on Fat-Free error reporting
