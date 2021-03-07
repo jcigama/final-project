@@ -33,13 +33,14 @@ class Controller
         global $validator;
         global $dataLayer;
 
+        $userNotification = "off";
+
         //get array
         $this->_f3->set('situations', $dataLayer->getSituation());
         $this->_f3->set('genders', $dataLayer->getGender());
         $this->_f3->set('notifications', $dataLayer->getNotification());
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            var_dump($_POST);
             $username = $_POST['username'];
             $userEmail = $_POST['email'];
             $userPassword = $_POST['password'];
@@ -68,12 +69,14 @@ class Controller
             }
 
             //spoof protection notification
-            if($userNotification != "on") {
-                $this->_f3->set('errors["notification"]', "Spoof prevented");
+            if (isset($userNotification)) {
+                if ($userNotification != "on") {
+                    $this->_f3->set('errors["notification"]', "Spoof prevented");
+                }
             }
 
             //validate first name
-            if(!$validator->validFname($userFname)){
+            if(!$validator->validFname($userFname)) {
                 $this->_f3->set('errors["fname"]', "Please enter a first name that only contains characters");
             }
 
@@ -97,14 +100,34 @@ class Controller
                 $this->_f3->set('errors["situation"]', "Spoof prevented.");
             }
 
-            //validate gender
-            if(!isset($userGender)){
-                $this->_f3->set('errors["gender"]', "Please pick a gender.");
+            //validate gender | spoof protection
+            if(isset($userGender)) {
+                if($userGender != "male") {
+                    if($userGender != "female"){
+                        $this->_f3->set('errors["gender"]', "Spoof prevented.");
+                    }
+                }
+
+                if($userGender != "female") {
+                    if($userGender != "male"){
+                        $this->_f3->set('errors["gender"]', "Spoof prevented.");
+                    }
+                }
+            }
+
+            //validate gender | spoof protection
+            if(!isset($userGender)) {
+                $this->_f3->set('errors["gender"]', "Please choose gender.");
             }
 
             //validate age
-            if(!isset($userGender)){
+            if($userAge == ""){
                 $this->_f3->set('errors["age"]', "Please enter age.");
+            }
+
+            //validate age
+            if($userAge < 13){
+                $this->_f3->set('errors["age"]', "You must at least 13 years of age.");
             }
 
             //if there are no errors, redirect to /profile
@@ -127,7 +150,6 @@ class Controller
         $this->_f3->set('userGender', isset($userGender) ? $userGender : "");
         $this->_f3->set('userAge', isset($userAge) ? $userAge : "");
         $this->_f3->set('userStartingfunds', isset($userStartingfunds) ? $userStartingfunds : "");
-        //not sure how to make situation sticky????
         $this->_f3->set('userSituation', isset($userSituation) ? $userSituation : "");
 
         //Display a register view
