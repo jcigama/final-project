@@ -68,16 +68,27 @@ class Validate
     }
 
     //-------Registration Page Validation
-
     function validUsername($username)
     {
         return !empty($username) && strlen($username) > 3;
+    }
+
+    /**
+     * validAEmail checks to see that an email address is valid
+     * REQUIRED
+     * #param String $email
+     * @return boolean
+     */
+    function validEmail($email)
+    {
+        return !empty($email) && preg_match("/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/", $email);
     }
 
     function validPassword($password)
     {
         return !empty($password) && strlen($password) > 5;
     }
+
     /**
      * validName checks to see that  string is all
      * alphabetic
@@ -95,16 +106,7 @@ class Validate
         return !empty($lname) && ctype_alpha($lname);
     }
 
-    /**
-     * validAEmail checks to see that an email address is valid
-     * REQUIRED
-     * #param String $email
-     * @return boolean
-     */
-    function validEmail($email)
-    {
-        return !empty($email) && preg_match("/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/", $email);
-    }
+
 
     function validStartingfunds($startingFunds)
     {

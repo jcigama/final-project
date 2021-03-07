@@ -42,16 +42,16 @@
 
         <!-- Notifications -->
         <div class="form-group">
-            <!--                <label for="notification">Notification</label>-->
-            <p>Notification</p>
-            <repeat group="{{ @notifications }}" value="{{ @notification}}">
-                <label class="radioFormat">
-                    <input type="radio" name="notification" id="{{ @notification }}" value="{{ @notification }}"
-                    <check if="{{ @notification == @userNotification}}">checked</check>>
+            <p><b>Notification Preference</b></p>
+            <label><input type="checkbox" name="notification" <check if="{{ @userNotification=='on' }}">checked</check>> I want notifications via e-mail.</label>
 
-                    {{ ucfirst(@notification) }}
-                </label>
-            </repeat>
+
+            <!-- Inline warning -->
+            <div class="text-danger">
+                <check if="{{ isset(@errors['notification']) }}">
+                    {{ @errors['notification'] }}
+                </check>
+            </div>
 
         </div>
 

@@ -39,6 +39,7 @@ class Controller
         $this->_f3->set('notifications', $dataLayer->getNotification());
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            var_dump($_POST);
             $username = $_POST['username'];
             $userEmail = $_POST['email'];
             $userPassword = $_POST['password'];
@@ -66,6 +67,11 @@ class Controller
                 $this->_f3->set('errors["password"]', "Password cannot be empty and has to be longer than 5 characters.");
             }
 
+            //spoof protection notification
+            if($userNotification != "on") {
+                $this->_f3->set('errors["notification"]', "Spoof prevented");
+            }
+
             //validate first name
             if(!$validator->validFname($userFname)){
                 $this->_f3->set('errors["fname"]', "Please enter a first name that only contains characters");
@@ -81,9 +87,14 @@ class Controller
                 $this->_f3->set('errors["startingFunds"]', "Starting funds cannot be empty and has to be more than 0.");
             }
 
-            //validate situation
-            if(!$validator->validSituation($userSituation) || $userSituation == "Choose your situation"){
-                $this->_f3->set('errors["situation"]', "Please pick a valid situation.");
+            //validate situation | user must make choice
+            if($userSituation == "Choose your situation"){
+                $this->_f3->set('errors["situation"]', "Please pick a situation.");
+            }
+
+            //validate situation | spoof protection
+            if(!$validator->validSituation($userSituation)){
+                $this->_f3->set('errors["situation"]', "Spoof prevented.");
             }
 
             //validate gender
