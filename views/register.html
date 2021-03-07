@@ -60,10 +60,13 @@
             <legend>Situation</legend>
             <select class="form-control" id="situation" name="situation">
                 <repeat group="{{ @situations }}" value="{{ @situation }}">
-                    <option value="{{ @situation }}">{{ ucfirst(@situation) }}</option>
+                    <option value="{{ @situation }}"
+                    <check if="{{ @situation == @userSituation }}">selected</check>
+                    >
+                    {{ ucfirst(@situation) }}
+                    </option>
                 </repeat>
             </select>
-
 
             <!-- Inline warning -->
             <div class="text-danger">

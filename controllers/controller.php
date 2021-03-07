@@ -82,7 +82,7 @@ class Controller
             }
 
             //validate situation
-            if(!$validator->validSituation($userSituation)){
+            if(!$validator->validSituation($userSituation) || $userSituation == "Choose your situation"){
                 $this->_f3->set('errors["situation"]', "Please pick a valid situation.");
             }
 

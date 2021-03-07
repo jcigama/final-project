@@ -15,7 +15,7 @@ class DataLayer
 
     function getSituation()
     {
-        return array("education", "bills", "leisure", "other");
+        return array("Choose your situation", "education", "bills", "leisure", "other");
     }
 
     /** getGender() returns an array of gender options
