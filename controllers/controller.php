@@ -130,10 +130,11 @@ class Controller
                 $this->_f3->set('errors["age"]', "You must at least 13 years of age.");
             }
 
+            $person = new Person($username, $userEmail, $userPassword, $userNotification, $userFname, $userLname, $userGender, $userAge, $userStartingfunds, $userSituation);
+
             //if there are no errors, redirect to /profile
             if(empty($this->_f3->get('errors'))){
                 //instantiate a new person
-                $person = new Person($username, $userEmail, $userPassword, $userNotification, $userFname, $userLname, $userGender, $userAge, $userStartingfunds, $userSituation);
 
                 $_SESSION['person'] = $person;
             }
@@ -202,11 +203,11 @@ class Controller
                 $this->_f3->set('errors["priorityEmpty"]', "Please choose priority level.");
             }
 
+            //instantiate budget with parameters
+            $budget = new Budget($baseFunds, $description, $startDate, $endDate, $priority);
+
             //if no errors set in f3 hive, store variables in sessions and set in $budget class
             if (empty($this->_f3->get('errors'))) {
-
-                //instantiate budget with parameters
-                $budget = new Budget($baseFunds, $description, $startDate, $endDate, $priority);
 
                 //save data to session
                 $_SESSION['budget'] = $baseFunds;
