@@ -41,9 +41,11 @@ class Controller
         $this->_f3->set('notifications', $dataLayer->getNotification());
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            var_dump($_POST);
             $username = $_POST['username'];
             $userEmail = $_POST['email'];
             $userPassword = $_POST['password'];
+            $confirmPassword = $_POST['confirmPassword'];
             $userNotification = $_POST['notification'];
             $userFname = $_POST['fname'];
             $userLname = $_POST['lname'];
@@ -66,6 +68,11 @@ class Controller
             //validate password
             if(!$validator->validPassword($userPassword)){
                 $this->_f3->set('errors["password"]', "Password cannot be empty and has to be longer than 5 characters.");
+            }
+
+            //validate confirm password
+            if(!$validator->passwordConfirmation($userPassword, $confirmPassword)){
+                $this->_f3->set('errors["confirmPassword"]', "Passwords don't match.");
             }
 
             //spoof protection notification
@@ -144,6 +151,7 @@ class Controller
         $this->_f3->set('username', isset($username) ? $username : "");
         $this->_f3->set('userEmail', isset($userEmail) ? $userEmail : "");
         $this->_f3->set('userPassword', isset($userPassword) ? $userPassword : "");
+        $this->_f3->set('confirmPassword', isset($confirmPassword) ? $confirmPassword : "");
         $this->_f3->set('userEmail', isset($userEmail) ? $userEmail : "");
         $this->_f3->set('userNotification', isset($userNotification) ? $userNotification : "");
         $this->_f3->set('userFname', isset($userFname) ? $userFname : "");

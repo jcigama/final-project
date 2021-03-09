@@ -89,6 +89,11 @@ class Validate
         return !empty($password) && strlen($password) > 5;
     }
 
+    function passwordConfirmation($password, $confirm)
+    {
+        return $password === $confirm;
+    }
+
     /**
      * validName checks to see that  string is all
      * alphabetic
