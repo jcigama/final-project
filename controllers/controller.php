@@ -170,24 +170,14 @@ class Controller
     {
         global $validator;
         global $dataLayer;
-        global $dbh;
-
-        //define the query
-        $sql = "INSERT INTO budget(baseFunds, description, startDate, endDate, priority)
-        VALUES(:baseFunds, :description, :startDate, :endDate, :priority)";
-
-        //prepare the statement
-        $statement = $dbh->prepare($sql);
-
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            var_dump($_POST);
-
             $baseFunds = $_POST['baseFunds'];
             $description = $_POST['description'];
             $startDate = $_POST['startDate'];
             $endDate = $_POST['endDate'];
             $priority = $_POST['priority'];
+
 
 
             // baseFunds validation
@@ -229,18 +219,18 @@ class Controller
                 //instantiate budget with parameters
                 $budget = new Budget($baseFunds, $description, $startDate, $endDate, $priority);
 
+
+                $budget->setBaseFunds($baseFunds);
+                $budget->setDescription($description);
+                $budget->setStartDate($startDate);
+                $budget->setEndDate($endDate);
+                $budget->setPriority($baseFunds);
+
+
                 //save data to session
-                $_SESSION['budget'] = $baseFunds;
+                $_SESSION['budget'] = $budget;
+                $dataLayer->insertBudget($_SESSION['budget']);
 
-                $statement->bindParam(':baseFunds', $baseFunds, PDO::PARAM_INT);
-                $statement->bindParam(':description', $description, PDO::PARAM_STR);
-                $statement->bindParam(':startDate', $startDate, PDO::PARAM_STR);
-                $statement->bindParam(':endDate', $endDate, PDO::PARAM_STR);
-                $statement->bindParam(':priority', $priority, PDO::PARAM_STR);
-
-                //Execute
-                $statement->execute();
-//                echo "<h1>Budget data added</h1>";
                 echo "success";
             }
 
