@@ -170,8 +170,19 @@ class Controller
     {
         global $validator;
         global $dataLayer;
+        global $dbh;
+
+        //define the query
+        $sql = "INSERT INTO budget(baseFunds, description, startDate, endDate, priority)
+        VALUES(:baseFunds, :description, :startDate, :endDate, :priority)";
+
+        //prepare the statement
+        $statement = $dbh->prepare($sql);
+
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            var_dump($_POST);
+
             $baseFunds = $_POST['baseFunds'];
             $description = $_POST['description'];
             $startDate = $_POST['startDate'];
@@ -211,20 +222,30 @@ class Controller
                 $this->_f3->set('errors["priorityEmpty"]', "Please choose priority level.");
             }
 
-            //instantiate budget with parameters
-            $budget = new Budget($baseFunds, $description, $startDate, $endDate, $priority);
 
             //if no errors set in f3 hive, store variables in sessions and set in $budget class
             if (empty($this->_f3->get('errors'))) {
 
+                //instantiate budget with parameters
+                $budget = new Budget($baseFunds, $description, $startDate, $endDate, $priority);
+
                 //save data to session
                 $_SESSION['budget'] = $baseFunds;
 
+                $statement->bindParam(':baseFunds', $baseFunds, PDO::PARAM_INT);
+                $statement->bindParam(':description', $description, PDO::PARAM_STR);
+                $statement->bindParam(':startDate', $startDate, PDO::PARAM_STR);
+                $statement->bindParam(':endDate', $endDate, PDO::PARAM_STR);
+                $statement->bindParam(':priority', $priority, PDO::PARAM_STR);
+
+                //Execute
+                $statement->execute();
+//                echo "<h1>Budget data added</h1>";
                 echo "success";
             }
 
             //optional sticky data
-            $budget->setDescription($description);
+            //$budget->setDescription($description);
 
             //set priority choice in hive to check in html
             $this->_f3->set('priorityChoice', $priority);
