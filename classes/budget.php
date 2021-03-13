@@ -26,7 +26,6 @@ class Budget
         $this->_priority = $_priority;
     }
 
-
     /**
      * @return mixed
      */
