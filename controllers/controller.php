@@ -136,13 +136,21 @@ class Controller
                 $this->_f3->set('errors["age"]', "You must at least 13 years of age.");
             }
 
-            $person = new Person($username, $userEmail, $userPassword, $userNotification, $userFname, $userLname, $userGender, $userAge, $userStartingfunds, $userSituation);
 
             //if there are no errors, redirect to /profile
             if(empty($this->_f3->get('errors'))){
-                //instantiate a new person
 
-                $_SESSION['person'] = $person;
+
+
+                //instantiate budget with parameters
+                $account = new Account($username, $userEmail, $userPassword, $userNotification, $userFname, $userLname, $userGender, $userAge, $userStartingfunds, $userSituation);
+
+                print_r($account);
+
+                $_SESSION['account'] = $account;
+                $dataLayer->insertAccount($_SESSION['account']);
+
+                echo "success";
             }
         }
 
