@@ -112,7 +112,16 @@
                 <div class="card-body">
                     <h1 class="card-title pricing-card-title">Budget 2</h1>
                     <p>Current balance: {{ @SESSION.amount }}</p>
-                    <button type="button" class="w-100 btn btn-lg btn-outline-dark" data-toggle="modal" data-target="#myModal">Edit</button>
+                    <div class="row">
+                        <div class="col">
+                            <!-- Add expense -->
+                            <button type="button" class="w-100 btn btn-lg btn-outline-dark" data-toggle="modal" data-target="#myModal">Expense</button>
+                        </div>
+                        <div class="col">
+                            <!-- Edit budget -->
+                            <button type="button" class="w-100 btn btn-lg btn-outline-dark">Edit Budget</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
