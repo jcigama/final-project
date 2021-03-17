@@ -23,7 +23,7 @@
                 <div class="navbar-nav">
                     <check if="{{ isset(@SESSION.account) }}">
                         <true>
-                            <a class="nav-item nav-link" href="logout">Logout</a>
+                            <a class="nav-item nav-link" href="login">Logout</a>
                         </true>
                         <false>
                             <a class="nav-item nav-link" href="login">Login</a>
@@ -40,8 +40,18 @@
     <!-- HEADER -->
     <header class="bg-primary-color text-black text-center" id="header">
         <div class="py-5 align-self-center">
-            <h1 class="align-self-center" id="userWelcomeMessage">Hello, {{ @SESSION.account['userName'] }}!</h1>
-            <h2 class="align-self-center" id="userBalanceMessage">Your current balance is ${{ @SESSION.account['startingFunds'] }} .</h2>
+
+            <check if="{{ isset(@SESSION.account) }}">
+                <true>
+                    <h1 class="align-self-center" id="userWelcomeMessage">Hello, {{ @SESSION.account['userName'] }}!</h1>
+                    <h2 class="align-self-center" id="userBalanceMessage">Your current balance is ${{ @SESSION.account['startingFunds'] }} .</h2>
+                </true>
+                <false>
+                    <h1 class="align-self-center" id="userWelcomeMessage"></h1>
+                    <h2 class="align-self-center" id="userBalanceMessage"></h2>
+                </false>
+            </check>
+
         </div>
         <!--        <img src="images/starfieldLibrary.jpg" class="img-fluid w-100" alt="Image of library in Korea">-->
     </header>

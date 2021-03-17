@@ -28,6 +28,11 @@ class Controller
     {
         global $dataLayer;
 
+        if (isset($_SESSION['account']))
+        {
+            session_destroy();
+        }
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $username = $_POST['username'];
             $password = $_POST['password'];
@@ -42,15 +47,6 @@ class Controller
                 $this->_f3->reroute('/');
             }
         }
-
-        //Display a login view
-        $view = new Template();
-        echo $view->render('views/login.html');
-    }
-
-    function logout()
-    {
-        session_destroy();
 
         //Display a login view
         $view = new Template();
