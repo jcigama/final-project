@@ -1,66 +1,86 @@
 <include href="views/header.html"></include>
 
-<!-- Modal for input expense -->
-<div class="container">
-    <!-- The Modal -->
-    <div class="modal fade" id="myModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="#" method="post">
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                        <h4 class="modal-title">Expense</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                        <!-- Username -->
-                        <div class="form-group">
-                            <label for="price">Price</label>
-                            <input type="number" class="form-control pl-2" id="price" name="price" placeholder="$">
+<body>
+    <!-- Modal for input expense -->
+    <div class="container">
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="#" method="post">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Expense</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
 
-                        <!-- Password -->
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <input type="text" class="form-control pl-2" id="description" name="description" >
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <!-- Price -->
+                            <div class="form-group">
+                                <label for="price">Price</label>
+                                <input type="number" step="any" class="form-control pl-2" id="price" name="price" placeholder="$">
+
+                                <!--Inline error if price isn't entered-->
+                                <div class="text-danger">
+                                    <check if="{{ isset(@errors['price']) }}">
+                                        {{ @errors['price'] }}
+                                    </check>
+                                </div>
+                            </div>
+
+                            <!-- Password -->
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <input type="text" class="form-control pl-2" id="description" name="description" >
+                            </div>
+
+                            <!-- Priority -->
+                            <label>Priority</label>
+                            <div class="form-group">
+                                <!--Displays priority choices retrieved from data-layer-->
+                                <repeat group="{{ @priorities }}" value="{{ @priority }}">
+                                    <check if="{{ @priority == $priorityChoice }}">
+                                        <true>
+                                            <label> <input type="radio" name="priority" value="{{ @priority }}" checked>
+                                                {{ ucfirst(@priority) }}
+                                            </label>
+                                        </true>
+                                        <false>
+                                            <label> <input type="radio" name="priority" value="{{ @priority }}">
+                                                {{ ucfirst(@priority) }}
+                                            </label>
+                                        </false>
+                                    </check>
+                                    <br>
+                                </repeat>
+
+                                <!--Inline error if no priority level is chosen-->
+                                <div class="text-danger">
+                                    <check if="{{ isset(@errors['priorityEmpty']) }}">
+                                        {{ @errors['priorityEmpty'] }}
+                                    </check>
+                                </div>
+
+                                <!--Inline error if spoofing is attempted-->
+                                <div class="text-danger">
+                                    <check if="{{ isset(@errors['prioritySpoof']) }}">
+                                        {{ @errors['prioritySpoof'] }}
+                                    </check>
+                                </div>
+                            </div>
                         </div>
 
-                        <!-- Priority -->
-                        <label>Priority</label>
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="priority" id="gridRadios1" value="high">
-                                <label class="form-check-label" for="gridRadios1">
-                                    High
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="priority" id="gridRadios2" value="medium">
-                                <label class="form-check-label" for="gridRadios2">
-                                    Medium
-                                </label>
-                            </div>
-                            <div class="form-check disabled">
-                                <input class="form-check-input" type="radio" name="priority" id="gridRadios3" value="low">
-                                <label class="form-check-label" for="gridRadios3">
-                                    Low
-                                </label>
-                            </div>
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-outline-dark" >Submit</button>
                         </div>
-                    </div>
-
-                    <!-- Modal footer -->
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-outline-dark" >Submit</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
-</div>
+    </div>
 
 <div class="container pt-3 pb-3">
 
