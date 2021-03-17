@@ -44,6 +44,40 @@
             </repeat>
             </tbody>
         </table>
+
+        <table id="budgets">
+            <thead>
+            <tr>
+                <th>userNum</th>
+                <th>userName</th>
+                <th>email</th>
+                <th>password</th>
+                <th>notification</th>
+                <th>situation</th>
+                <th>startingFunds</th>
+                <th>name</th>
+                <th>gender</th>
+                <th>age</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <repeat group="{{ @accounts }}" value="{{ @account }}">
+                <tr>
+                    <td>{{ @account['userNum'] }}</td>
+                    <td>{{ @account['userName'] }}</td>
+                    <td>{{ @account['email'] }}</td>
+                    <td>{{ @account['password'] }}</td>
+                    <td>{{ @account['notification'] }}</td>
+                    <td>{{ @account['situation'] }}</td>
+                    <td>{{ @account['startingFunds'] }}</td>
+                    <td>{{ @account['name'] }}</td>
+                    <td>{{ @account['gender'] }}</td>
+                    <td>{{ @account['age'] }}</td>
+                </tr>
+            </repeat>
+            </tbody>
+        </table>
     </form>
 </div>
 </body>
