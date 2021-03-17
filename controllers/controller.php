@@ -15,51 +15,9 @@ class Controller
 
     function home()
     {
-        global $validator;
-        global $dataLayer;
-
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $price = $_POST['price'];
-            $description = $_POST['description'];
-            $priority = $_POST['priority'];
-
-            //price validation
-            if(!$validator->validPrice($price)){
-                $this->_f3->set('errors["price"]', "Price must be above $0.00");
-            }
-
-            //priority validation | spoof prevention
-            if(isset($priority)) {
-                if ($validator->validPriorities($priority)) {
-                    $this->_f3->set('errors["prioritySpoof"]', "Spoof attempt, prevented.");
-                }
-            }
-
-            //priority validation | empty
-            if (!$validator->validPriority($priority)) {
-                $this->_f3->set('errors["priorityEmpty"]', "Please choose priority level.");
-            }
-
-            if(empty($this->_f3->get('errors'))){
-                //create a new expense object
-                $expense = new Expense($price, $description, $priority);
-
-                //save data to session
-                $_SESSION['expense'] = $expense;
-                $dataLayer->insertExpense($_SESSION['expense']);
-            }
-
-            //set priority choice in hive to check in html
-            $this->_f3->set('priorityChoice', $priority);
+        if (isset($_SESSION['account'])) {
+            $account = $_SESSION['account'];
         }
-
-        //sticky form
-        $this->_f3->set('price', isset($price) ? $price : "");
-        $this->_f3->set('description', isset($description) ? $description : "");
-        $this->_f3->set('priority', isset($priority) ? $priority : "");
-
-        //get array from data layer
-        $this->_f3->set('priorities', $dataLayer->getPriorities());
 
         //Display a home view
         $view = new Template();
@@ -68,6 +26,32 @@ class Controller
 
     function login()
     {
+        global $dataLayer;
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+
+            $account = $dataLayer->getAccountRow($username);
+
+            var_dump($account);
+
+            if ($username == $account['userName'] && $password == $account['password'])
+            {
+                $_SESSION['account'] = $account;
+                $this->_f3->reroute('/');
+            }
+        }
+
+        //Display a login view
+        $view = new Template();
+        echo $view->render('views/login.html');
+    }
+
+    function logout()
+    {
+        session_destroy();
+
         //Display a login view
         $view = new Template();
         echo $view->render('views/login.html');
@@ -184,9 +168,7 @@ class Controller
 
 
             //if there are no errors, redirect to /profile
-            if(empty($this->_f3->get('errors'))){
-
-
+            if(empty($this->_f3->get('errors'))) {
 
                 //instantiate budget with parameters
                 $account = new Account($username, $userEmail, $userPassword, $userNotification, $userFname, $userLname, $userGender, $userAge, $userStartingfunds, $userSituation);

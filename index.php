@@ -22,13 +22,13 @@ $controller = new Controller($f3);
 $f3->set('DEBUG', 3);
 
 //Define a default route
-$f3->route('GET|POST /', function() {
+$f3->route('GET /', function() {
     global $controller;
     $controller->home();
 });
 
 //Define a login route
-$f3->route('GET /login', function() {
+$f3->route('GET|POST /login', function() {
     global $controller;
     $controller->login();
 });
@@ -51,10 +51,16 @@ $f3->route('GET|POST /budgetSummary', function() {
     $controller->budgetSummary();
 });
 
-//Define a budget summary route
+//Define a budget admin route
 $f3->route('GET|POST /admin', function() {
     global $controller;
     $controller->admin();
+});
+
+//Define a budget index route
+$f3->route('GET|POST /logout', function() {
+    global $controller;
+    $controller->logout();
 });
 
 //Run Fat-Free

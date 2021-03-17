@@ -21,7 +21,15 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup" style="">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link" href="login">Login</a>
+                    <check if="{{ isset(@SESSION.account) }}">
+                        <true>
+                            <a class="nav-item nav-link" href="login">Logout</a>
+                        </true>
+                        <false>
+                            <a class="nav-item nav-link" href="logout">Login</a>
+                        </false>
+                    </check>
+
                     <a class="nav-item nav-link" href="register">Register</a>
                     <a class="nav-item nav-link" href="admin">Database</a>
                 </div>
@@ -32,8 +40,8 @@
     <!-- HEADER -->
     <header class="bg-primary-color text-black text-center" id="header">
         <div class="py-5 align-self-center">
-            <h1 class="align-self-center" id="userWelcomeMessage">Welcome back, {{ @SESSION.fname }}!</h1>
-            <h2 class="align-self-center" id="userBalanceMessage">Your current balance is {{ @SESSION.amount }} .</h2>
+            <h1 class="align-self-center" id="userWelcomeMessage">Hello, {{ @SESSION.account['userName'] }}!</h1>
+            <h2 class="align-self-center" id="userBalanceMessage">Your current balance is ${{ @SESSION.account['startingFunds'] }} .</h2>
         </div>
         <!--        <img src="images/starfieldLibrary.jpg" class="img-fluid w-100" alt="Image of library in Korea">-->
     </header>

@@ -36,8 +36,8 @@ class DataLayer
 
     function insertAccount($account)
     {
-        $sql = "INSERT INTO account(userName, email, notification, fname, lname, gender, age, startingFunds, situation)
-                   VALUES (:userName, :email, :notification, :fname, :lname, :gender, :age, :startingFunds, :situation)";
+        $sql = "INSERT INTO account(userName, email, password, notification, situation, startingFunds, fname, lname, gender, age)
+                   VALUES (:userName, :email, :password, :notification, :situation, :startingFunds, :fname, :lname, :gender, :age)";
 
         //prepare the statement
         $statement = $this->_dbh->prepare($sql);
@@ -45,13 +45,14 @@ class DataLayer
         //Bind the parameters
         $statement->bindParam(":userName", $account->getUserName(), PDO::PARAM_STR);
         $statement->bindParam(":email", $account->getEmail(), PDO::PARAM_STR);
+        $statement->bindParam(":password", $account->getPassword(), PDO::PARAM_STR);
         $statement->bindParam(":notification", $account->getNotifications(), PDO::PARAM_BOOL);
+        $statement->bindParam(":situation", $account->getSituation(), PDO::PARAM_STR);
+        $statement->bindParam(":startingFunds", $account->getStartingFunds(), PDO::PARAM_STR);
         $statement->bindParam(":fname", $account->getFname(), PDO::PARAM_STR);
         $statement->bindParam(":lname", $account->getLname(), PDO::PARAM_STR);
         $statement->bindParam(":gender", $account->getGender(), PDO::PARAM_STR);
         $statement->bindParam(":age", $account->getAge(), PDO::PARAM_INT);
-        $statement->bindParam(":startingFunds", $account->getStartingFunds(), PDO::PARAM_INT);
-        $statement->bindParam(":situation", $account->getSituation(), PDO::PARAM_STR);
 
         //execute
         $statement->execute();
@@ -67,6 +68,19 @@ class DataLayer
         $statement->execute();
 
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    function getAccountRow($username)
+    {
+        $sql = "SELECT * FROM account WHERE userName = '$username'";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->execute();
+
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
 
         return $result;
     }
