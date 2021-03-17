@@ -44,6 +44,33 @@
             </repeat>
             </tbody>
         </table>
+
+        <br>
+        <h1>Budgets</h1>
+        <table id="budgets">
+            <thead>
+            <tr>
+                <th>baseFunds</th>
+                <th>description</th>
+                <th>startDate</th>
+                <th>endDate</th>
+                <th>pr</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <repeat group="{{ @budgets }}" value="{{ @budget }}">
+                <tr>
+                    <td>{{ @budget['baseFunds'] }}</td>
+                    <td>{{ @budget['description'] }}</td>
+                    <td>{{ @budget['startDate'] }}</td>
+                    <td>{{ @budget['endDate'] }}</td>
+                    <td>{{ @budget['pr'] }}</td>
+                </tr>
+            </repeat>
+            </tbody>
+        </table>
+        <br>
     </form>
 </div>
 </body>
@@ -52,5 +79,9 @@
 <script>
     $(document).ready( function () {
         $('#accounts').DataTable();
+    } );
+
+    $(document).ready( function () {
+        $('#budgets').DataTable();
     } );
 </script>
