@@ -45,39 +45,32 @@
             </tbody>
         </table>
 
+        <br>
+        <h1>Budgets</h1>
         <table id="budgets">
             <thead>
             <tr>
-                <th>userNum</th>
-                <th>userName</th>
-                <th>email</th>
-                <th>password</th>
-                <th>notification</th>
-                <th>situation</th>
-                <th>startingFunds</th>
-                <th>name</th>
-                <th>gender</th>
-                <th>age</th>
+                <th>baseFunds</th>
+                <th>description</th>
+                <th>startDate</th>
+                <th>endDate</th>
+                <th>pr</th>
             </tr>
             </thead>
 
             <tbody>
-            <repeat group="{{ @accounts }}" value="{{ @account }}">
+            <repeat group="{{ @budgets }}" value="{{ @budget }}">
                 <tr>
-                    <td>{{ @account['userNum'] }}</td>
-                    <td>{{ @account['userName'] }}</td>
-                    <td>{{ @account['email'] }}</td>
-                    <td>{{ @account['password'] }}</td>
-                    <td>{{ @account['notification'] }}</td>
-                    <td>{{ @account['situation'] }}</td>
-                    <td>{{ @account['startingFunds'] }}</td>
-                    <td>{{ @account['name'] }}</td>
-                    <td>{{ @account['gender'] }}</td>
-                    <td>{{ @account['age'] }}</td>
+                    <td>{{ @budget['baseFunds'] }}</td>
+                    <td>{{ @budget['description'] }}</td>
+                    <td>{{ @budget['startDate'] }}</td>
+                    <td>{{ @budget['endDate'] }}</td>
+                    <td>{{ @budget['pr'] }}</td>
                 </tr>
             </repeat>
             </tbody>
         </table>
+        <br>
     </form>
 </div>
 </body>
@@ -86,5 +79,9 @@
 <script>
     $(document).ready( function () {
         $('#accounts').DataTable();
+    } );
+
+    $(document).ready( function () {
+        $('#budgets').DataTable();
     } );
 </script>

@@ -73,7 +73,7 @@ class DataLayer
 
     function getBudgets()
     {
-        $sql = "SELECT * FROM budgets";
+        $sql = "SELECT * FROM budget";
 
         $statement = $this->_dbh->prepare($sql);
 
