@@ -271,4 +271,14 @@ class Controller
         //clear session
         session_destroy();
     }
+
+    function admin()
+    {
+        global $dataLayer;
+        $accounts = $dataLayer->getAccounts();
+        $this->_f3->set('accounts', $accounts);
+
+        $view = new Template();
+        echo $view->render('views/admin.html');
+    }
 }

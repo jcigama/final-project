@@ -1,0 +1,56 @@
+<include href="views/header.html"></include>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+</head>
+
+<body>
+<div class="container text-center">
+    <form method="post" action="#">
+        <br>
+        <h1>Accounts</h1>
+        <table id="accounts">
+            <thead>
+            <tr>
+                <th>userNum</th>
+                <th>userName</th>
+                <th>email</th>
+                <th>password</th>
+                <th>notification</th>
+                <th>situation</th>
+                <th>startingFunds</th>
+                <th>name</th>
+                <th>gender</th>
+                <th>age</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <repeat group="{{ @accounts }}" value="{{ @account }}">
+                <tr>
+                    <td>{{ @account['userNum'] }}</td>
+                    <td>{{ @account['userName'] }}</td>
+                    <td>{{ @account['email'] }}</td>
+                    <td>{{ @account['password'] }}</td>
+                    <td>{{ @account['notification'] }}</td>
+                    <td>{{ @account['situation'] }}</td>
+                    <td>{{ @account['startingFunds'] }}</td>
+                    <td>{{ @account['name'] }}</td>
+                    <td>{{ @account['gender'] }}</td>
+                    <td>{{ @account['age'] }}</td>
+                </tr>
+            </repeat>
+            </tbody>
+        </table>
+    </form>
+</div>
+</body>
+</html>
+
+<script>
+    $(document).ready( function () {
+        $('#accounts').DataTable();
+    } );
+</script>

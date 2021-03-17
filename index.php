@@ -51,5 +51,11 @@ $f3->route('GET|POST /budgetSummary', function() {
     $controller->budgetSummary();
 });
 
+//Define a budget summary route
+$f3->route('GET|POST /admin', function() {
+    global $controller;
+    $controller->admin();
+});
+
 //Run Fat-Free
 $f3->run();

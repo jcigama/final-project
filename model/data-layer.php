@@ -57,6 +57,20 @@ class DataLayer
         $statement->execute();
     }
 
+    // Get database queries
+    function getAccounts()
+    {
+        $sql = "SELECT * FROM account";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
     function getPriorities()
     {
         return array("high", "medium", "low");
