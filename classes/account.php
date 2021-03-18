@@ -199,6 +199,4 @@ class Account {
     {
         $this->_situation = $situation;
     }
-
-
 }

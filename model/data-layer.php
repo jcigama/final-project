@@ -125,6 +125,19 @@ class DataLayer
         return $result;
     }
 
+    function getBudgetsCards($userNum)
+    {
+        $sql = "SELECT * FROM budget WHERE userNum = '$userNum'";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
     function getPriorities()
     {
         return array("high", "medium", "low");
@@ -148,4 +161,3 @@ class DataLayer
         return array("yes", "no");
     }
 }
-

@@ -27,11 +27,14 @@ class Controller
             $price = $_POST['price'];
             $description = $_POST['description'];
             $priority = $_POST['priority'];
+            $cards = $dataLayer->getBudgetsCards($account['userNum']);
+
+            var_dump($cards);
 
             //price validation
-            if(!$validator->validPrice($price)){
-                $this->_f3->set('errors["price"]', "Price must be above $0.00");
-            }
+//            if(!$validator->validPrice($price)){
+//                $this->_f3->set('errors["price"]', "Price must be above $0.00");
+//            }
 
             //priority validation | spoof prevention
             if(isset($priority)) {
@@ -62,9 +65,10 @@ class Controller
         $this->_f3->set('price', isset($price) ? $price : "");
         $this->_f3->set('description', isset($description) ? $description : "");
         $this->_f3->set('priority', isset($priority) ? $priority : "");
+        $this->_f3->set('cards', isset($cards) ? $cards : "");
 
         //get array from data layer
-        $this->_f3->set('priorities', $dataLayer->getPriorities());
+//        $this->_f3->set('priorities', $dataLayer->getPriorities());
 
         //Display a home view
         $view = new Template();
