@@ -356,6 +356,14 @@ class Controller
 
     function edit()
     {
+        global $dataLayer;
+
+        $expense = $dataLayer->getExpense($_POST['budgetNum']);
+
+        var_dump($_POST);
+
+        $this->_f3->set('expenses', $expense);
+
         //Display a view
         $view = new Template();
         echo $view->render('views/edit.html');

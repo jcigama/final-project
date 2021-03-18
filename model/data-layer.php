@@ -138,6 +138,32 @@ class DataLayer
         return $result;
     }
 
+    function getBudgetCard($budgetNum)
+    {
+        $sql = "SELECT * FROM budget WHERE budgetNum = '$budgetNum'";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->execute();
+
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    function getExpense($budgetNum)
+    {
+        $sql = "SELECT * FROM budget WHERE budgetNum = '$budgetNum'";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
     function getPriorities()
     {
         return array("high", "medium", "low");

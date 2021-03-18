@@ -2,4 +2,10 @@
 
 <body>
     <h1>Edit Page!</h1>
+
+    <repeat group="{{ @expenses }}" value="{{ @expense }}">
+        <p>Price: {{ @expense['price'] }}</p>
+        <p>Price: {{ @expense['description'] }}</p>
+        <p>Price: {{ @expense['priority'] }}</p>
+    </repeat>
 </body>
