@@ -16,9 +16,17 @@ class DataLayer
 
     function insertBudget($budget)
     {
+        //row data for name and starting amount
+        $account = $_SESSION['account'];
 
-        $sql = "INSERT INTO budget(baseFunds, description, startDate, endDate, priority)
-                   VALUES (:baseFunds, :description, :startDate, :endDate, :priority)";
+        if(isset($_SESSION['account'])){
+            $userNum = $account['userNum'];
+        } else {
+            $userNum = 0;
+        }
+
+        $sql = "INSERT INTO budget(baseFunds, description, startDate, endDate, priority, userNum)
+                   VALUES (:baseFunds, :description, :startDate, :endDate, :priority, :userNum)";
 
         //prepare the statement
         $statement = $this->_dbh->prepare($sql);
@@ -29,6 +37,8 @@ class DataLayer
         $statement->bindParam(":startDate", $budget->getStartDate(), PDO::PARAM_STR);
         $statement->bindParam(":endDate", $budget->getEndDate(), PDO::PARAM_STR);
         $statement->bindParam(":priority", $budget->getPriority(), PDO::PARAM_STR);
+        $statement->bindParam(":userNum", $userNum, PDO::PARAM_INT);
+
 
         //execute
         $statement->execute();

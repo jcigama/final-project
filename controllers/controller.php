@@ -249,12 +249,18 @@ class Controller
         global $validator;
         global $dataLayer;
 
+        //row data for name and starting amount
+        if (isset($_SESSION['account'])) {
+            $account = $_SESSION['account'];
+        }
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $baseFunds = $_POST['baseFunds'];
             $description = $_POST['description'];
             $startDate = $_POST['startDate'];
             $endDate = $_POST['endDate'];
             $priority = $_POST['priority'];
+            $userNum = $account['userNum'];
 
             // baseFunds validation
             if (!$validator->baseFundsValidation($baseFunds)) {
