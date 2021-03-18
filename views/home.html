@@ -83,7 +83,6 @@
 </div>
 
 <div class="container pt-3 pb-3">
-
     <h1 class="text-center">Current Expenses: </h1>
 
     <!--    <p>This web app will help users track their spending and create “spending goals”.-->
@@ -96,7 +95,7 @@
     <!--        and if the user follows the suggested plan they should be able to attain their goal within the time-->
     <!--        they specified. The user can also request a summary of how much they spent at either weekly, monthly,-->
     <!--        or yearly increments.</p>-->
-
+    <form action="edit" method="post">
     <div class="row row-cols-1 row-cols-md-3 mb-3 justify-content-center text-center pt-3">
             <repeat group="{{ @cards }}" value="{{ @card }}">
                 <div class="col-4">
@@ -105,7 +104,7 @@
                             <h1 class="card-title pricing-card-title">Budget {{ @card['budgetNum'] }}</h1>
                             <p>Current balance: {{ @card['baseFunds'] }}</p>
                             <button type="button" class="w-100 btn btn-lg btn-outline-dark" data-toggle="modal" data-target="#myModal">Add Expense</button>
-                            <a href="edit" name="budgetNum" value="{{ @card['budgetNum'] }}"><button type="button" class="w-100 btn btn-lg btn-outline-dark">Edit</button></a>
+                            <button type="submit" class="w-100 btn btn-lg btn-outline-dark"  href="edit" name="budgetNum" value="{{ @card['budgetNum'] }}">Edit</button>
                             <button type="button" class="w-100 btn btn-lg btn-outline-dark">View</button>
                         </div>
                     </div>
@@ -139,8 +138,9 @@
                 </div>
             </div>
         </div>
-
+    </form>
 </div>
+
 <br><br><br>
 
 <footer class="bg-light text-center text-lg-start">

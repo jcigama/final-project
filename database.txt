@@ -28,7 +28,9 @@ CREATE TABLE budget (
 CREATE TABLE expense (
     price DECIMAL(10, 2),
     description VARCHAR(150),
-    priority VARCHAR(20)
+    priority VARCHAR(20),
+    budgetNum INT NOT NULL,
+    FOREIGN KEY (budgetNum) REFERENCES budget(budgetNum)
 );
 
 CREATE TABLE goal (

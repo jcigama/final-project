@@ -360,7 +360,8 @@ class Controller
 
         $expense = $dataLayer->getExpense($_POST['budgetNum']);
 
-        var_dump($_POST);
+        print_r($expense);
+//        var_dump($_POST);
 
         $this->_f3->set('expenses', $expense);
 
