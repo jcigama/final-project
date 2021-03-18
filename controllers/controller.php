@@ -33,6 +33,7 @@ class Controller
             $priority = $_POST['priority'];
             $budgetNum = $_POST['budgetNum'];
 
+
             //price validation
 //            if(!$validator->validPrice($price)){
 //                $this->_f3->set('errors["price"]', "Price must be above $0.00");
@@ -71,12 +72,74 @@ class Controller
         $this->_f3->set('priority', isset($priority) ? $priority : "");
         $this->_f3->set('cards', isset($cards) ? $cards : "");
 
+
         //get array from data layer
         $this->_f3->set('priorities', $dataLayer->getPriorities());
 
         //Display a home view
         $view = new Template();
         echo $view->render('views/home.html');
+    }
+
+    function edit()
+    {
+        global $dataLayer;
+        global $validator;
+
+        var_dump($_POST);
+
+        $expense = $dataLayer->getExpense($_POST['budgetNum']);
+
+//        var_dump();
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $price = $_POST['price'];
+            $description = $_POST['description'];
+            $priority = $_POST['priority'];
+            $budgetNum = $_POST['budgetNum'];
+
+
+            //price validation
+//            if(!$validator->validPrice($price)){
+//                $this->_f3->set('errors["price"]', "Price must be above $0.00");
+//            }
+
+            //priority validation | spoof prevention
+            if(isset($priority)) {
+                if ($validator->validPriorities($priority)) {
+                    $this->_f3->set('errors["prioritySpoof"]', "Spoof attempt, prevented.");
+                }
+            }
+
+            //priority validation | empty
+            if (!$validator->validPriority($priority) && isset($priority)) {
+                $this->_f3->set('errors["priorityEmpty"]', "Please choose priority level.");
+            }
+
+            if(empty($this->_f3->get('errors'))){
+                //create a new expense object
+                $expense = new Expense($price, $description, $priority);
+
+
+                //save data to session
+                $_SESSION['expense'] = $expense;
+                $dataLayer->insertExpense($_SESSION['expense'], $budgetNum);
+            }
+
+            //set priority choice in hive to check in html
+            $this->_f3->set('priorityChoice', $priority);
+
+            $this->_f3->set('expenses', $expense);
+            $this->_f3->set('budgetNum', $_POST['budgetNum']);
+        }
+
+        //get array from data layer
+        $this->_f3->set('priorities', $dataLayer->getPriorities());
+
+
+        //Display a view
+        $view = new Template();
+        echo $view->render('views/edit.html');
     }
 
     function login()
@@ -355,22 +418,6 @@ class Controller
 
         //clear session
         session_destroy();
-    }
-
-    function edit()
-    {
-        global $dataLayer;
-
-        $expense = $dataLayer->getExpense($_POST['budgetNum']);
-
-        print_r($expense);
-//        var_dump($_POST);
-
-        $this->_f3->set('expenses', $expense);
-
-        //Display a view
-        $view = new Template();
-        echo $view->render('views/edit.html');
     }
 
     function admin()
