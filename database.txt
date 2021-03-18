@@ -26,6 +26,7 @@ CREATE TABLE budget (
 );
 
 CREATE TABLE expense (
+    expenseNum INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     price DECIMAL(10, 2),
     description VARCHAR(150),
     priority VARCHAR(20),
