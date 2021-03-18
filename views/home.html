@@ -99,36 +99,36 @@
 
     <div class="row row-cols-1 row-cols-md-3 mb-3 justify-content-center text-center pt-3">
 
-<!--        <repeat group="{{ @cards }}" value="{{ @card }}">-->
-<!--            <div class="col-4">-->
-<!--                <div class="row-4 card mb-4 shadow-sm">-->
-<!--                    <div class="card-body">-->
-<!--                        <h1 class="card-title pricing-card-title">Budget {{ @card['budgetNum'] }}</h1>-->
-<!--                        <p>Current balance: {{ @card['baseFunds'] }}</p>-->
-<!--                        <button type="button" class="w-100 btn btn-lg btn-outline-dark" data-toggle="modal" data-target="#myModal">Edit</button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </repeat>-->
-
-        <div class="col-4">
-            <div class="row-4 card mb-4 shadow-sm">
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">Budget 2</h1>
-                    <p>Current balance: {{ @SESSION.amount }}</p>
-                    <div class="row">
-                        <div class="col">
-                            <!-- Add expense -->
-                            <button type="button" class="w-100 btn btn-lg btn-outline-dark" data-toggle="modal" data-target="#myModal">Expense</button>
-                        </div>
-                        <div class="col">
-                            <!-- Edit budget -->
-                            <button type="button" class="w-100 btn btn-lg btn-outline-dark">Edit Budget</button>
-                        </div>
+        <repeat group="{{ @cards }}" value="{{ @card }}">
+            <div class="col-4">
+                <div class="row-4 card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title">Budget {{ @card['budgetNum'] }}</h1>
+                        <p>Current balance: {{ @card['baseFunds'] }}</p>
+                        <button type="button" class="w-100 btn btn-lg btn-outline-dark" data-toggle="modal" data-target="#myModal">Edit</button>
                     </div>
                 </div>
             </div>
-        </div>
+        </repeat>
+
+<!--        <div class="col-4">-->
+<!--            <div class="row-4 card mb-4 shadow-sm">-->
+<!--                <div class="card-body">-->
+<!--                    <h1 class="card-title pricing-card-title">Budget 2</h1>-->
+<!--                    <p>Current balance: {{ @SESSION.amount }}</p>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col">-->
+<!--                            &lt;!&ndash; Add expense &ndash;&gt;-->
+<!--                            <button type="button" class="w-100 btn btn-lg btn-outline-dark" data-toggle="modal" data-target="#myModal">Expense</button>-->
+<!--                        </div>-->
+<!--                        <div class="col">-->
+<!--                            &lt;!&ndash; Edit budget &ndash;&gt;-->
+<!--                            <button type="button" class="w-100 btn btn-lg btn-outline-dark">Edit Budget</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
         <div class="col-2 align-self-center">
             <div class="row-2 card mb-4 shadow-sm">

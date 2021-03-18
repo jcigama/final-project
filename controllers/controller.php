@@ -23,13 +23,14 @@ class Controller
         global $validator;
         global $dataLayer;
 
+        $cards = $dataLayer->getBudgetsCards($account['userNum']);
+
+        var_dump($cards);
+
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $price = $_POST['price'];
             $description = $_POST['description'];
             $priority = $_POST['priority'];
-            $cards = $dataLayer->getBudgetsCards($account['userNum']);
-
-            var_dump($cards);
 
             //price validation
 //            if(!$validator->validPrice($price)){
