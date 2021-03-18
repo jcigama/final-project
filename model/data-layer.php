@@ -68,9 +68,10 @@ class DataLayer
         $statement->execute();
     }
 
-    function insertExpense($expense)
+    function insertExpense($expense, $budgetNum)
     {
-        $sql = "INSERT INTO expense(price, description, priority) VALUES (:price, :description, :priority)";
+//        $sql = "INSERT INTO expense(price, description, priority) VALUES (:price, :description, :priority)";
+        $sql = "INSERT INTO expense(price, description, priority, budgetNum) VALUES (:price, :description, :priority, :budgetNum)";
 
         //prepare the statement
         $statement = $this->_dbh->prepare($sql);
@@ -79,6 +80,7 @@ class DataLayer
         $statement->bindParam(":price", $expense->getPrice(), PDO::PARAM_INT);
         $statement->bindParam(":description", $expense->getDescription(), PDO::PARAM_STR);
         $statement->bindParam(":priority", $expense->getPriority(), PDO::PARAM_STR);
+        $statement->bindParam(":budgetNum", $budgetNum, PDO::PARAM_INT);
 
         //execute
         $statement->execute();

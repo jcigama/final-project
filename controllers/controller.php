@@ -25,12 +25,13 @@ class Controller
 
         $cards = $dataLayer->getBudgetsCards($account['userNum']);
 
-        var_dump($cards);
+//        var_dump($cards);
 
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $price = $_POST['price'];
             $description = $_POST['description'];
             $priority = $_POST['priority'];
+            $budgetNum = $_POST['budgetNum'];
 
             //price validation
 //            if(!$validator->validPrice($price)){
@@ -52,10 +53,12 @@ class Controller
             if(empty($this->_f3->get('errors'))){
                 //create a new expense object
                 $expense = new Expense($price, $description, $priority);
+//                var_dump($_POST['budgetNum']);
+
 
                 //save data to session
                 $_SESSION['expense'] = $expense;
-                $dataLayer->insertExpense($_SESSION['expense']);
+                $dataLayer->insertExpense($_SESSION['expense'], $budgetNum);
             }
 
             //set priority choice in hive to check in html
