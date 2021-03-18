@@ -24,7 +24,11 @@ $f3->set('DEBUG', 3);
 //Define a default route
 $f3->route('GET|POST /', function() {
     global $controller;
-    $controller->home();
+    if(isset($_SESSION['account'])){
+        $controller->home();
+    } else {
+        $controller->login();
+    }
 });
 
 //Define a login route
