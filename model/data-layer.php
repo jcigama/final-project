@@ -58,6 +58,23 @@ class DataLayer
         $statement->execute();
     }
 
+    function insertExpense($expense)
+    {
+        $sql = "INSERT INTO expense(price, description, priority) VALUES (:price, :description, :priority)";
+
+        //prepare the statement
+        $statement = $this->_dbh->prepare($sql);
+
+        //bind the parameters
+        $statement->bindParam(":price", $expense->getPrice(), PDO::PARAM_INT);
+        $statement->bindParam(":description", $expense->getDescription(), PDO::PARAM_STR);
+        $statement->bindParam(":priority", $expense->getPriority(), PDO::PARAM_STR);
+
+        //execute
+        $statement->execute();
+
+    }
+
     // Get database queries
     function getAccounts()
     {
