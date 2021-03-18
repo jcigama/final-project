@@ -55,6 +55,12 @@ $f3->route('GET|POST /budgetSummary', function() {
     $controller->budgetSummary();
 });
 
+//Define a budget summary route
+$f3->route('GET|POST /edit', function() {
+    global $controller;
+    $controller->edit();
+});
+
 //Define a budget admin route
 $f3->route('GET|POST /admin', function() {
     global $controller;

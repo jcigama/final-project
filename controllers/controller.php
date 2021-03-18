@@ -69,7 +69,7 @@ class Controller
         $this->_f3->set('cards', isset($cards) ? $cards : "");
 
         //get array from data layer
-//        $this->_f3->set('priorities', $dataLayer->getPriorities());
+        $this->_f3->set('priorities', $dataLayer->getPriorities());
 
         //Display a home view
         $view = new Template();
@@ -352,6 +352,13 @@ class Controller
 
         //clear session
         session_destroy();
+    }
+
+    function edit()
+    {
+        //Display a view
+        $view = new Template();
+        echo $view->render('views/edit.html');
     }
 
     function admin()
