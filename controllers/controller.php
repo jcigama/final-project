@@ -20,58 +20,11 @@ class Controller
             $account = $_SESSION['account'];
         }
 
-        global $validator;
         global $dataLayer;
 
         $cards = $dataLayer->getBudgetsCards($account['userNum']);
 
-//        var_dump($cards);
-
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $price = $_POST['price'];
-            $description = $_POST['description'];
-            $priority = $_POST['priority'];
-            $budgetNum = $_POST['budgetNum'];
-
-
-            //price validation
-//            if(!$validator->validPrice($price)){
-//                $this->_f3->set('errors["price"]', "Price must be above $0.00");
-//            }
-
-            //priority validation | spoof prevention
-            if(isset($priority)) {
-                if ($validator->validPriorities($priority)) {
-                    $this->_f3->set('errors["prioritySpoof"]', "Spoof attempt, prevented.");
-                }
-            }
-
-            //priority validation | empty
-            if (!$validator->validPriority($priority)) {
-                $this->_f3->set('errors["priorityEmpty"]', "Please choose priority level.");
-            }
-
-            if(empty($this->_f3->get('errors'))){
-                //create a new expense object
-                $expense = new Expense($price, $description, $priority);
-//                var_dump($_POST['budgetNum']);
-
-
-                //save data to session
-                $_SESSION['expense'] = $expense;
-                $dataLayer->insertExpense($_SESSION['expense'], $budgetNum);
-            }
-
-            //set priority choice in hive to check in html
-            $this->_f3->set('priorityChoice', $priority);
-        }
-
-        //sticky form
-        $this->_f3->set('price', isset($price) ? $price : "");
-        $this->_f3->set('description', isset($description) ? $description : "");
-        $this->_f3->set('priority', isset($priority) ? $priority : "");
         $this->_f3->set('cards', isset($cards) ? $cards : "");
-
 
         //get array from data layer
         $this->_f3->set('priorities', $dataLayer->getPriorities());
@@ -90,7 +43,7 @@ class Controller
 
         $expense = $dataLayer->getExpense($_POST['budgetNum']);
 
-//        var_dump();
+        var_dump($expense);
 
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $price = $_POST['price'];
@@ -129,9 +82,10 @@ class Controller
             //set priority choice in hive to check in html
             $this->_f3->set('priorityChoice', $priority);
 
-            $this->_f3->set('expenses', $expense);
             $this->_f3->set('budgetNum', $_POST['budgetNum']);
         }
+
+        $this->_f3->set('expenses', $expense);
 
         //get array from data layer
         $this->_f3->set('priorities', $dataLayer->getPriorities());
