@@ -3,7 +3,8 @@ header {
     height: 50vh;
 }
 #header {
-    background-image: url("../images/backgroundImage.png");
+    /*background-image: url("../images/backgroundImage.png");*/
+    background-image: url("../images/greenHeader.png");
     width: 100%;
 }
 
