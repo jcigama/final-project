@@ -155,9 +155,9 @@ class DataLayer
 
     function getExpense($budgetNum)
     {
-//        $sql = "SELECT * FROM budget WHERE budgetNum = '$budgetNum'";
+        $sql = "SELECT * FROM expense WHERE budgetNum = '$budgetNum'";
 
-        $sql = "SELECT * FROM expense, budget WHERE budget.budgetNum = expense.budgetNum";
+//        $sql = "SELECT * FROM expense, budget WHERE budget.budgetNum = expense.budgetNum";
 
         $statement = $this->_dbh->prepare($sql);
 

@@ -129,7 +129,6 @@ class Controller
             //set priority choice in hive to check in html
             $this->_f3->set('priorityChoice', $priority);
 
-
             $this->_f3->set('budgetNum', $_POST['budgetNum']);
         }
 
@@ -137,6 +136,8 @@ class Controller
         //get array from data layer
         $this->_f3->set('priorities', $dataLayer->getPriorities());
 
+        //destroy the session
+        session_destroy();
 
         //Display a view
         $view = new Template();

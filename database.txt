@@ -27,9 +27,9 @@ CREATE TABLE budget (
 
 CREATE TABLE expense (
     expenseNum INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    price DECIMAL(10, 2),
-    description VARCHAR(150),
-    priority VARCHAR(20),
+    price DECIMAL(10, 2) NOT NULL,
+    description VARCHAR(150) NOT NULL,
+    priority VARCHAR(20) NOT NULL,
     budgetNum INT NOT NULL,
     FOREIGN KEY (budgetNum) REFERENCES budget(budgetNum)
 );
