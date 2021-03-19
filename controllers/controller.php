@@ -137,6 +137,9 @@ class Controller
         global $validator;
         global $dataLayer;
 
+        //destroy session
+        session_destroy();
+
         $userNotification = "off";
 
         //get array
@@ -252,7 +255,7 @@ class Controller
                 $_SESSION['account'] = $account;
                 $dataLayer->insertAccount($_SESSION['account']);
 
-                echo "success";
+                $this->_f3->reroute('/');
             }
         }
 
@@ -269,6 +272,8 @@ class Controller
         $this->_f3->set('userAge', isset($userAge) ? $userAge : "");
         $this->_f3->set('userStartingfunds', isset($userStartingfunds) ? $userStartingfunds : "");
         $this->_f3->set('userSituation', isset($userSituation) ? $userSituation : "");
+
+
 
         //Display a register view
         $view = new Template();
