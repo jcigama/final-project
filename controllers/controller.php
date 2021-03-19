@@ -15,66 +15,23 @@ class Controller
 
     function home()
     {
+        global $dataLayer;
+
         //row data for name and starting amount
         if (isset($_SESSION['account'])) {
             $account = $_SESSION['account'];
         }
 
-        global $validator;
-        global $dataLayer;
-
+        //Retrieve user budgets
         $cards = $dataLayer->getBudgetsCards($account['userNum']);
 
-//        var_dump($cards);
-
+        //If user wants to edit a budget, store budget number into a SESSION
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $price = $_POST['price'];
-            $description = $_POST['description'];
-            $priority = $_POST['priority'];
-            $budgetNum = $_POST['budgetNum'];
-
-
-            //price validation
-//            if(!$validator->validPrice($price)){
-//                $this->_f3->set('errors["price"]', "Price must be above $0.00");
-//            }
-
-            //priority validation | spoof prevention
-            if(isset($priority)) {
-                if ($validator->validPriorities($priority)) {
-                    $this->_f3->set('errors["prioritySpoof"]', "Spoof attempt, prevented.");
-                }
-            }
-
-            //priority validation | empty
-            if (!$validator->validPriority($priority)) {
-                $this->_f3->set('errors["priorityEmpty"]', "Please choose priority level.");
-            }
-
-            if(empty($this->_f3->get('errors'))){
-                //create a new expense object
-                $expense = new Expense($price, $description, $priority);
-//                var_dump($_POST['budgetNum']);
-
-
-                //save data to session
-                $_SESSION['expense'] = $expense;
-                $dataLayer->insertExpense($_SESSION['expense'], $budgetNum);
-            }
-
-            //set priority choice in hive to check in html
-            $this->_f3->set('priorityChoice', $priority);
+            $_SESSION['budgetNum'] = $_POST['budgetNum'];
+            $this->_f3->reroute('edit');
         }
 
-        //sticky form
-        $this->_f3->set('price', isset($price) ? $price : "");
-        $this->_f3->set('description', isset($description) ? $description : "");
-        $this->_f3->set('priority', isset($priority) ? $priority : "");
         $this->_f3->set('cards', isset($cards) ? $cards : "");
-
-
-        //get array from data layer
-        $this->_f3->set('priorities', $dataLayer->getPriorities());
 
         //Display a home view
         $view = new Template();
@@ -86,23 +43,25 @@ class Controller
         global $dataLayer;
         global $validator;
 
-//        var_dump($_POST);
+        //Retrieve budget number session and assign budget number to variable
+        $budgetNum = $_SESSION['budgetNum'];
 
-        $expenseData = $dataLayer->getExpense($_POST['budgetNum']);
+        //Retrieve expenses of current budget
+        $expenseData = $dataLayer->getExpense($_SESSION['budgetNum']);
 
+        //Set expenses in Fat-free hive for repeat block in HTML
         $this->_f3->set('expenses', $expenseData);
 
+        //If user decides to add an expense via modal
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $price = $_POST['price'];
             $description = $_POST['description'];
             $priority = $_POST['priority'];
-            $budgetNum = $_POST['budgetNum'];
-
 
             //price validation
-//            if(!$validator->validPrice($price)){
-//                $this->_f3->set('errors["price"]', "Price must be above $0.00");
-//            }
+            if(!$validator->validPrice($price)){
+                $this->_f3->set('errors["price"]', "Price must be above $0.00");
+            }
 
             //priority validation | spoof prevention
             if(isset($priority)) {
@@ -116,28 +75,27 @@ class Controller
                 $this->_f3->set('errors["priorityEmpty"]', "Please choose priority level.");
             }
 
+            //if no errors set in Fat-free 'errors' hive
             if(empty($this->_f3->get('errors'))){
                 //create a new expense object
                 $expense = new Expense($price, $description, $priority);
 
+                //Insert object into database
+                $dataLayer->insertExpense($expense, $budgetNum);
 
-                //save data to session
-                $_SESSION['expense'] = $expense;
-                $dataLayer->insertExpense($_SESSION['expense'], $budgetNum);
+                //Refresh page after insertion
+                $this->_f3->reroute('edit');
             }
 
             //set priority choice in hive to check in html
             $this->_f3->set('priorityChoice', $priority);
-
-            $this->_f3->set('budgetNum', $_POST['budgetNum']);
         }
-
 
         //get array from data layer
         $this->_f3->set('priorities', $dataLayer->getPriorities());
 
-        //destroy the session
-        session_destroy();
+        //Set budget number into Fat-free hive
+        $this->_f3->set('budgetNum', $_SESSION['budgetNum']);
 
         //Display a view
         $view = new Template();
@@ -391,7 +349,7 @@ class Controller
                 $_SESSION['budget'] = $budget;
                 $dataLayer->insertBudget($_SESSION['budget']);
 
-                echo "success";
+                $this->_f3->reroute('/');
             }
 
             //set priority choice in hive to check in html

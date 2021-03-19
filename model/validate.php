@@ -111,11 +111,14 @@ class Validate
         return !empty($lname) && ctype_alpha($lname);
     }
 
-
-
     function validStartingfunds($startingFunds)
     {
         return !empty($startingFunds) && $startingFunds > 0;
+    }
+
+    function validPrice($price)
+    {
+        return $price > 0 && !empty($price);
     }
 
     function validSituation($selectedSituation)
