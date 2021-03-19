@@ -157,8 +157,6 @@ class DataLayer
     {
         $sql = "SELECT * FROM expense WHERE budgetNum = '$budgetNum'";
 
-//        $sql = "SELECT * FROM expense, budget WHERE budget.budgetNum = expense.budgetNum";
-
         $statement = $this->_dbh->prepare($sql);
 
         $statement->execute();
