@@ -82,7 +82,7 @@
 </div>
 
 <div class="container pt-3 pb-3">
-    <h1 class="text-center">Current Expenses: </h1>
+    <h1 class="text-center">Current Expenses </h1>
 
     <!--    <p>This web app will help users track their spending and create “spending goals”.-->
     <!--        On the main page the user can either choose to manage their account or add a-->
@@ -103,7 +103,7 @@
                         <div class="card-body">
                             <h1 class="card-title pricing-card-title">Budget {{ @card['budgetNum'] }}</h1>
                             <p>Amount: $ {{ @card['baseFunds'] }}</p>
-                            <button type="submit" class="w-100 btn btn-lg btn-outline-dark" href="edit" name="budgetNum" value="{{ @card['budgetNum'] }}">Edit Budget</button>
+                            <button type="submit" class="w-100 btn btn-lg shadow" href="edit" name="budgetNum" value="{{ @card['budgetNum'] }}">Edit Budget</button>
                         </div>
                     </div>
                 </div>
@@ -111,9 +111,7 @@
 
             <div class="col-2 align-self-center">
                 <div class="row-2 card mb-4 shadow-sm">
-                    <div class="card-body">
-                        <a href="budget"><button type="button" class="w-100 btn btn-lg btn-outline-dark">Add Budget</button></a>
-                    </div>
+                    <a href="budget"><button type="button" class="w-100 btn btn-lg btn-outline-dark shadow">Add Budget</button></a>
                 </div>
             </div>
         </div>
