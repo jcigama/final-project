@@ -56,8 +56,6 @@ class Controller
         $this->_f3->set('expensesTotal', $expenseTotal);
         $this->_f3->set('budgetAmount', $budgetAmount);
 
-        var_dump($budgetAmount);
-
         //If user decides to add an expense via modal
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $price = $_POST['price'];

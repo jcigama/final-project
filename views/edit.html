@@ -84,15 +84,17 @@
         <br>
         <h1>Viewing Budget #{{ @budgetNum }}</h1>
 
-<!--        <check if="{{ @budgetAmount['startingFunds'] - @expensesTotal[0]['total'] }} >= 0">-->
-<!--            <true>-->
-                <h1>Balance: ${{ @budgetAmount['baseFunds'] }}</h1>
-                <h1>Balance: ${{ @expensesTotal[0]['total'] }}</h1>
-<!--                <br>-->
-<!--            </true>-->
-<!--        </check>-->
+        <check if="{{ @budgetAmount['baseFunds'] - @expensesTotal[0]['total'] }} >= 0">
+            <true>
+                <h1 class="text-success">Balance: ${{ @budgetAmount['baseFunds'] - @expensesTotal[0]['total'] }}</h1>
+            </true>
+        </check>
 
-        <h1>Helloooooooo help</h1>
+        <check if="{{ @budgetAmount['baseFunds'] - @expensesTotal[0]['total'] }} < 0">
+            <true>
+                <h1 class="text-danger">Balance: ${{ @budgetAmount['baseFunds'] - @expensesTotal[0]['total'] }}</h1>
+            </true>
+        </check>
 
         <div class="row row-cols-1 row-cols-md-3 mb-3 justify-content-center text-center pt-3">
             <repeat group="{{ @expenses }}" value="{{ @expense }}">
@@ -107,13 +109,6 @@
                 </div>
             </repeat>
         </div>
-
-<!--        <check if="{{ @budgetAmount['startingFunds'] - @expensesTotal[0]['total'] }} < 0">-->
-<!--            <true>-->
-<!--                <h1 class="text-danger">Balance: ${{ @budgetAmount['baseFunds'] - @expensesTotal[0]['total'] }} </h1>-->
-<!--                <br>-->
-<!--            </true>-->
-<!--        </check>-->
 
         <button type="button" class="mb-3 btn btn-lg btn-outline-dark" data-toggle="modal" data-target="#myModal">Add Expense</button>
     </div>
