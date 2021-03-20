@@ -11,7 +11,9 @@
     <title>Expense Tracker</title>
 
     <!-- NAVBAR -->
-    <nav class="shadow navbar navbar-expand-lg navbar-light bg-light fixed-top">
+<!--    <nav class="shadow navbar navbar-expand-lg navbar-light bg-light fixed-top">-->
+    <nav class="shadow navbar navbar-expand-lg navbar-light bg-light">
+
         <div class="container">
             <a class="navbar-brand" href="{{ @BASE }}">
                 <img src="images/credit-card-8x.png" width="30" height="30" alt="Credit card">
@@ -44,7 +46,7 @@
             <check if="{{ isset(@SESSION.account) }}">
                 <true>
                     <h1 class="align-self-center" id="userWelcomeMessage">Hello, {{ @SESSION.account['userName'] }}!</h1>
-                    <h2 class="align-self-center" id="userBalanceMessage">&nbsp&nbsp  Your current balance is ${{ @SESSION.account['startingFunds'] }} .</h2>
+                    <h2 class="align-self-center" id="userBalanceMessage">&nbsp&nbsp  Your current balance is ${{ @SESSION.account['startingFunds'] .</h2>
                 </true>
                 <false>
                     <h1 class="align-self-center" id="userWelcomeMessage"></h1>
