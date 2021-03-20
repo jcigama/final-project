@@ -47,13 +47,14 @@ class Controller
         $budgetNum = $_SESSION['budgetNum'];
 
         //Retrieve expenses of current budget
-        $expenseData = $dataLayer->getExpense($_SESSION['budgetNum']);
-        $expenseTotal = $dataLayer->getTotalExpense($_SESSION['budgetNum']);
-
+        $expenseData = $dataLayer->getExpense($budgetNum);
+        $expenseTotal = $dataLayer->getTotalExpense($budgetNum);
+        $budgetAmount = $dataLayer->getBudgetCard($budgetNum);
 
         //Set expenses in Fat-free hive for repeat block in HTML
         $this->_f3->set('expenses', $expenseData);
         $this->_f3->set('expensesTotal', $expenseTotal);
+        $this->_f3->set('budgetAmount', $budgetAmount);
 
         //If user decides to add an expense via modal
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
