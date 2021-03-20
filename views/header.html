@@ -3,6 +3,9 @@
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles/general-styles.css">
+    <!--    Link for Google Font-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -11,9 +14,7 @@
     <title>Expense Tracker</title>
 
     <!-- NAVBAR -->
-<!--    <nav class="shadow navbar navbar-expand-lg navbar-light bg-light fixed-top">-->
-    <nav class="shadow navbar navbar-expand-lg navbar-light bg-light">
-
+    <nav class="shadow navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ @BASE }}">
                 <img src="images/credit-card-8x.png" width="30" height="30" alt="Credit card">
@@ -45,8 +46,8 @@
 
             <check if="{{ isset(@SESSION.account) }}">
                 <true>
-                    <h1 class="align-self-center" id="userWelcomeMessage">Hello, {{ @SESSION.account['userName'] }}!</h1>
-                    <h2 class="align-self-center" id="userBalanceMessage">&nbsp&nbsp  Your current balance is ${{ @SESSION.account['startingFunds'] .</h2>
+                    <h1 class="align-self-center" id="userWelcomeMessage"><strong>Hello, {{ @SESSION.account['userName'] }}!</strong></h1>
+                    <h2 class="align-self-center" id="userBalanceMessage"><strong>&nbsp&nbsp  Your current balance is ${{ @SESSION.account['startingFunds'] }} .</strong></h2>
                 </true>
                 <false>
                     <h1 class="align-self-center" id="userWelcomeMessage"></h1>
