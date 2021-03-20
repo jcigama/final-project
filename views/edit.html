@@ -96,6 +96,16 @@
                 </div>
             </repeat>
         </div>
+
+        <check if="{{ @SESSION.account['startingFunds'] - @expensesTotal[0]['total'] }} >= 0">
+            <true>
+                <h1>Balance: ${{ @SESSION.account['startingFunds'] - @expensesTotal[0]['total'] }} </h1>
+            </true>
+            <false>
+                <h1 class="text-danger">Balance: ${{ @SESSION.account['startingFunds'] - @expensesTotal[0]['total'] }} </h1>
+            </false>
+
+        </check>
         <button type="button" class="mb-3 btn btn-lg btn-outline-dark" data-toggle="modal" data-target="#myModal">Add Expense</button>
     </div>
 </body>
