@@ -84,16 +84,28 @@
         <br>
         <h1>Viewing Budget #{{ @budgetNum }}</h1>
 
-        <check if="{{ @SESSION.account['startingFunds'] - @expensesTotal[0]['total'] }} >= 0">
+        <check if="isset( {{ @expensesTotal[0]['total'] }}">
             <true>
-                <h1>Balance: ${{ @budgetAmount['baseFunds'] - @expensesTotal[0]['total'] }} </h1>
-                <br>
+                <check if="{{ @SESSION.account['startingFunds'] - @expensesTotal[0]['total'] }} >= 0">
+                    <true>
+                        <h1 class="text-success">Balance: ${{ @budgetAmount['baseFunds'] - @expensesTotal[0]['total'] }} </h1>
+                        <br>
+                    </true>
+                    <false>
+                        <h1 class="text-danger">Balance: ${{ @budgetAmount['baseFunds'] - @expensesTotal[0]['total'] }} </h1>
+                        <br>
+                    </false>
+                </check>
             </true>
+
             <false>
-                <h1 class="text-danger">Balance: ${{ @budgetAmount['baseFunds'] - @expensesTotal[0]['total'] }} </h1>
-                <br>
+                <h1 class="text-success">Balance: ${{ @budgetAmount['baseFunds'] }} </h1>
             </false>
         </check>
+
+        <h1 class="text-success">Balance: ${{ @budgetAmount['baseFunds'] }} </h1>
+
+        <h1>CHANGESSSSSS</h1>
 
         <div class="row row-cols-1 row-cols-md-3 mb-3 justify-content-center text-center pt-3">
             <repeat group="{{ @expenses }}" value="{{ @expense }}">
