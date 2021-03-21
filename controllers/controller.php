@@ -43,6 +43,8 @@ class Controller
         global $dataLayer;
         global $validator;
 
+        var_dump($_POST);
+
         //Retrieve budget number session and assign budget number to variable
         $budgetNum = $_SESSION['budgetNum'];
 

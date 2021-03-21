@@ -70,7 +70,6 @@ class DataLayer
 
     function insertExpense($expense, $budgetNum)
     {
-//        $sql = "INSERT INTO expense(price, description, priority) VALUES (:price, :description, :priority)";
         $sql = "INSERT INTO expense(price, description, priority, budgetNum) VALUES (:price, :description, :priority, :budgetNum)";
 
         //prepare the statement
@@ -84,7 +83,19 @@ class DataLayer
 
         //execute
         $statement->execute();
+    }
 
+    function addFunds()
+    {
+        $sql = "UPDATE pets SET color = :new WHERE color = :old";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
     }
 
     // Get database queries
