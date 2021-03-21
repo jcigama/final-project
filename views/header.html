@@ -15,12 +15,16 @@
     <!-- NAVBAR -->
     <nav class="shadow navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container">
+
             <a class="navbar-brand" href="{{ @BASE }}">
                 <img src="images/credit-card-8x.png" width="30" height="30" alt="Credit card">
-                Expense Tracker</a>
+                Expense Tracker
+            </a>
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="true" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup" style="">
                 <div class="navbar-nav">
                     <check if="{{ isset(@SESSION.account) }}">
@@ -36,11 +40,13 @@
                     <a class="nav-item nav-link" href="admin">Database</a>
                 </div>
             </div>
+
         </div>
     </nav>
 
     <!-- HEADER -->
     <header id="header">
+
         <div class="text-center py-5 ">
             <check if="{{ isset(@SESSION.account) }}">
                 <true>
@@ -53,6 +59,7 @@
                 </true>
             </check>
         </div>
+
     </header>
 
 

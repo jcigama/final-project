@@ -122,14 +122,23 @@ class Controller
             $password = $_POST['password'];
 
             $account = $dataLayer->getAccountRow($username);
+            if (empty($username) && empty($password)) {
+                $this->_f3->set('loginError', "Please enter your username and password");
+            } else if (empty($username))  {
+                $this->_f3->set('loginError', "Please enter your username");
+            } else if (empty($password)) {
+                $this->_f3->set('loginError', "Please enter your password");
 
-            var_dump($account);
-
-            if ($username == $account['userName'] && $password == $account['password'])
-            {
+            }
+            else if ($username == $account['userName'] && $password == $account['password']) {
                 $_SESSION['account'] = $account;
                 $this->_f3->reroute('/');
+            } else {
+                $this->_f3->set('loginError', "Invalid username or password");
             }
+
+            $this->_f3->set('password', $password);
+            $this->_f3->set('username', $username);
         }
 
         //Display a login view
