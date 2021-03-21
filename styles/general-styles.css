@@ -17,10 +17,11 @@ nav {
 header {
     height: 50vh;
 }
+
 #header {
     /*background-image: url("../images/backgroundImage.png");*/
     background-image: url("../images/greenHeader.png");
-    width: 100%;
+    /*width: 90%;*/
 }
 
 #userWelcomeMessage {
@@ -31,4 +32,14 @@ header {
 .btn:hover {
     background-color: #ACB48E;
     color: white;
+}
+
+.image {
+    position:relative;
+    text-align:center; // doesn't work as desired :(
+}
+
+.text {
+    position:absolute;
+    top:30px;
 }
