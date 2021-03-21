@@ -73,6 +73,34 @@
             </tbody>
         </table>
         <br>
+
+        <br>
+        <h1>Expense</h1>
+        <table id="expenses">
+            <thead>
+            <tr>
+                <th>expenseNum</th>
+                <th>price</th>
+                <th>description</th>
+                <th>priority</th>
+                <th>budgetNum</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <repeat group="{{ @expenses }}" value="{{ @expense }}">
+                <tr>
+                    <td>{{ @expense['expenseNum'] }}</td>
+                    <td>{{ @expense['price'] }}</td>
+                    <td>{{ @expense['description'] }}</td>
+                    <td>{{ @expense['priority'] }}</td>
+                    <td>{{ @expense['budgetNum'] }}</td>
+                </tr>
+            </repeat>
+            </tbody>
+        </table>
+        <br>
+
     </form>
 </div>
 </body>
@@ -85,5 +113,9 @@
 
     $(document).ready( function () {
         $('#budgets').DataTable();
+    } );
+
+    $(document).ready( function () {
+        $('#expenses').DataTable();
     } );
 </script>

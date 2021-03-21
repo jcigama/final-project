@@ -178,6 +178,19 @@ class DataLayer
         return $result;
     }
 
+    function getExpenses()
+    {
+        $sql = "SELECT * FROM expense";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
     function getTotalExpense($budgetNum)
     {
         $sql = "SELECT SUM(price) AS total FROM expense WHERE budgetNum = '$budgetNum'";

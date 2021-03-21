@@ -417,9 +417,11 @@ class Controller
         global $dataLayer;
         $accounts = $dataLayer->getAccounts();
         $budgets = $dataLayer->getBudgets();
+        $expenses = $dataLayer->getExpenses();
 
         $this->_f3->set('accounts', $accounts);
         $this->_f3->set('budgets', $budgets);
+        $this->_f3->set('expenses', $expenses);
 
         $view = new Template();
         echo $view->render('views/admin.html');
