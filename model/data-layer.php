@@ -220,7 +220,7 @@ class DataLayer
      */
     function getGender()
     {
-        return array("male", "female");
+        return array("male", "female", "other");
     }
 
     function getNotification()

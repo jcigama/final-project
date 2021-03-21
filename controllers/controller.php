@@ -183,7 +183,12 @@ class Controller
             $userNotification = $_POST['notification'];
             $userFname = $_POST['fname'];
             $userLname = $_POST['lname'];
-            $userGender = $_POST['gender'];
+            if(isset($_POST['gender'])){
+                $userGender = $_POST['gender'];
+            }
+            if(isset($_POST['otherGenderInput'])){
+                $userGender = $_POST['otherGenderInput'];
+            }
             $userAge = $_POST['age'];
             $userStartingfunds = $_POST['startingFunds'];
             $userSituation = $_POST['situation'];
@@ -242,21 +247,6 @@ class Controller
             }
 
             //validate gender | spoof protection
-            if(isset($userGender)) {
-                if($userGender != "male") {
-                    if($userGender != "female"){
-                        $this->_f3->set('errors["gender"]', "Spoof prevented.");
-                    }
-                }
-
-                if($userGender != "female") {
-                    if($userGender != "male"){
-                        $this->_f3->set('errors["gender"]', "Spoof prevented.");
-                    }
-                }
-            }
-
-            //validate gender | spoof protection
             if(!isset($userGender)) {
                 $this->_f3->set('errors["gender"]', "Please choose gender.");
             }
@@ -277,8 +267,6 @@ class Controller
 
                 //instantiate budget with parameters
                 $account = new Account($username, $userEmail, $userPassword, $userNotification, $userFname, $userLname, $userGender, $userAge, $userStartingfunds, $userSituation);
-
-                print_r($account);
 
                 $_SESSION['account'] = $account;
                 $dataLayer->insertAccount($_SESSION['account']);
