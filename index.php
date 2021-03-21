@@ -73,5 +73,10 @@ $f3->route('GET|POST /logout', function() {
     $controller->logout();
 });
 
+$f3->route('GET|POST /confirm', function() {
+    global $controller;
+    $controller->confirm();
+});
+
 //Run Fat-Free
 $f3->run();

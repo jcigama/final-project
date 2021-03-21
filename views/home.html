@@ -1,19 +1,20 @@
 <include href="views/header.html"></include>
 
 <body>
+
     <div class="container pt-3 pb-3">
         <check if="empty({{ @cards }})">
             <true>
-                <h1 class="text-center">No budgets created. <br> Create new budget below.</h1>
+                <h1 class="text-center">No budgets created. <br></h1>
+                <p class="text-center">Add new budget below.</p>
             </true>
             <false>
-                <h1 class="text-center">Current Expenses</h1>
+                <h1 class="text-center">Current Budget(s)</h1>
             </false>
         </check>
 
-
+        <!--Modals-->
         <div class="container">
-            <!-- The Modal ("addExpense") -->
             <div class="modal fade" id="addExpense">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -89,71 +90,41 @@
                     </div>
                 </div>
             </div>
-
-            <div class="modal fade" id="addFunds">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form action="#" method="post">
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add Funds</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-
-                            <!-- Modal body -->
-                            <div class="modal-body">
-                                <!-- Price -->
-                                <div class="form-group">
-                                    <label for="price">Amount</label>
-                                    <input type="number" step="any" class="form-control pl-2" name="fundAmount" placeholder="$">
-                                </div>
-                            </div>
-
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-outline-dark" name="budgetNum" value="{{ @budgetNum }}">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
         </div>
+        <!--Modals-->
 
-        <!--    <p>This web app will help users track their spending and create “spending goals”.-->
-        <!--        On the main page the user can either choose to manage their account or add a-->
-        <!--        new one. Upon creating a new account they will be asked for their starting funds.-->
-        <!--        As the user spends or adds money they will be presented with another page to enter the price,-->
-        <!--        description and priority of the purchase. The amount of their account will appear on the main page.-->
-        <!--        When a user creates a goal, they will also be asked when they want their goal to be achieved.-->
-        <!--        After the information is entered our app will then generate a suggested spending amount for each day,-->
-        <!--        and if the user follows the suggested plan they should be able to attain their goal within the time-->
-        <!--        they specified. The user can also request a summary of how much they spent at either weekly, monthly,-->
-        <!--        or yearly increments.</p>-->
+        <!--Buttons-->
         <form action="#" method="post">
-            <div class="row row-cols-1 row-cols-md-3 mb-3 justify-content-center text-center pt-3">
 
+            <!--Card buttons-->
+            <div class="row row-cols-1 row-cols-md-3 mb-3 justify-content-center text-center pt-3">
                 <repeat group="{{ @cards }}" value="{{ @card }}">
                     <div class="col-4">
                         <div class="row-4 card mb-4 shadow-sm">
                             <div class="card-body">
                                 <h1 class="card-title pricing-card-title">{{ @card['budgetName'] }}</h1>
                                 <p>Amount: $ {{ @card['baseFunds'] }}</p>
-                                <button type="submit" class="w-100 btn btn-lg shadow" href="edit" name="budgetInfo" value="{{ @card['budgetName'] }},{{ @card['budgetNum'] }}">Edit Budget</button>
+                                <button type="submit" class="w-100 btn btn-lg"
+                                        href="edit" name="budgetInfo" value="{{ @card['budgetName'] }},{{ @card['budgetNum'] }}">Edit Budget</button>
+                                <button type="submit" id="removeBtn" class="w-100 btn btn-lg"
+                                        name="budgetName" value="{{ @card['budgetName'] }},{{ @card['budgetNum'] }}">Delete</button></a>
+
                             </div>
                         </div>
                     </div>
                 </repeat>
-
             </div>
+            <!--Card buttons-->
 
+            <!--Non-card buttons-->
             <div class="row align-self-center">
-
                 <div class="col mb-1">
                     <a href="budget"><button type="button" class="w-100 btn btn-lg btn-outline-dark shadow">Add New Budget</button></a>
                 </div>
-
             </div>
+            <!--Non-card buttons-->
         </form>
+        <!--Buttons-->
     </div>
 
     <br><br><br>

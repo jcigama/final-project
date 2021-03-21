@@ -28,7 +28,10 @@ class Controller
         //If user wants to edit a budget, store budget number into a SESSION
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            var_dump($_POST['budgetInfo']);
+            if (isset($_POST['budgetName'])) {
+                $_SESSION['budgetName'] = $_POST['budgetName'];
+                $this->_f3->reroute('confirm');
+            }
 
             $_SESSION['budgetNum'] = $_POST['budgetInfo'];
 
@@ -61,8 +64,6 @@ class Controller
         $this->_f3->set('expensesTotal', $expenseTotal);
         $this->_f3->set('budgetAmount', $budgetAmount);
 
-        var_dump($_POST);
-
         //If user decides to add an expense via modal
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if (isset($_POST['fundAmount'])) {
@@ -77,8 +78,6 @@ class Controller
                 $dataLayer->deleteBudget($budgetNum);
                 $this->_f3->reroute('/');
             }
-
-
 
             $price = $_POST['price'];
             $description = $_POST['description'];
@@ -427,5 +426,32 @@ class Controller
 
         $view = new Template();
         echo $view->render('views/admin.html');
+    }
+
+    function confirm()
+    {
+        global $dataLayer;
+
+        $budgetInfo = explode(",", $_SESSION['budgetName']);
+        $budgetName = $budgetInfo[0];
+        $budgetNum = $budgetInfo[1];
+
+        $this->_f3->set('budgetName', $budgetName);
+        $this->_f3->set('budgetNum', $budgetNum);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($_POST['delete'] == 'yes') {
+                $dataLayer->deleteExpenses($budgetNum);
+                $dataLayer->deleteBudget($budgetNum);
+                echo "deleted";
+                $this->_f3->reroute('/');
+            } else if ($_POST['delete'] == 'no') {
+                echo "not deleted";
+                $this->_f3->reroute('/');
+            }
+        }
+
+        $view = new Template();
+        echo $view->render('views/confirm.html');
     }
 }
