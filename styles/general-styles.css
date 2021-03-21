@@ -39,6 +39,11 @@ header {
     color: white;
 }
 
+#removeBtn:hover {
+    background-color: indianred;
+    color: white;
+}
+
 .image {
     position:relative;
     text-align:center; // doesn't work as desired :(
