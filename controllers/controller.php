@@ -25,7 +25,6 @@ class Controller
         //Retrieve user budgets
         $cards = $dataLayer->getBudgetsCards($account['userNum']);
 
-
         //If user wants to edit a budget, store budget number into a SESSION
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -67,6 +66,13 @@ class Controller
 
         //If user decides to add an expense via modal
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            if (isset($_POST['fundAmount'])) {
+                $addFunds = $budgetAmount['baseFunds'] + $_POST['fundAmount'];
+
+                $dataLayer->addFunds($budgetName, $addFunds);
+                $this->_f3->reroute('edit');
+            }
+
             $price = $_POST['price'];
             $description = $_POST['description'];
             $priority = $_POST['priority'];
@@ -95,8 +101,6 @@ class Controller
 
                 //Insert object into database
                 $dataLayer->insertExpense($expense, $budgetNum);
-
-                var_dump($_POST);
 
                 //Refresh page after insertion
                 $this->_f3->reroute('edit');

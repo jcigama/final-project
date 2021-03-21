@@ -2,7 +2,15 @@
 
 <body>
     <div class="container pt-3 pb-3">
-        <h1 class="text-center">Current Expenses </h1>
+        <check if="empty({{ @cards }})">
+            <true>
+                <h1 class="text-center">No budgets created. <br> Create new budget below.</h1>
+            </true>
+            <false>
+                <h1 class="text-center">Current Expenses</h1>
+            </false>
+        </check>
+
 
         <div class="container">
             <!-- The Modal ("addExpense") -->
@@ -142,10 +150,6 @@
 
                 <div class="col mb-1">
                     <a href="budget"><button type="button" class="w-100 btn btn-lg btn-outline-dark shadow">Add New Budget</button></a>
-                </div>
-
-                <div class="col mb-1">
-                    <a href="budget"><button type="button" class="w-100 btn btn-lg btn-outline-dark shadow">Add More Funds</button></a>
                 </div>
 
             </div>

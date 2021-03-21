@@ -28,6 +28,11 @@ header {
     font-size: 5em;
 }
 
+#remove-btn {
+    background-color: red;
+    color: white;
+}
+
 /* button styles */
 .btn:hover {
     background-color: #ACB48E;

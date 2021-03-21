@@ -86,18 +86,19 @@ class DataLayer
         $statement->execute();
     }
 
-//    function addFunds()
-//    {
-//        $sql = "UPDATE pets SET color = :new WHERE color = :old";
-//
-//        $statement = $this->_dbh->prepare($sql);
-//
-//        $statement->execute();
-//
-//        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-//
-//        return $result;
-//    }
+    function addFunds($budgetName, $addFunds)
+    {
+        $sql = "UPDATE budget SET baseFunds = :new WHERE budgetName = :old";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(':old', $budgetName, PDO::PARAM_STR);
+        $statement->bindParam(':new', $addFunds, PDO::PARAM_INT);
+
+        $statement->execute();
+
+        echo "Funds updated!";
+    }
 
     // Get database queries
     function getAccounts()

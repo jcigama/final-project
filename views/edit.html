@@ -100,7 +100,7 @@
 
                         <!-- Modal footer -->
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-outline-dark" name="budgetName" value="{{ @budgetName }}">Submit</button>
+                            <button type="submit" class="btn btn-outline-dark" name="budgetName" value="{{ @budgetAmount['baseFunds'] }}">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -111,6 +111,7 @@
     <div class="container text-center">
         <br>
         <h1>Viewing Budget: {{ @budgetName }}</h1>
+        <h1>Budget Amount: <i>${{ @budgetAmount['baseFunds'] }}</i></h1>
 
         <check if="{{ @budgetAmount['baseFunds'] - @expensesTotal[0]['total'] }} >= 0">
             <true>
@@ -130,7 +131,7 @@
                     <div class="row-4 card mb-4 shadow-sm">
                         <div class="card-body">
                             <p><strong>Description: </strong>{{ @expense['description'] }} </p>
-                            <p><strong>Price: </strong>{{ @expense['price'] }}</p>
+                            <p><strong>Price: </strong>${{ @expense['price'] }}</p>
                             <p><strong>Priority: </strong>{{ @expense['priority'] }}</p>
                         </div>
                     </div>
@@ -145,6 +146,10 @@
 
             <div class="col mb-1">
                 <button type="button" class="w-100 btn btn-lg btn-outline-dark shadow" data-toggle="modal" data-target="#addFunds">Add Current Budget Funds</button>
+            </div>
+
+            <div class="col mb-1">
+                <button type="button" class="w-100 btn btn-lg btn-outline-dark shadow" data-toggle="modal" data-target="#addFunds">Remove Budget</button>
             </div>
         </div>
     </div>
