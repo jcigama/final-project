@@ -51,9 +51,6 @@ class Controller
         $budgetNum = $budgetInfo[1];
         $budgetName = $budgetInfo[0];
 
-        //Retrieve budget number session and assign budget number to variable
-//        $budgetNum = $budgetInfo[0];
-
         //Retrieve expenses of current budget
         $expenseData = $dataLayer->getExpense($budgetNum);
         $expenseTotal = $dataLayer->getTotalExpense($budgetNum);
@@ -64,6 +61,8 @@ class Controller
         $this->_f3->set('expensesTotal', $expenseTotal);
         $this->_f3->set('budgetAmount', $budgetAmount);
 
+        var_dump($_POST);
+
         //If user decides to add an expense via modal
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if (isset($_POST['fundAmount'])) {
@@ -72,6 +71,14 @@ class Controller
                 $dataLayer->addFunds($budgetName, $addFunds);
                 $this->_f3->reroute('edit');
             }
+
+            if (isset($_POST['budgetDelete'])) {
+                $dataLayer->deleteExpenses($budgetNum);
+                $dataLayer->deleteBudget($budgetNum);
+                $this->_f3->reroute('/');
+            }
+
+
 
             $price = $_POST['price'];
             $description = $_POST['description'];

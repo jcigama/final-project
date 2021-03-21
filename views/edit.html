@@ -106,6 +106,25 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="remove">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="#" method="post">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title text-center">Are you sure you want to remove this budget?</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="submit" id="removeBtn" class="btn btn-outline-dark" name="budgetDelete" value="true">Yes, delete this budget.</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="container text-center">
@@ -149,7 +168,7 @@
             </div>
 
             <div class="col mb-1">
-                <button type="button" id="removeBtn" class="w-100 btn btn-lg btn-outline-dark shadow" data-toggle="modal" data-target="#addFunds">Remove Budget</button>
+                <button type="button" id="removeBtn" class="w-100 btn btn-lg btn-outline-dark shadow" data-toggle="modal" data-target="#remove">Remove Budget</button>
             </div>
         </div>
     </div>

@@ -100,6 +100,28 @@ class DataLayer
         echo "Funds updated!";
     }
 
+    function deleteExpenses($budgetNum)
+    {
+        $sql = "DELETE FROM expenses WHERE budgetNum = :budgetNum";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(':budgetNum', $budgetNum, PDO::PARAM_INT);
+
+        $statement->execute();
+    }
+
+    function deleteBudget($budgetNum)
+    {
+        $sql = "DELETE FROM budget WHERE budgetNum = :budgetNum";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(':budgetNum', $budgetNum, PDO::PARAM_INT);
+
+        $statement->execute();
+    }
+
     // Get database queries
     function getAccounts()
     {
