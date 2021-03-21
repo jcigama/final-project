@@ -25,8 +25,8 @@ class DataLayer
             $userNum = 0;
         }
 
-        $sql = "INSERT INTO budget(baseFunds, description, startDate, endDate, priority, userNum)
-                   VALUES (:baseFunds, :description, :startDate, :endDate, :priority, :userNum)";
+        $sql = "INSERT INTO budget(baseFunds, description, budgetName, startDate, endDate, priority, userNum)
+                   VALUES (:baseFunds, :description, :budgetName, :startDate, :endDate, :priority, :userNum)";
 
         //prepare the statement
         $statement = $this->_dbh->prepare($sql);
@@ -34,6 +34,7 @@ class DataLayer
         //Bind the parameters
         $statement->bindParam(":baseFunds", $budget->getBaseFunds(), PDO::PARAM_INT);
         $statement->bindParam(":description", $budget->getDescription(), PDO::PARAM_STR);
+        $statement->bindParam(":budgetName", $budget->getBudgetName(), PDO::PARAM_STR);
         $statement->bindParam(":startDate", $budget->getStartDate(), PDO::PARAM_STR);
         $statement->bindParam(":endDate", $budget->getEndDate(), PDO::PARAM_STR);
         $statement->bindParam(":priority", $budget->getPriority(), PDO::PARAM_STR);
@@ -85,18 +86,18 @@ class DataLayer
         $statement->execute();
     }
 
-    function addFunds()
-    {
-        $sql = "UPDATE pets SET color = :new WHERE color = :old";
-
-        $statement = $this->_dbh->prepare($sql);
-
-        $statement->execute();
-
-        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-        return $result;
-    }
+//    function addFunds()
+//    {
+//        $sql = "UPDATE pets SET color = :new WHERE color = :old";
+//
+//        $statement = $this->_dbh->prepare($sql);
+//
+//        $statement->execute();
+//
+//        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+//
+//        return $result;
+//    }
 
     // Get database queries
     function getAccounts()

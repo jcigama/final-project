@@ -18,6 +18,7 @@ CREATE TABLE budget (
     budgetNum INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     baseFunds DECIMAL(10, 2),
     description VARCHAR(50),
+    budgetName VARCHAR(50) NOT NULL,
     startDate DATE,
     endDate DATE,
     priority VARCHAR(20),

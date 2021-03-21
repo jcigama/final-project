@@ -22,11 +22,15 @@ class Controller
             $account = $_SESSION['account'];
         }
 
+        var_dump($account);
+
         //Retrieve user budgets
         $cards = $dataLayer->getBudgetsCards($account['userNum']);
 
+        print_r($cards);
+
         //If user wants to edit a budget, store budget number into a SESSION
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['budgetNum'] = $_POST['budgetNum'];
             $this->_f3->reroute('edit');
         }
@@ -308,6 +312,7 @@ class Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $baseFunds = $_POST['baseFunds'];
             $description = $_POST['description'];
+            $budgetName = $_POST['budgetName'];
             $startDate = $_POST['startDate'];
             $endDate = $_POST['endDate'];
             $priority = $_POST['priority'];
@@ -333,6 +338,11 @@ class Controller
                 $this->_f3->set('errors["endDate"]', "End date can't be before start date.");
             }
 
+
+            if (empty($budgetName)) {
+                $this->_f3->set('errors["budgetName"]', "Name for budget required.");
+            }
+
             //priority validation | spoof prevention
             if(isset($priority)) {
                 if ($validator->validPriorities($priority)) {
@@ -344,8 +354,6 @@ class Controller
             if (!$validator->validPriority($priority)) {
                 $this->_f3->set('errors["priorityEmpty"]', "Please choose priority level.");
             }
-
-
             echo $startDate;
             echo $endDate;
 
@@ -363,13 +371,16 @@ class Controller
                     substr((string)$endDate, 6, 2);
 
                 //instantiate budget with parameters
-                $budget = new Budget($baseFunds, $description, $startDate, $endDate, $priority);
+                $budget = new Budget($baseFunds, $description, $budgetName, $startDate, $endDate, $priority);
 
                 //save data to session
                 $_SESSION['budget'] = $budget;
+
+                var_dump($_SESSION['budget']);
+
                 $dataLayer->insertBudget($_SESSION['budget']);
 
-                $this->_f3->reroute('/');
+//                $this->_f3->reroute('/');
             }
 
             //set priority choice in hive to check in html
@@ -379,6 +390,7 @@ class Controller
         //Sticky data
         $this->_f3->set('baseFunds', isset($baseFunds) ? $baseFunds : "");
         $this->_f3->set('description', isset($description) ? $description : "");
+        $this->_f3->set('budgetName', isset($budgetName) ? $budgetName : "");
         $this->_f3->set('startDate', isset($startDate) ? $startDate : "");
         $this->_f3->set('endDate', isset($endDate) ? $endDate : "");
         $this->_f3->set('priority', isset($priority) ? $priority : "");
