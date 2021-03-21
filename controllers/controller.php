@@ -22,16 +22,17 @@ class Controller
             $account = $_SESSION['account'];
         }
 
-        var_dump($account);
-
         //Retrieve user budgets
         $cards = $dataLayer->getBudgetsCards($account['userNum']);
 
-        print_r($cards);
 
         //If user wants to edit a budget, store budget number into a SESSION
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $_SESSION['budgetNum'] = $_POST['budgetNum'];
+
+            var_dump($_POST['budgetInfo']);
+
+            $_SESSION['budgetNum'] = $_POST['budgetInfo'];
+
             $this->_f3->reroute('edit');
         }
 
@@ -47,10 +48,12 @@ class Controller
         global $dataLayer;
         global $validator;
 
-        var_dump($_POST);
+        $budgetInfo = explode(",", $_SESSION['budgetNum']);
+        $budgetNum = $budgetInfo[1];
+        $budgetName = $budgetInfo[0];
 
         //Retrieve budget number session and assign budget number to variable
-        $budgetNum = $_SESSION['budgetNum'];
+//        $budgetNum = $budgetInfo[0];
 
         //Retrieve expenses of current budget
         $expenseData = $dataLayer->getExpense($budgetNum);
@@ -93,6 +96,8 @@ class Controller
                 //Insert object into database
                 $dataLayer->insertExpense($expense, $budgetNum);
 
+                var_dump($_POST);
+
                 //Refresh page after insertion
                 $this->_f3->reroute('edit');
             }
@@ -104,8 +109,8 @@ class Controller
         //get array from data layer
         $this->_f3->set('priorities', $dataLayer->getPriorities());
 
-        //Set budget number into Fat-free hive
-        $this->_f3->set('budgetNum', $_SESSION['budgetNum']);
+        //Set budget name into Fat-free hive
+        $this->_f3->set('budgetName', $budgetName);
 
         //Display a view
         $view = new Template();
@@ -376,11 +381,9 @@ class Controller
                 //save data to session
                 $_SESSION['budget'] = $budget;
 
-                var_dump($_SESSION['budget']);
-
                 $dataLayer->insertBudget($_SESSION['budget']);
 
-//                $this->_f3->reroute('/');
+                $this->_f3->reroute('/');
             }
 
             //set priority choice in hive to check in html

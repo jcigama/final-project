@@ -130,7 +130,7 @@
                             <div class="card-body">
                                 <h1 class="card-title pricing-card-title">{{ @card['budgetName'] }}</h1>
                                 <p>Amount: $ {{ @card['baseFunds'] }}</p>
-                                <button type="submit" class="w-100 btn btn-lg shadow" href="edit" name="budgetName" value="{{ @card['budgetName'] }}">Edit Budget</button>
+                                <button type="submit" class="w-100 btn btn-lg shadow" href="edit" name="budgetInfo" value="{{ @card['budgetName'] }},{{ @card['budgetNum'] }}">Edit Budget</button>
                             </div>
                         </div>
                     </div>

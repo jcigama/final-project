@@ -28,7 +28,7 @@
                                 </div>
                             </div>
 
-                            <!-- Password -->
+                            <!-- Description -->
                             <div class="form-group">
                                 <label for="description">Description</label>
                                 <input type="text" class="form-control pl-2" id="description" name="description" >
@@ -100,7 +100,7 @@
 
                         <!-- Modal footer -->
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-outline-dark" name="budgetNum" value="{{ @budgetNum }}">Submit</button>
+                            <button type="submit" class="btn btn-outline-dark" name="budgetName" value="{{ @budgetName }}">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -110,7 +110,7 @@
 
     <div class="container text-center">
         <br>
-        <h1>Viewing Budget #{{ @budgetNum }}</h1>
+        <h1>Viewing Budget: {{ @budgetName }}</h1>
 
         <check if="{{ @budgetAmount['baseFunds'] - @expensesTotal[0]['total'] }} >= 0">
             <true>
