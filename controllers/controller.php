@@ -79,6 +79,11 @@ class Controller
                 $this->_f3->reroute('/');
             }
 
+            if (isset($_POST['deleteExpense'])) {
+                $_SESSION['deleteExpense'] = $_POST['deleteExpense'];
+                $this->_f3->reroute('confirm');
+            }
+
             $price = $_POST['price'];
             $description = $_POST['description'];
             $priority = $_POST['priority'];
@@ -440,15 +445,19 @@ class Controller
         $this->_f3->set('budgetNum', $budgetNum);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($_POST['delete'] == 'yes') {
-                $dataLayer->deleteExpenses($budgetNum);
-                $dataLayer->deleteBudget($budgetNum);
-                echo "deleted";
-                $this->_f3->reroute('/');
-            } else if ($_POST['delete'] == 'no') {
-                echo "not deleted";
-                $this->_f3->reroute('/');
+
+            if(isset($_POST['delete'])) {
+                if ($_POST['delete'] == 'yes') {
+                    $dataLayer->deleteExpenses($budgetNum);
+                    $dataLayer->deleteBudget($budgetNum);
+                    echo "deleted";
+                    $this->_f3->reroute('/');
+                } else if ($_POST['delete'] == 'no') {
+                    echo "not deleted";
+                    $this->_f3->reroute('/');
+                }
             }
+
         }
 
         $view = new Template();
