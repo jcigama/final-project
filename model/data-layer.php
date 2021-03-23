@@ -9,11 +9,19 @@ class DataLayer
 {
     private $_dbh;
 
+    /**
+     * DataLayer constructor.
+     * @param $dbh
+     */
     function __construct($dbh)
     {
         $this->_dbh = $dbh;
     }
 
+    /**
+     * Inserts data from budget into the database.
+     * @param $budget
+     */
     function insertBudget($budget)
     {
         //row data for name and starting amount
@@ -45,6 +53,10 @@ class DataLayer
         $statement->execute();
     }
 
+    /**
+     * Inserts data from account into the database
+     * @param $account
+     */
     function insertAccount($account)
     {
         $sql = "INSERT INTO account(userName, email, password, notification, situation, startingFunds, fname, lname, gender, age)
@@ -69,6 +81,11 @@ class DataLayer
         $statement->execute();
     }
 
+    /**
+     * Inserts data from expense into the database using the corresponding budget number
+     * @param $expense
+     * @param $budgetNum
+     */
     function insertExpense($expense, $budgetNum)
     {
         $sql = "INSERT INTO expense(price, description, priority, budgetNum) VALUES (:price, :description, :priority, :budgetNum)";
@@ -86,6 +103,11 @@ class DataLayer
         $statement->execute();
     }
 
+    /**
+     * Adds funds to user's budget amount then updates the amount in database
+     * @param $budgetName
+     * @param $addFunds
+     */
     function addFunds($budgetName, $addFunds)
     {
         $sql = "UPDATE budget SET baseFunds = :new WHERE budgetName = :old";
@@ -100,9 +122,13 @@ class DataLayer
         echo "Funds updated!";
     }
 
+    /**
+     * Deletes expense from expense table
+     * @param $budgetNum
+     */
     function deleteExpenses($budgetNum)
     {
-        $sql = "DELETE FROM expenses WHERE budgetNum = :budgetNum";
+        $sql = "DELETE FROM expense WHERE budgetNum = :budgetNum";
 
         $statement = $this->_dbh->prepare($sql);
 
@@ -111,6 +137,10 @@ class DataLayer
         $statement->execute();
     }
 
+    /**
+     * Deletes budget from user's account
+     * @param $budgetNum
+     */
     function deleteBudget($budgetNum)
     {
         $sql = "DELETE FROM budget WHERE budgetNum = :budgetNum";
@@ -122,7 +152,10 @@ class DataLayer
         $statement->execute();
     }
 
-    // Get database queries
+    /**
+     * Gets all accounts from the database
+     * @return mixed
+     */
     function getAccounts()
     {
         $sql = "SELECT * FROM account";
@@ -136,6 +169,11 @@ class DataLayer
         return $result;
     }
 
+    /**
+     * Gets a specific account from the database
+     * @param $username
+     * @return mixed
+     */
     function getAccountRow($username)
     {
         $sql = "SELECT * FROM account WHERE userName = '$username'";
@@ -149,6 +187,10 @@ class DataLayer
         return $result;
     }
 
+    /**
+     * Gets all budgets from the database
+     * @return mixed
+     */
     function getBudgets()
     {
         $sql = "SELECT * FROM budget";
@@ -162,6 +204,11 @@ class DataLayer
         return $result;
     }
 
+    /**
+     * Gets all budgets that correspond to a specific user
+     * @param $userNum
+     * @return mixed
+     */
     function getBudgetsCards($userNum)
     {
         $sql = "SELECT * FROM budget WHERE userNum = '$userNum'";
@@ -175,6 +222,11 @@ class DataLayer
         return $result;
     }
 
+    /**
+     * Gets a specific budget from database
+     * @param $budgetNum
+     * @return mixed
+     */
     function getBudgetCard($budgetNum)
     {
         $sql = "SELECT * FROM budget WHERE budgetNum = '$budgetNum'";
@@ -188,6 +240,11 @@ class DataLayer
         return $result;
     }
 
+    /**
+     * Gets all expenses corresponding to a specific budget
+     * @param $budgetNum
+     * @return mixed
+     */
     function getExpense($budgetNum)
     {
         $sql = "SELECT * FROM expense WHERE budgetNum = '$budgetNum'";
@@ -201,6 +258,10 @@ class DataLayer
         return $result;
     }
 
+    /**
+     * Gets all expenses from the database
+     * @return mixed
+     */
     function getExpenses()
     {
         $sql = "SELECT * FROM expense";
@@ -214,6 +275,11 @@ class DataLayer
         return $result;
     }
 
+    /**
+     * Gets the sum of all the expenses from a specific budget
+     * @param $budgetNum
+     * @return mixed
+     */
     function getTotalExpense($budgetNum)
     {
         $sql = "SELECT SUM(price) AS total FROM expense WHERE budgetNum = '$budgetNum'";
@@ -227,11 +293,19 @@ class DataLayer
         return $result;
     }
 
+    /**
+     * getPriorities() returns an array of priority options
+     * @return string[]
+     */
     function getPriorities()
     {
         return array("high", "medium", "low");
     }
 
+    /**
+     * getSituation() returns an array of situation options
+     * @return string[]
+     */
     function getSituation()
     {
         return array("Choose your situation", "education", "bills", "leisure", "other");

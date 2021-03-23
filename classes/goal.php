@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * The Goal class represents an expense goal a user wants to complete.
+ *
+ * The Goal class represents an expense goal a user wants to complete
+ * with a start date, end date and preferred end date.
+ * @author Joseph Igama <jigama2@mail.greenriver.edu>
+ * @author Alisa Llavore <allavore@mail.greenriver.edu>
+ * @copyright 2021
+ */
 class goal {
 
     private $_startDate;

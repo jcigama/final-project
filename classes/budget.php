@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * The Budget class represents a user's budget in our expense tracker.
+ *
+ * The Budget class represents a user's budget with a base fund, description,
+ * budget name, start date, end date, and priority.
+ * @author Joseph Igama <jigama2@mail.greenriver.edu>
+ * @author Alisa Llavore <allavore@mail.greenriver.edu>
+ * @copyright 2021
+ */
 class Budget
 {
 

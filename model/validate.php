@@ -1,5 +1,10 @@
 <?php
 
+/* model/validate.php
+ * returns validation functions for my app
+ *
+ */
+
 class Validate
 {
     private $_dataLayer;
@@ -14,6 +19,7 @@ class Validate
     }
 
     /**
+     * Checks if baseFunds is not empty
      * @param $baseFunds
      * @return bool
      */
@@ -22,6 +28,7 @@ class Validate
     }
 
     /**
+     * Checks if startDate is not empty and is 8 characters long
      * @param $startDate
      * @return bool
      */
@@ -30,6 +37,7 @@ class Validate
     }
 
     /**
+     * Checks if endDate is not empty and is 8 characters long
      * @param $endDate
      * @return bool
      */
@@ -38,6 +46,7 @@ class Validate
     }
 
     /**
+     * Checks if startDate is earlier than the endDate
      * @param $startDate
      * @param $endDate
      * @return bool
@@ -47,6 +56,7 @@ class Validate
     }
 
     /**
+     * Checks if priority is set
      * @param $priority
      * @return bool
      */
@@ -55,6 +65,8 @@ class Validate
     }
 
     /**
+     * Checks priorities against priorities array to protect against spoof
+     * protection
      * @param $checkSpoof
      * @return bool
      */
@@ -68,6 +80,13 @@ class Validate
     }
 
     //-------Registration Page Validation
+
+    /**
+     * Checks to see if the username is not empty and is longer than
+     * 3 characters
+     * @param $username
+     * @return bool
+     */
     function validUsername($username)
     {
         return !empty($username) && strlen($username) > 3;
@@ -84,19 +103,31 @@ class Validate
         return !empty($email) && preg_match("/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/", $email);
     }
 
+    /**
+     * Checks to see if the password is not empty and is longer than
+     * 5 characters
+     * @param $password
+     * @return bool
+     */
     function validPassword($password)
     {
         return !empty($password) && strlen($password) > 5;
     }
 
+    /**
+     * Checks if confirm password is the same as the
+     * password previously entered
+     * @param $password
+     * @param $confirm
+     * @return bool
+     */
     function passwordConfirmation($password, $confirm)
     {
         return $password === $confirm;
     }
 
     /**
-     * validName checks to see that  string is all
-     * alphabetic
+     * validName checks to see that the string is all alphabetic characters
      * REQUIRED
      * #param String $name
      * @return boolean
@@ -106,21 +137,42 @@ class Validate
         return !empty($fname) && ctype_alpha($fname);
     }
 
+    /**
+     * Checks to see that the string is all alphabetic characters
+     * @param $lname
+     * @return bool
+     */
     function validLname($lname)
     {
         return !empty($lname) && ctype_alpha($lname);
     }
 
+    /**
+     * Checks to see if startingFunds is not empty and is greater than 0
+     * @param $startingFunds
+     * @return bool
+     */
     function validStartingfunds($startingFunds)
     {
         return !empty($startingFunds) && $startingFunds > 0;
     }
 
+    /**
+     * Checks to see if price is greater than 0 and is not empty
+     * @param $price
+     * @return bool
+     */
     function validPrice($price)
     {
         return $price > 0 && !empty($price);
     }
 
+    /**
+     * Checks to see if the situation entered matches the situation
+     * array
+     * @param $selectedSituation
+     * @return bool
+     */
     function validSituation($selectedSituation)
     {
         //get valid situations from data layer

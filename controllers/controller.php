@@ -13,6 +13,9 @@ class Controller
         $this->_f3 = $f3;
     }
 
+    /**
+     * Displays home page
+     */
     function home()
     {
         global $dataLayer;
@@ -45,6 +48,9 @@ class Controller
         echo $view->render('views/home.html');
     }
 
+    /**
+     * Displays edit page
+     */
     function edit()
     {
         global $dataLayer;
@@ -132,6 +138,9 @@ class Controller
         echo $view->render('views/edit.html');
     }
 
+    /**
+     * Displays login page
+     */
     function login()
     {
         global $dataLayer;
@@ -170,6 +179,9 @@ class Controller
         echo $view->render('views/login.html');
     }
 
+    /**
+     * Displays register page
+     */
     function register()
     {
 
@@ -307,6 +319,9 @@ class Controller
         echo $view->render('views/register.html');
     }
 
+    /**
+     * Displays budget page
+     */
     function budget()
     {
         global $validator;
@@ -407,6 +422,9 @@ class Controller
         echo $view->render('views/budget.html');
     }
 
+    /**
+     * Displays budget summary page
+     */
     function budgetSummary()
     {
         //Display a view
@@ -418,6 +436,9 @@ class Controller
         session_destroy();
     }
 
+    /**
+     * Displays admin page
+     */
     function admin()
     {
         global $dataLayer;
@@ -433,6 +454,9 @@ class Controller
         echo $view->render('views/admin.html');
     }
 
+    /**
+     * Displays confirm page
+     */
     function confirm()
     {
         global $dataLayer;

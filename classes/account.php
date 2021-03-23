@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * The Account class represents an account in our expense tracker.
+ *
+ * The Account class represents an account with a username, email, password,
+ * notification, first name, last name, gender, age, starting funds, and
+ * situation.
+ * @author Joseph Igama <jigama2@mail.greenriver.edu>
+ * @author Alisa Llavore <allavore@mail.greenriver.edu>
+ * @copyright 2021
+ */
 class Account {
 
     private $_userName;

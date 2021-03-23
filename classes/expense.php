@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * The Expense class represents an expense that is in a user's budget.
+ *
+ * The Expense class represents an expense that is in a user's budget with
+ * a price, description, and priority.
+ * @author Joseph Igama <jigama2@mail.greenriver.edu>
+ * @author Alisa Llavore <allavore@mail.greenriver.edu>
+ * @copyright 2021
+ */
 class Expense {
 
     private $_price;
