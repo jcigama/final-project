@@ -27,6 +27,8 @@ CREATE TABLE expense (
     price DECIMAL(10, 2) NOT NULL,
     description VARCHAR(150) NOT NULL,
     priority VARCHAR(20) NOT NULL,
+    recurring VARCHAR(20),
+    subscription VARCHAR(30),
     budgetNum INT NOT NULL,
     FOREIGN KEY (budgetNum) REFERENCES budget(budgetNum)
 );
