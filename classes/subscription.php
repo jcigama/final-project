@@ -1,10 +1,10 @@
 <?php
 
 /**
- * The Expense class represents an expense that is in a user's budget.
+ * The Subscription class represents subscription that extends the expense class.
  *
- * The Expense class represents an expense that is in a user's budget with
- * a price, description, and priority.
+ * The Subscription class represents subscription that extends the expense class
+ * with a recurring interval, and the type of subscription.
  * @author Joseph Igama <jigama2@mail.greenriver.edu>
  * @author Alisa Llavore <allavore@mail.greenriver.edu>
  * @copyright 2021
