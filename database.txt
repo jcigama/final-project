@@ -23,7 +23,6 @@ CREATE TABLE budget (
     FOREIGN KEY (userNum) REFERENCES account(userNum)
 );
 
-//V1
 CREATE TABLE expense (
     expenseNum INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     price DECIMAL(10, 2) NOT NULL,
@@ -31,22 +30,6 @@ CREATE TABLE expense (
     priority VARCHAR(20) NOT NULL,
     budgetNum INT NOT NULL,
     FOREIGN KEY (budgetNum) REFERENCES budget(budgetNum)
-);
-
-//V2
-CREATE TABLE expense (
-    expenseNum INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    price DECIMAL(10, 2) NOT NULL,
-    description VARCHAR(150) NOT NULL,
-    priority VARCHAR(20) NOT NULL,
-    budgetNum INT NOT NULL,
-    FOREIGN KEY (budgetName) REFERENCES budget(budgetName)
-);
-
-CREATE TABLE goal (
-    startDate DATE,
-    endDate DATE,
-    preferredEndDate DATE
 );
 
 //////// VERSION 1.0 DATABASE CODE
