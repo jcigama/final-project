@@ -34,6 +34,66 @@
                                 <input type="text" class="form-control pl-2" id="description" name="description" >
                             </div>
 
+                            <!-- Subscription Check -->
+                            <label><input type="checkbox" id="subscriptionCheck"> Subscription?</label><br>
+
+                            <!-- Subscription -->
+                            <div class="form-group d-none" id="subscriptionField">
+                                <legend>Subscription</legend>
+                                <select class="form-control" id="subscription" name="subscription">
+                                    <repeat group="{{ @subscriptions }}" value="{{ @subscription }}">
+                                        <option value="{{ @subscription }}"
+                                        <check if="{{ @subscription == @userSubscription }}">selected</check>
+                                        >
+                                        {{ ucfirst(@subscription) }}
+                                        </option>
+                                    </repeat>
+                                </select>
+
+                                <!--Inline error if spoofing is attempted-->
+                                <div class="text-danger">
+                                    <check if="{{ isset(@errors['subscriptionSpoof']) }}">
+                                        {{ @errors['subscriptionSpoof'] }}
+                                    </check>
+                                </div>
+
+                            </div>
+
+                            <!-- Intervals -->
+                            <div class="form-group d-none" id="intervalField">
+                                <label>Recurring Payment Interval</label><br>
+                                <!--Displays priority choices retrieved from data-layer-->
+                                <repeat group="{{ @intervals }}" value="{{ @interval }}">
+                                    <check if="{{ @interval == $userInterval }}">
+                                        <true>
+                                            <label> <input type="radio" name="interval" value="{{ @interval }}" checked>
+                                                {{ ucfirst(@interval) }}
+                                            </label>
+                                        </true>
+                                        <false>
+                                            <label> <input type="radio" name="interval" value="{{ @interval }}">
+                                                {{ ucfirst(@interval) }}
+                                            </label>
+                                        </false>
+                                    </check>
+                                    <br>
+                                </repeat>
+
+                                <!--Inline error if no priority level is chosen-->
+                                <div class="text-danger">
+                                    <check if="{{ isset(@errors['intervalEmpty']) }}">
+                                        {{ @errors['intervalEmpty'] }}
+                                    </check>
+                                </div>
+
+                                <!--Inline error if spoofing is attempted-->
+                                <div class="text-danger">
+                                    <check if="{{ isset(@errors['intervalSpoof']) }}">
+                                        {{ @errors['intervalSpoof'] }}
+                                    </check>
+                                </div>
+                            </div>
+
                             <!-- Priority -->
                             <label>Priority</label>
                             <div class="form-group">
@@ -209,4 +269,7 @@
         </div>
         <!-- Copyright -->
     </footer>
+
+    <script src="scripts/edit.js"></script>
+
 </body>

@@ -16,6 +16,4 @@ function showOtherField() {
         otherInputField.classList.add("d-none");
     }
 
-
-
 }

@@ -335,4 +335,22 @@ class DataLayer
         return array("male", "female", "other");
     }
 
+    /**
+     * getSubscription() returns an array of subscription services
+     * @return array
+     */
+    function getSubscription()
+    {
+        return array("Choose a subscription", "Netflix", "Disney+", "Hulu", "Crunchyroll", "Other");
+    }
+
+    /**
+     * getInterval() returns an array of typical subscritpion intervals
+     * @return array
+     */
+    function getInterval()
+    {
+        return array("1 month", "3 months", "1 year");
+    }
+
 }

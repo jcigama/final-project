@@ -97,6 +97,8 @@ class Controller
             $price = $_POST['price'];
             $description = $_POST['description'];
             $priority = $_POST['priority'];
+            $subscription = $_POST['subscription'];
+            $interval = $_POST['interval'];
 
             //price validation
             if(!$validator->validPrice($price)){
@@ -111,8 +113,27 @@ class Controller
             }
 
             //priority validation | empty
-            if (!$validator->validPriority($priority) && isset($priority)) {
+            if (!$validator->validPriority($priority)) {
                 $this->_f3->set('errors["priorityEmpty"]', "Please choose priority level.");
+            }
+
+            //subscription validation | spoof prevention
+            if(isset($subscription)) {
+                if ($validator->validSubscriptions($subscription)) {
+                    $this->_f3->set('errors["subscriptionSpoof"]', "Spoof attempt, prevented.");
+                }
+            }
+
+            //interval validation | spoof prevention
+            if(isset($interval)) {
+                if ($validator->validIntervals($interval)) {
+                    $this->_f3->set('errors["intervalSpoof"]', "Spoof attempt, prevented.");
+                }
+            }
+
+            //interval validation | empty
+            if (!$validator->validInterval($interval)) {
+                $this->_f3->set('errors["intervalEmpty"]', "Please choose an interval level.");
             }
 
             //if no errors set in Fat-free 'errors' hive
@@ -129,10 +150,14 @@ class Controller
 
             //set priority choice in hive to check in html
             $this->_f3->set('priorityChoice', $priority);
+            $this->_f3->set('userSubscription', $subscription);
+            $this->_f3->set('userInterval', $interval);
         }
 
         //get array from data layer
         $this->_f3->set('priorities', $dataLayer->getPriorities());
+        $this->_f3->set('subscriptions', $dataLayer->getSubscription());
+        $this->_f3->set('intervals', $dataLayer->getInterval());
 
         //Set budget name into Fat-free hive
         $this->_f3->set('budgetName', $budgetName);

@@ -23,7 +23,8 @@ class Validate
      * @param $baseFunds
      * @return bool
      */
-    public function baseFundsValidation($baseFunds) {
+    public function baseFundsValidation($baseFunds)
+    {
         return !empty($baseFunds);
     }
 
@@ -32,7 +33,8 @@ class Validate
      * @param $startDate
      * @return bool
      */
-    public function dateValidDateStart($startDate) {
+    public function dateValidDateStart($startDate)
+    {
         return strlen($startDate) == 8 && !empty($startDate);
     }
 
@@ -41,7 +43,8 @@ class Validate
      * @param $endDate
      * @return bool
      */
-    public function dateValidDateEnd($endDate) {
+    public function dateValidDateEnd($endDate)
+    {
         return strlen($endDate) == 8 && !empty($endDate);
     }
 
@@ -51,7 +54,8 @@ class Validate
      * @param $endDate
      * @return bool
      */
-    public function validDates($startDate, $endDate) {
+    public function validDates($startDate, $endDate)
+    {
         return $startDate > $endDate;
     }
 
@@ -60,7 +64,8 @@ class Validate
      * @param $priority
      * @return bool
      */
-    public function validPriority($priority) {
+    public function validPriority($priority)
+    {
         return isset($priority);
     }
 
@@ -70,10 +75,60 @@ class Validate
      * @param $checkSpoof
      * @return bool
      */
-    function validPriorities($checkSpoof) {
+    function validPriorities($checkSpoof)
+    {
         $validPriorities = $this->_dataLayer->getPriorities();
 
         if (in_array($checkSpoof, $validPriorities)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @param $subscription
+     * @return bool
+     */
+    function validSubscription($subscription)
+    {
+        return isset($subscription);
+    }
+
+    /**
+     * @param $checkSpoof
+     * @return bool
+     */
+    function validSubscriptions($checkSpoof)
+    {
+        $validSubscriptions = $this->_dataLayer->getSubscription();
+
+        if (in_array($checkSpoof, $validSubscriptions)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if interval is set
+     * @param $priority
+     * @return bool
+     */
+    public function validInterval($interval)
+    {
+        return isset($interval);
+    }
+
+    /**
+     * Checks intervals against intervals array to protect against spoof
+     * protection
+     * @param $checkSpoof
+     * @return bool
+     */
+    function validIntervals($checkSpoof)
+    {
+        $validIntervals = $this->_dataLayer->getInterval();
+
+        if (in_array($checkSpoof, $validIntervals)) {
             return false;
         }
         return true;
