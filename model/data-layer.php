@@ -84,30 +84,53 @@ class DataLayer
      */
     function insertExpense($expense, $budgetNum)
     {
-        $sql = "INSERT INTO expense(price, description, priority, recurring, subsciption, budgetNum) VALUES (:price, :description, :priority, :recurring, :subscription, :budgetNum)";
+        $sql = "INSERT INTO expense(price, description, priority, recurring, subscription, budgetNum) VALUES (:price, :description, :priority, :recurring, :subscription, :budgetNum)";
 
         //prepare the statement
         $statement = $this->_dbh->prepare($sql);
 
         //bind the parameters
-
-        if ($expense instanceof Subscription) {
-            $statement->bindParam(":price", $expense->getPrice(), PDO::PARAM_INT);
-            $statement->bindParam(":description", $expense->getDescription(), PDO::PARAM_STR);
-            $statement->bindParam(":priority", $expense->getPriority(), PDO::PARAM_STR);
-            $statement->bindParam(":budgetNum", $budgetNum, PDO::PARAM_INT);
-            $statement->bindParam(":subscription", $expense->getSubscription(), PDO::PARAM_STR);
-            $statement->bindParam(":priority", $expense->getRecurring(), PDO::PARAM_STR);
-        } else {
-            $subscription = null;
-            $priority = null;
-            $statement->bindParam(":price", $expense->getPrice(), PDO::PARAM_INT);
-            $statement->bindParam(":description", $expense->getDescription(), PDO::PARAM_STR);
-            $statement->bindParam(":priority", $expense->getPriority(), PDO::PARAM_STR);
-            $statement->bindParam(":budgetNum", $budgetNum, PDO::PARAM_INT);
-            $statement->bindParam(":subscription", $subscription, PDO::PARAM_STR);
-            $statement->bindParam(":priority", $priority, PDO::PARAM_STR);
+        $statement->bindParam(":price", $expense->getPrice(), PDO::PARAM_INT);
+        $statement->bindParam(":description", $expense->getDescription(), PDO::PARAM_STR);
+        $statement->bindParam(":priority", $expense->getPriority(), PDO::PARAM_STR);
+        $statement->bindParam(":budgetNum", $budgetNum, PDO::PARAM_INT);
+        if($expense instanceof Subscription){
+            $subscription = $expense->getSubscription();
+            $recurring = $expense->getRecurring();
         }
+        $statement->bindParam(":subscription", $subscription, PDO::PARAM_STR);
+        $statement->bindParam(":recurring", $recurring, PDO::PARAM_STR);
+
+//        if($expense instanceof Subscription){
+//            $statement->bindParam(":subscription", $expense->getSubscription(), PDO::PARAM_STR);
+//            $statement->bindParam(":recurring", $expense->getRecurring(), PDO::PARAM_STR);
+//        } else {
+//            $subscription = null;
+//            $recurring = null;
+//            $statement->bindParam(":subscription", $subscription, PDO::PARAM_STR);
+//            $statement->bindParam(":recurring", $recurring, PDO::PARAM_STR);
+//        }
+
+
+//        if ($expense instanceof Subscription) {
+//            $statement->bindParam(":price", $expense->getPrice(), PDO::PARAM_INT);
+//            $statement->bindParam(":description", $expense->getDescription(), PDO::PARAM_STR);
+//            $statement->bindParam(":priority", $expense->getPriority(), PDO::PARAM_STR);
+//            $statement->bindParam(":budgetNum", $budgetNum, PDO::PARAM_INT);
+//            $statement->bindParam(":subscription", $expense->getSubscription(), PDO::PARAM_STR);
+//            $statement->bindParam(":recurring", $expense->getRecurring(), PDO::PARAM_STR);
+//        } else {
+//            $subscription = "nothing";
+//            $recurring = "nothing";
+//            $statement->bindParam(":price", $expense->getPrice(), PDO::PARAM_INT);
+//            $statement->bindParam(":description", $expense->getDescription(), PDO::PARAM_STR);
+//            $statement->bindParam(":priority", $expense->getPriority(), PDO::PARAM_STR);
+//            $statement->bindParam(":budgetNum", $budgetNum, PDO::PARAM_INT);
+//            $statement->bindParam(":subscription", $subscription, PDO::PARAM_STR);
+//            $statement->bindParam(":recurring", $recurring, PDO::PARAM_STR);
+//        }
+
+
 
 
         //execute
@@ -354,9 +377,9 @@ class DataLayer
      * getSubscription() returns an array of subscription services
      * @return array
      */
-    function getSubscription()
+    function getSubscriptions()
     {
-        return array("Choose a subscription", "Netflix", "Disney+", "Hulu", "Crunchyroll", "Other");
+        return array("Netflix", "Disney+", "Hulu", "Crunchyroll", "Other");
     }
 
     /**

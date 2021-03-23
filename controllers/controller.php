@@ -131,21 +131,24 @@ class Controller
             }
 
             //interval validation | empty
-            if (!$validator->validInterval($interval)) {
-                $this->_f3->set('errors["intervalEmpty"]', "Please choose an interval level.");
-            }
+//            if (!$validator->validInterval($interval)) {
+//                $this->_f3->set('errors["intervalEmpty"]', "Please choose an interval level.");
+//            }
 
             //if no errors set in Fat-free 'errors' hive
             if(empty($this->_f3->get('errors'))){
 
                 //create a new expense object
                 if (isset($subscription) && isset($interval)) {
-                    $expense = new Subscription($price, $description, $priority, $interval, $subscription);
+//                    $expense = new Subscription($price, $description, $priority, $interval, $subscription);
+                    $expense = new Subscription($price, $description, $priority);
+                    $expense->setSubscription($subscription);
+                    $expense->setRecurring($interval);
                 } else {
                     $expense = new Expense($price, $description, $priority);
                 }
 
-
+                print_r($expense);
 
                 //Insert object into database
                 $dataLayer->insertExpense($expense, $budgetNum);
@@ -162,7 +165,7 @@ class Controller
 
         //get array from data layer
         $this->_f3->set('priorities', $dataLayer->getPriorities());
-        $this->_f3->set('subscriptions', $dataLayer->getSubscription());
+        $this->_f3->set('subscriptions', $dataLayer->getSubscriptions());
         $this->_f3->set('intervals', $dataLayer->getInterval());
 
         //Set budget name into Fat-free hive

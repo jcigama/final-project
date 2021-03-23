@@ -100,7 +100,7 @@ class Validate
      */
     function validSubscriptions($checkSpoof)
     {
-        $validSubscriptions = $this->_dataLayer->getSubscription();
+        $validSubscriptions = $this->_dataLayer->getSubscriptions();
 
         if (in_array($checkSpoof, $validSubscriptions)) {
             return false;

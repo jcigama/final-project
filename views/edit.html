@@ -37,27 +37,72 @@
                             <!-- Subscription Check -->
                             <label><input type="checkbox" id="subscriptionCheck"> Subscription?</label><br>
 
-                            <!-- Subscription -->
+                            <!-- subscription -->
                             <div class="form-group d-none" id="subscriptionField">
-                                <legend>Subscription</legend>
-                                <select class="form-control" id="subscription" name="subscription">
-                                    <repeat group="{{ @subscriptions }}" value="{{ @subscription }}">
-                                        <option value="{{ @subscription }}"
-                                        <check if="{{ @subscription == @userSubscription }}">selected</check>
-                                        >
-                                        {{ ucfirst(@subscription) }}
-                                        </option>
-                                    </repeat>
-                                </select>
+                                <p>Subscription</p>
+                                <repeat group="{{ @subscriptions }}" value="{{ @subscription}}">
+                                    <label class="radioFormat">
+                                        <input type="radio" name="subscription" id="{{ @subscription }}" value="{{ @subscription }}"
+                                        <check if="{{ @subscription == @userSubscription}}">checked</check>>
 
-                                <!--Inline error if spoofing is attempted-->
+                                        {{ ucfirst(@subscription) }}
+                                    </label>
+                                </repeat>
+
                                 <div class="text-danger">
-                                    <check if="{{ isset(@errors['subscriptionSpoof']) }}">
-                                        {{ @errors['subscriptionSpoof'] }}
+                                    <check if="{{ isset(@errors['subscription']) }}">
+                                        {{ @errors['subscription'] }}
                                     </check>
                                 </div>
-
                             </div>
+                            <!-- Subscription -->
+<!--                            <div class="form-group d-none" id="subscriptionField">-->
+<!--                                <legend>Subscription</legend>-->
+<!--                                <select class="form-control" id="subscription" name="subscription">-->
+<!--                                    <repeat group="{{ @subscriptions }}" value="{{ @subscription }}">-->
+<!--                                        <option value="{{ @subscription }}"-->
+<!--                                        <check if="{{ @subscription == @userSubscription }}">selected</check>-->
+<!--                                        >-->
+<!--                                        {{ ucfirst(@subscription) }}-->
+<!--                                        </option>-->
+<!--                                    </repeat>-->
+<!--                                </select>-->
+
+<!--                                &lt;!&ndash;Inline error if spoofing is attempted&ndash;&gt;-->
+<!--                                <div class="text-danger">-->
+<!--                                    <check if="{{ isset(@errors['subscriptionSpoof']) }}">-->
+<!--                                        {{ @errors['subscriptionSpoof'] }}-->
+<!--                                    </check>-->
+<!--                                </div>-->
+
+<!--                            </div>-->
+
+<!--                            <div class="form-group d-none" id="subscriptionField">-->
+<!--                                <label>Subscription</label><br>-->
+<!--                                &lt;!&ndash;Displays priority choices retrieved from data-layer&ndash;&gt;-->
+<!--                                <repeat group="{{ @subscriptions }}" value="{{ @subscription }}">-->
+<!--                                    <check if="{{ @subscription == $userSubscription }}">-->
+<!--                                        <true>-->
+<!--                                            <label> <input type="radio" name="subscription" value="{{ @subscription }}" checked>-->
+<!--                                                {{ ucfirst(@subscription) }}-->
+<!--                                            </label>-->
+<!--                                        </true>-->
+<!--                                        <false>-->
+<!--                                            <label> <input type="radio" name="subscription" value="{{ @subscription }}" checked>-->
+<!--                                                {{ ucfirst(@subscription) }}-->
+<!--                                            </label>-->
+<!--                                        </false>-->
+<!--                                    </check>-->
+<!--                                    <br>-->
+<!--                                </repeat>-->
+
+<!--                                &lt;!&ndash;Inline error if spoofing is attempted&ndash;&gt;-->
+<!--                                <div class="text-danger">-->
+<!--                                    <check if="{{ isset(@errors['subscriptionSpoof']) }}">-->
+<!--                                        {{ @errors['subscriptionSpoof'] }}-->
+<!--                                    </check>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
                             <!-- Intervals -->
                             <div class="form-group d-none" id="intervalField">
@@ -78,13 +123,6 @@
                                     </check>
                                     <br>
                                 </repeat>
-
-                                <!--Inline error if no priority level is chosen-->
-                                <div class="text-danger">
-                                    <check if="{{ isset(@errors['intervalEmpty']) }}">
-                                        {{ @errors['intervalEmpty'] }}
-                                    </check>
-                                </div>
 
                                 <!--Inline error if spoofing is attempted-->
                                 <div class="text-danger">
