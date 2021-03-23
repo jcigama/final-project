@@ -70,8 +70,12 @@ class Controller
         $this->_f3->set('expensesTotal', $expenseTotal);
         $this->_f3->set('budgetAmount', $budgetAmount);
 
+
+
         //If user decides to add an expense via modal
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            var_dump($_POST);
+
             if (isset($_POST['fundAmount'])) {
                 $addFunds = $budgetAmount['baseFunds'] + $_POST['fundAmount'];
 
@@ -80,9 +84,8 @@ class Controller
             }
 
             if (isset($_POST['budgetDelete'])) {
-                $dataLayer->deleteExpenses($budgetNum);
-                $dataLayer->deleteBudget($budgetNum);
-                $this->_f3->reroute('/');
+                $_SESSION['budgetName'] = $budgetName . "," . $budgetNum;
+                $this->_f3->reroute('/confirm');
             }
 
             if (isset($_POST['deleteExpense'])) {
@@ -145,8 +148,7 @@ class Controller
     {
         global $dataLayer;
 
-        if (isset($_SESSION['account']))
-        {
+        if (isset($_SESSION['account'])) {
             session_destroy();
         }
 
@@ -206,34 +208,36 @@ class Controller
             $userNotification = $_POST['notification'];
             $userFname = $_POST['fname'];
             $userLname = $_POST['lname'];
-            if(isset($_POST['gender'])){
+
+            if (isset($_POST['gender'])) {
                 $userGender = $_POST['gender'];
             }
-            if(isset($_POST['otherGenderInput'])){
+
+            if (isset($_POST['otherGenderInput'])) {
                 $userGender = $_POST['otherGenderInput'];
             }
+
             $userAge = $_POST['age'];
             $userStartingfunds = $_POST['startingFunds'];
             $userSituation = $_POST['situation'];
 
-
             //validate username
-            if(!$validator->validUsername($username)){
+            if (!$validator->validUsername($username)) {
                 $this->_f3->set('errors["username"]', "Please enter a username that is longer than 3 characters");
             }
 
             //validate email
-            if(!$validator->validEmail($userEmail)){
+            if (!$validator->validEmail($userEmail)) {
                 $this->_f3->set('errors["email"]', "Email must contain an @.");
             }
 
             //validate password
-            if(!$validator->validPassword($userPassword)){
+            if (!$validator->validPassword($userPassword)) {
                 $this->_f3->set('errors["password"]', "Password cannot be empty and has to be longer than 5 characters.");
             }
 
             //validate confirm password
-            if(!$validator->passwordConfirmation($userPassword, $confirmPassword)){
+            if (!$validator->passwordConfirmation($userPassword, $confirmPassword)) {
                 $this->_f3->set('errors["confirmPassword"]', "Passwords don't match.");
             }
 
@@ -245,48 +249,48 @@ class Controller
             }
 
             //validate first name
-            if(!$validator->validFname($userFname)) {
+            if (!$validator->validFname($userFname)) {
                 $this->_f3->set('errors["fname"]', "Please enter a first name that only contains characters");
             }
 
             //validate last name
-            if(!$validator->validLname($userLname)){
+            if (!$validator->validLname($userLname)) {
                 $this->_f3->set('errors["lname"]', "Please enter a last name that only contains characters");
             }
 
             //validate starting funds
-            if(!$validator->validStartingfunds($userStartingfunds)){
+            if (!$validator->validStartingfunds($userStartingfunds)) {
                 $this->_f3->set('errors["startingFunds"]', "Starting funds cannot be empty and has to be more than 0.");
             }
 
             //validate situation | user must make choice
-            if($userSituation == "Choose your situation"){
+            if ($userSituation == "Choose your situation") {
                 $this->_f3->set('errors["situation"]', "Please pick a situation.");
             }
 
             //validate situation | spoof protection
-            if(!$validator->validSituation($userSituation)){
+            if (!$validator->validSituation($userSituation)) {
                 $this->_f3->set('errors["situation"]', "Spoof prevented.");
             }
 
             //validate gender | spoof protection
-            if(!isset($userGender)) {
+            if (!isset($userGender)) {
                 $this->_f3->set('errors["gender"]', "Please choose gender.");
             }
 
             //validate age
-            if($userAge == ""){
+            if ($userAge == "") {
                 $this->_f3->set('errors["age"]', "Please enter age.");
             }
 
             //validate age
-            if($userAge < 13){
+            if ($userAge < 13) {
                 $this->_f3->set('errors["age"]', "You must at least 13 years of age.");
             }
 
 
             //if there are no errors, redirect to /profile
-            if(empty($this->_f3->get('errors'))) {
+            if (empty($this->_f3->get('errors'))) {
 
                 //instantiate budget with parameters
                 $account = new Account($username, $userEmail, $userPassword, $userNotification, $userFname, $userLname, $userGender, $userAge, $userStartingfunds, $userSituation);
@@ -311,8 +315,6 @@ class Controller
         $this->_f3->set('userAge', isset($userAge) ? $userAge : "");
         $this->_f3->set('userStartingfunds', isset($userStartingfunds) ? $userStartingfunds : "");
         $this->_f3->set('userSituation', isset($userSituation) ? $userSituation : "");
-
-
 
         //Display a register view
         $view = new Template();
@@ -367,7 +369,7 @@ class Controller
             }
 
             //priority validation | spoof prevention
-            if(isset($priority)) {
+            if (isset($priority)) {
                 if ($validator->validPriorities($priority)) {
                     $this->_f3->set('errors["prioritySpoof"]', "Spoof attempt, prevented.");
                 }
@@ -470,7 +472,7 @@ class Controller
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            if(isset($_POST['delete'])) {
+            if (isset($_POST['delete'])) {
                 if ($_POST['delete'] == 'yes') {
                     $dataLayer->deleteExpenses($budgetNum);
                     $dataLayer->deleteBudget($budgetNum);
@@ -481,10 +483,9 @@ class Controller
                     $this->_f3->reroute('/');
                 }
             }
-
         }
 
-        $view = new Template();
+        $view = new Temgiplate();
         echo $view->render('views/confirm.html');
     }
 }
