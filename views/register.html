@@ -52,56 +52,6 @@
             </div>
         </div>
 
-        <!-- Notifications -->
-        <div class="form-group">
-            <p><b>Notification Preference</b></p>
-            <label><input type="checkbox" name="notification" <check if="{{ @userNotification=='on' }}">checked</check>> I want notifications via e-mail.</label>
-
-
-            <!-- Inline warning -->
-            <div class="text-danger">
-                <check if="{{ isset(@errors['notification']) }}">
-                    {{ @errors['notification'] }}
-                </check>
-            </div>
-
-        </div>
-
-        <!-- Situation -->
-        <div class="form-group">
-            <legend>Situation</legend>
-            <select class="form-control" id="situation" name="situation">
-                <repeat group="{{ @situations }}" value="{{ @situation }}">
-                    <option value="{{ @situation }}"
-                    <check if="{{ @situation == @userSituation }}">selected</check>
-                    >
-                    {{ ucfirst(@situation) }}
-                    </option>
-                </repeat>
-            </select>
-
-            <!-- Inline warning -->
-            <div class="text-danger">
-                <check if="{{ isset(@errors['situation']) }}">
-                    {{ @errors['situation'] }}
-                </check>
-            </div>
-
-        </div>
-
-        <!-- Starting Funds -->
-        <div class="form-group">
-            <label for="startingFunds">Starting Funds</label>
-            <input type="number" class="form-control pl-2 col-3" id="startingFunds" name="startingFunds" value="{{ @userStartingfunds }}" placeholder="Enter your starting funds">
-
-            <!-- Inline warning -->
-            <div class="text-danger">
-                <check if="{{ isset(@errors['startingFunds']) }}">
-                    {{ @errors['startingFunds'] }}
-                </check>
-            </div>
-        </div>
-
         <h3>Personal Information</h3>
 
         <div class="form-group row">
@@ -168,7 +118,7 @@
         </div>
 
         <div class="text-right">
-            <button type="submit" class="btn btn-outline-dark">Register</button>
+            <button type="submit" class="btn btn-outline-dark">Submit</button>
         </div>
     </form>
 

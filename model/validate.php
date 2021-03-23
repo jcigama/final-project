@@ -148,16 +148,6 @@ class Validate
     }
 
     /**
-     * Checks to see if startingFunds is not empty and is greater than 0
-     * @param $startingFunds
-     * @return bool
-     */
-    function validStartingfunds($startingFunds)
-    {
-        return !empty($startingFunds) && $startingFunds > 0;
-    }
-
-    /**
      * Checks to see if price is greater than 0 and is not empty
      * @param $price
      * @return bool
@@ -167,23 +157,4 @@ class Validate
         return $price > 0 && !empty($price);
     }
 
-    /**
-     * Checks to see if the situation entered matches the situation
-     * array
-     * @param $selectedSituation
-     * @return bool
-     */
-    function validSituation($selectedSituation)
-    {
-        //get valid situations from data layer
-        $validSituation = $this->_dataLayer->getSituation();
-
-        //If the selected condiment is not in the valid list, return false
-        if (!in_array($selectedSituation, $validSituation)) {
-            return false;
-        }
-
-        //If we haven't false by now, we're good!
-        return true;
-    }
 }

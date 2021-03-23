@@ -59,8 +59,8 @@ class DataLayer
      */
     function insertAccount($account)
     {
-        $sql = "INSERT INTO account(userName, email, password, notification, situation, startingFunds, fname, lname, gender, age)
-                   VALUES (:userName, :email, :password, :notification, :situation, :startingFunds, :fname, :lname, :gender, :age)";
+        $sql = "INSERT INTO account(userName, email, password, fname, lname, gender, age)
+                   VALUES (:userName, :email, :password, :fname, :lname, :gender, :age)";
 
         //prepare the statement
         $statement = $this->_dbh->prepare($sql);
@@ -69,9 +69,6 @@ class DataLayer
         $statement->bindParam(":userName", $account->getUserName(), PDO::PARAM_STR);
         $statement->bindParam(":email", $account->getEmail(), PDO::PARAM_STR);
         $statement->bindParam(":password", $account->getPassword(), PDO::PARAM_STR);
-        $statement->bindParam(":notification", $account->getNotifications(), PDO::PARAM_BOOL);
-        $statement->bindParam(":situation", $account->getSituation(), PDO::PARAM_STR);
-        $statement->bindParam(":startingFunds", $account->getStartingFunds(), PDO::PARAM_STR);
         $statement->bindParam(":fname", $account->getFname(), PDO::PARAM_STR);
         $statement->bindParam(":lname", $account->getLname(), PDO::PARAM_STR);
         $statement->bindParam(":gender", $account->getGender(), PDO::PARAM_STR);
@@ -331,15 +328,6 @@ class DataLayer
         return array("high", "medium", "low");
     }
 
-    /**
-     * getSituation() returns an array of situation options
-     * @return string[]
-     */
-    function getSituation()
-    {
-        return array("Choose your situation", "education", "bills", "leisure", "other");
-    }
-
     /** getGender() returns an array of gender options
      *  @return array
      */
@@ -348,8 +336,4 @@ class DataLayer
         return array("male", "female", "other");
     }
 
-    function getNotification()
-    {
-        return array("yes", "no");
-    }
 }

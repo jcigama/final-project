@@ -194,19 +194,14 @@ class Controller
         //destroy session
         session_destroy();
 
-        $userNotification = "off";
-
         //get array
-        $this->_f3->set('situations', $dataLayer->getSituation());
         $this->_f3->set('genders', $dataLayer->getGender());
-        $this->_f3->set('notifications', $dataLayer->getNotification());
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $username = $_POST['username'];
             $userEmail = $_POST['email'];
             $userPassword = $_POST['password'];
             $confirmPassword = $_POST['confirmPassword'];
-            $userNotification = $_POST['notification'];
             $userFname = $_POST['fname'];
             $userLname = $_POST['lname'];
 
@@ -219,8 +214,6 @@ class Controller
             }
 
             $userAge = $_POST['age'];
-            $userStartingfunds = $_POST['startingFunds'];
-            $userSituation = $_POST['situation'];
 
             //validate username
             if (!$validator->validUsername($username)) {
@@ -242,13 +235,6 @@ class Controller
                 $this->_f3->set('errors["confirmPassword"]', "Passwords don't match.");
             }
 
-            //spoof protection notification
-            if (isset($userNotification)) {
-                if ($userNotification != "on") {
-                    $this->_f3->set('errors["notification"]', "Spoof prevented");
-                }
-            }
-
             //validate first name
             if (!$validator->validFname($userFname)) {
                 $this->_f3->set('errors["fname"]', "Please enter a first name that only contains characters");
@@ -257,21 +243,6 @@ class Controller
             //validate last name
             if (!$validator->validLname($userLname)) {
                 $this->_f3->set('errors["lname"]', "Please enter a last name that only contains characters");
-            }
-
-            //validate starting funds
-            if (!$validator->validStartingfunds($userStartingfunds)) {
-                $this->_f3->set('errors["startingFunds"]', "Starting funds cannot be empty and has to be more than 0.");
-            }
-
-            //validate situation | user must make choice
-            if ($userSituation == "Choose your situation") {
-                $this->_f3->set('errors["situation"]', "Please pick a situation.");
-            }
-
-            //validate situation | spoof protection
-            if (!$validator->validSituation($userSituation)) {
-                $this->_f3->set('errors["situation"]', "Spoof prevented.");
             }
 
             //validate gender | spoof protection
@@ -294,7 +265,7 @@ class Controller
             if (empty($this->_f3->get('errors'))) {
 
                 //instantiate budget with parameters
-                $account = new Account($username, $userEmail, $userPassword, $userNotification, $userFname, $userLname, $userGender, $userAge, $userStartingfunds, $userSituation);
+                $account = new Account($username, $userEmail, $userPassword, $userFname, $userLname, $userGender, $userAge);
 
                 $_SESSION['account'] = $account;
                 $dataLayer->insertAccount($_SESSION['account']);
@@ -309,13 +280,10 @@ class Controller
         $this->_f3->set('userPassword', isset($userPassword) ? $userPassword : "");
         $this->_f3->set('confirmPassword', isset($confirmPassword) ? $confirmPassword : "");
         $this->_f3->set('userEmail', isset($userEmail) ? $userEmail : "");
-        $this->_f3->set('userNotification', isset($userNotification) ? $userNotification : "");
         $this->_f3->set('userFname', isset($userFname) ? $userFname : "");
         $this->_f3->set('userLname', isset($userLname) ? $userLname : "");
         $this->_f3->set('userGender', isset($userGender) ? $userGender : "");
         $this->_f3->set('userAge', isset($userAge) ? $userAge : "");
-        $this->_f3->set('userStartingfunds', isset($userStartingfunds) ? $userStartingfunds : "");
-        $this->_f3->set('userSituation', isset($userSituation) ? $userSituation : "");
 
         //Display a register view
         $view = new Template();

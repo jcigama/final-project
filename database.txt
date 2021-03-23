@@ -5,8 +5,6 @@ CREATE TABLE account (
     userName VARCHAR(30),
     email VARCHAR(50),
     password VARCHAR(20),
-    notification BIT,
-    situation VARCHAR(20),
     fname VARCHAR(30),
     lname VARCHAR(30),
     gender VARCHAR(10),
