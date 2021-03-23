@@ -309,7 +309,6 @@ class Controller
             $startDate = $_POST['startDate'];
             $endDate = $_POST['endDate'];
             $priority = $_POST['priority'];
-            $userNum = $account['userNum'];
 
             // baseFunds validation
             if (!$validator->baseFundsValidation($baseFunds)) {
@@ -362,6 +361,7 @@ class Controller
                     substr((string)$endDate, 0, 4) . "-" .
                     substr((string)$endDate, 4, 2) . "-" .
                     substr((string)$endDate, 6, 2);
+
 
                 //instantiate budget with parameters
                 $budget = new Budget($baseFunds, $budgetName, $startDate, $endDate, $priority);
