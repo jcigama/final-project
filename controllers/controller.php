@@ -305,7 +305,6 @@ class Controller
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $baseFunds = $_POST['baseFunds'];
-            $description = $_POST['description'];
             $budgetName = $_POST['budgetName'];
             $startDate = $_POST['startDate'];
             $endDate = $_POST['endDate'];
@@ -365,7 +364,7 @@ class Controller
                     substr((string)$endDate, 6, 2);
 
                 //instantiate budget with parameters
-                $budget = new Budget($baseFunds, $description, $budgetName, $startDate, $endDate, $priority);
+                $budget = new Budget($baseFunds, $budgetName, $startDate, $endDate, $priority);
 
                 //save data to session
                 $_SESSION['budget'] = $budget;
@@ -381,7 +380,6 @@ class Controller
 
         //Sticky data
         $this->_f3->set('baseFunds', isset($baseFunds) ? $baseFunds : "");
-        $this->_f3->set('description', isset($description) ? $description : "");
         $this->_f3->set('budgetName', isset($budgetName) ? $budgetName : "");
         $this->_f3->set('startDate', isset($startDate) ? $startDate : "");
         $this->_f3->set('endDate', isset($endDate) ? $endDate : "");

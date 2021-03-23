@@ -33,15 +33,14 @@ class DataLayer
             $userNum = 0;
         }
 
-        $sql = "INSERT INTO budget(baseFunds, description, budgetName, startDate, endDate, priority, userNum)
-                   VALUES (:baseFunds, :description, :budgetName, :startDate, :endDate, :priority, :userNum)";
+        $sql = "INSERT INTO budget(baseFunds, budgetName, startDate, endDate, priority, userNum)
+                   VALUES (:baseFunds, :budgetName, :startDate, :endDate, :priority, :userNum)";
 
         //prepare the statement
         $statement = $this->_dbh->prepare($sql);
 
         //Bind the parameters
         $statement->bindParam(":baseFunds", $budget->getBaseFunds(), PDO::PARAM_INT);
-        $statement->bindParam(":description", $budget->getDescription(), PDO::PARAM_STR);
         $statement->bindParam(":budgetName", $budget->getBudgetName(), PDO::PARAM_STR);
         $statement->bindParam(":startDate", $budget->getStartDate(), PDO::PARAM_STR);
         $statement->bindParam(":endDate", $budget->getEndDate(), PDO::PARAM_STR);

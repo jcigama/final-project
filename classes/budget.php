@@ -13,7 +13,6 @@ class Budget
 {
 
     private $_baseFunds;
-    private $_description;
     private $_budgetName;
     private $_startDate;
     private $_endDate;
@@ -22,16 +21,14 @@ class Budget
     /**
      * Budget constructor.
      * @param $_baseFunds
-     * @param $_description
      * @param $_budgetName
      * @param $_startDate
      * @param $_endDate
      * @param $_priority
      */
-    public function __construct($_baseFunds, $_description, $_budgetName, $_startDate, $_endDate, $_priority)
+    public function __construct($_baseFunds, $_budgetName, $_startDate, $_endDate, $_priority)
     {
         $this->_baseFunds = $_baseFunds;
-        $this->_description = $_description;
         $this->_budgetName = $_budgetName;
         $this->_startDate = $_startDate;
         $this->_endDate = $_endDate;
@@ -44,14 +41,6 @@ class Budget
     public function getBaseFunds()
     {
         return $this->_baseFunds;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDescription()
-    {
-        return $this->_description;
     }
 
     /**
@@ -92,14 +81,6 @@ class Budget
     public function setBaseFunds($baseFunds): void
     {
         $this->_baseFunds = $baseFunds;
-    }
-
-    /**
-     * @param mixed $description
-     */
-    public function setDescription($description): void
-    {
-        $this->_description = $description;
     }
 
     /**
