@@ -35,7 +35,7 @@ SDEV 328 Final Project
 
 
 # UML Diagram
-![UML Diagram](images/UMLClassDiagram.png)
+![UML Diagram](images/finalProjectUMLDiagram.png)
 
 # ER Diagram
-![ER Diagram](images/ERDiagram.png)
+![ER Diagram](images/finalProjectERDiagram.png)
