@@ -78,5 +78,10 @@ $f3->route('GET|POST /confirm', function() {
     $controller->confirm();
 });
 
+$f3->route('GET|POST /deleteExpense', function() {
+    global $controller;
+    $controller->deleteExpense();
+});
+
 //Run Fat-Free
 $f3->run();

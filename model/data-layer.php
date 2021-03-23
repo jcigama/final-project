@@ -138,6 +138,20 @@ class DataLayer
     }
 
     /**
+     * @param $budgetNum
+     */
+    function deleteExpense($expenseNum)
+    {
+        $sql = "DELETE FROM expense WHERE expenseNum = :expenseNum";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(':expenseNum', $expenseNum, PDO::PARAM_INT);
+
+        $statement->execute();
+    }
+
+    /**
      * Deletes budget from user's account
      * @param $budgetNum
      */
@@ -271,6 +285,21 @@ class DataLayer
         $statement->execute();
 
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    function getExpenseDescription($expenseNum)
+    {
+        $sql = "SELECT description FROM expense WHERE expenseNum = :expenseNum";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(':expenseNum', $expenseNum, PDO::PARAM_INT);
+
+        $statement->execute();
+
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
 
         return $result;
     }

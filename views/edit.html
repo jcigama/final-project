@@ -155,7 +155,7 @@
                                 <p><strong>Description: </strong>{{ @expense['description'] }} </p>
                                 <p><strong>Price: </strong>${{ @expense['price'] }}</p>
                                 <p><strong>Priority: </strong>{{ @expense['priority'] }}</p>
-                                <button type="submit" id="removeBtn" class="w-100 btn-sm btn-outline-dark shadow" value="{{ @expense['description'] }}" name="deleteExpense">Delete expense</button>
+                                <button type="submit" id="removeBtn" class="w-100 btn-sm btn-outline-dark shadow" value="{{ @expense['expenseNum'] }}" name="expenseNum">Delete expense</button>
                             </div>
                         </div>
                     </div>

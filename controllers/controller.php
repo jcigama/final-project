@@ -88,9 +88,10 @@ class Controller
                 $this->_f3->reroute('/confirm');
             }
 
-            if (isset($_POST['deleteExpense'])) {
-                $_SESSION['deleteExpense'] = $_POST['deleteExpense'];
-                $this->_f3->reroute('confirm');
+            if (isset($_POST['expenseNum'])) {
+                $_SESSION['expenseNum'] = $_POST['expenseNum'];
+                $_SESSION['expenseDescription'] = $dataLayer->getExpenseDescription($_POST['expenseNum']);
+                $this->_f3->reroute('deleteExpense');
             }
 
             $price = $_POST['price'];
@@ -485,7 +486,37 @@ class Controller
             }
         }
 
-        $view = new Temgiplate();
+        $view = new Template();
         echo $view->render('views/confirm.html');
+    }
+
+    function deleteExpense()
+    {
+        global $dataLayer;
+
+        $expenseNum = $_SESSION['expenseNum'];
+        $expenseDescription = $_SESSION['expenseDescription'];
+
+        var_dump($expenseDescription);
+
+        $this->_f3->set('expenseNum', $expenseNum);
+        $this->_f3->set('expenseDescription', $expenseDescription);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            if (isset($_POST['delete'])) {
+                if ($_POST['delete'] == 'yes') {
+                    $dataLayer->deleteExpense($expenseNum);
+                    echo "deleted";
+                    $this->_f3->reroute('/edit');
+                } else if ($_POST['delete'] == 'no') {
+                    echo "not deleted";
+                    $this->_f3->reroute('/edit');
+                }
+            }
+        }
+
+        $view = new Template();
+        echo $view->render('views/deleteExpense.html');
     }
 }

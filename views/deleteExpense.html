@@ -1,0 +1,22 @@
+<include href="views/header.html"></include>
+<body>
+
+<form action="#" method="post">
+    <div class="container">
+        <check if="isset({{ @expenseDescription }})">
+            <h1 class="text-center text-danger"><strong>Are you sure you want to delete expense with description of  "<u>{{ @expenseDescription['description'] }}</u>"?</strong></h1>
+            <div class="container pt-3 pb-3 row align-self-center">
+                <div class="col mb-1">
+                    <button type="submit" class="w-100 btn btn-lg btn-outline-dark shadow" name="delete" value="no">No, don't delete this expense.</button>
+                </div>
+
+                <div class="col mb-1">
+                    <button type="submit" id="removeBtn" class="w-100 btn btn-lg btn-outline-dark shadow" name="delete" value="yes">Yes, delete this expense.</button>
+                </div>
+            </div>
+        </check>
+    </div>
+</form>
+
+</body>
+</html>
