@@ -60,32 +60,6 @@ class Validate
     }
 
     /**
-     * Checks if priority is set
-     * @param $priority
-     * @return bool
-     */
-    public function validPriority($priority)
-    {
-        return isset($priority);
-    }
-
-    /**
-     * Checks priorities against priorities array to protect against spoof
-     * protection
-     * @param $checkSpoof
-     * @return bool
-     */
-    function validPriorities($checkSpoof)
-    {
-        $validPriorities = $this->_dataLayer->getPriorities();
-
-        if (in_array($checkSpoof, $validPriorities)) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * @param $subscription
      * @return bool
      */

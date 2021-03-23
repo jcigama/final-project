@@ -16,7 +16,6 @@ class Budget
     private $_budgetName;
     private $_startDate;
     private $_endDate;
-    private $_priority;
 
     /**
      * Budget constructor.
@@ -24,15 +23,13 @@ class Budget
      * @param $_budgetName
      * @param $_startDate
      * @param $_endDate
-     * @param $_priority
      */
-    public function __construct($_baseFunds, $_budgetName, $_startDate, $_endDate, $_priority)
+    public function __construct($_baseFunds, $_budgetName, $_startDate, $_endDate)
     {
         $this->_baseFunds = $_baseFunds;
         $this->_budgetName = $_budgetName;
         $this->_startDate = $_startDate;
         $this->_endDate = $_endDate;
-        $this->_priority = $_priority;
     }
 
     /**
@@ -68,14 +65,6 @@ class Budget
     }
 
     /**
-     * @return mixed
-     */
-    public function getPriority()
-    {
-        return $this->_priority;
-    }
-
-    /**
      * @param mixed $baseFunds
      */
     public function setBaseFunds($baseFunds): void
@@ -105,13 +94,5 @@ class Budget
     public function setEndDate($endDate): void
     {
         $this->_endDate = $endDate;
-    }
-
-    /**
-     * @param mixed $priority
-     */
-    public function setPriority($priority): void
-    {
-        $this->_priority = $priority;
     }
 }

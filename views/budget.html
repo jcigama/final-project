@@ -69,39 +69,6 @@
 
                 <br>
 
-                <label>Priority</label>
-
-                <!--Displays priority choices retrieved from data-layer-->
-                <repeat group="{{ @priorities }}" value="{{ @priority }}">
-                    <br>
-                    <check if="{{ @priority == $priorityChoice }}">
-                        <true>
-                            <label> <input type="radio" name="priority" value="{{ @priority }}" checked>
-                                {{ ucfirst(@priority) }}
-                            </label>
-                        </true>
-                        <false>
-                            <label> <input type="radio" name="priority" value="{{ @priority }}">
-                                {{ ucfirst(@priority) }}
-                            </label>
-                        </false>
-                    </check>
-                </repeat>
-
-                <!--Inline error if no priority level is chosen-->
-                <div class="text-danger">
-                    <check if="{{ isset(@errors['priorityEmpty']) }}">
-                        {{ @errors['priorityEmpty'] }}
-                    </check>
-                </div>
-
-                <!--Inline error if spoofing is attempted-->
-                <div class="text-danger">
-                    <check if="{{ isset(@errors['prioritySpoof']) }}">
-                        {{ @errors['prioritySpoof'] }}
-                    </check>
-                </div>
-
                 <div class="text-right">
                     <button type="submit" class="btn btn-outline-dark">Submit</button>
                 </div>

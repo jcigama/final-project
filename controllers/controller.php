@@ -335,7 +335,6 @@ class Controller
             $budgetName = $_POST['budgetName'];
             $startDate = $_POST['startDate'];
             $endDate = $_POST['endDate'];
-            $priority = $_POST['priority'];
 
             // baseFunds validation
             if (!$validator->baseFundsValidation($baseFunds)) {
@@ -362,17 +361,6 @@ class Controller
                 $this->_f3->set('errors["budgetName"]', "Name for budget required.");
             }
 
-            //priority validation | spoof prevention
-            if (isset($priority)) {
-                if ($validator->validPriorities($priority)) {
-                    $this->_f3->set('errors["prioritySpoof"]', "Spoof attempt, prevented.");
-                }
-            }
-
-            //priority validation | empty
-            if (!$validator->validPriority($priority)) {
-                $this->_f3->set('errors["priorityEmpty"]', "Please choose priority level.");
-            }
             echo $startDate;
             echo $endDate;
 
@@ -391,7 +379,7 @@ class Controller
 
 
                 //instantiate budget with parameters
-                $budget = new Budget($baseFunds, $budgetName, $startDate, $endDate, $priority);
+                $budget = new Budget($baseFunds, $budgetName, $startDate, $endDate);
 
                 //save data to session
                 $_SESSION['budget'] = $budget;
@@ -401,8 +389,6 @@ class Controller
                 $this->_f3->reroute('/');
             }
 
-            //set priority choice in hive to check in html
-            $this->_f3->set('priorityChoice', $priority);
         }
 
         //Sticky data
@@ -410,8 +396,6 @@ class Controller
         $this->_f3->set('budgetName', isset($budgetName) ? $budgetName : "");
         $this->_f3->set('startDate', isset($startDate) ? $startDate : "");
         $this->_f3->set('endDate', isset($endDate) ? $endDate : "");
-        $this->_f3->set('priority', isset($priority) ? $priority : "");
-        $this->_f3->set('priorities', $dataLayer->getPriorities());
 
         //Display a view
         $view = new Template();

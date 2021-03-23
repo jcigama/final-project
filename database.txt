@@ -17,7 +17,6 @@ CREATE TABLE budget (
     budgetName VARCHAR(50) NOT NULL,
     startDate DATE,
     endDate DATE,
-    priority VARCHAR(20),
     userNum INT NOT NULL,
     FOREIGN KEY (userNum) REFERENCES account(userNum)
 );
