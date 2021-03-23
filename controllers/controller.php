@@ -104,18 +104,6 @@ class Controller
                 $this->_f3->set('errors["price"]', "Price must be above $0.00");
             }
 
-            //priority validation | spoof prevention
-            if (isset($priority)) {
-                if ($validator->validPriorities($priority)) {
-                    $this->_f3->set('errors["prioritySpoof"]', "Spoof attempt, prevented.");
-                }
-            }
-
-            //priority validation | empty
-            if (!$validator->validPriority($priority)) {
-                $this->_f3->set('errors["priorityEmpty"]', "Please choose priority level.");
-            }
-
             //subscription validation | spoof prevention
             if (isset($subscription)) {
                 if ($validator->validSubscriptions($subscription)) {
