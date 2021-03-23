@@ -1,9 +1,16 @@
-<include href="views/header.html"></include>
-<body>
+<!--
+    Name: Alisa Llavore, Joseph Igama
+    Date: 03/23/2021
+-->
 
+<include href="views/header.html"></include>
+
+<body>
+    <title>Expense Tracker | Confirm Delete</title>
     <form action="#" method="post">
         <div class="container">
             <check if="isset({{ @budgetName }})">
+                <!-- Confirmation message -->
                 <h1 class="text-center text-danger"><strong>Are you sure you want to delete your "{{ @budgetName }}" budget?</strong></h1>
                 <div class="container pt-3 pb-3 row align-self-center">
                     <div class="col mb-1">
@@ -17,6 +24,6 @@
             </check>
         </div>
     </form>
-
 </body>
+
 </html>

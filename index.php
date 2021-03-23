@@ -2,7 +2,6 @@
 //Require files
 require_once('vendor/autoload.php');
 
-
 //Turn on error reporting
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -24,7 +23,7 @@ $f3->set('DEBUG', 3);
 //Define a default route
 $f3->route('GET|POST /', function() {
     global $controller;
-    if(isset($_SESSION['account'])){
+    if (isset($_SESSION['account'])) {
         $controller->home();
     } else {
         $controller->login();

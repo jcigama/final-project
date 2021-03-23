@@ -58,6 +58,7 @@ class Controller
         $budgetInfo = explode(",", $_SESSION['budgetNum']);
         $budgetNum = $budgetInfo[1];
         $budgetName = $budgetInfo[0];
+
         //Retrieve expenses of current budget
         $expenseData = $dataLayer->getExpense($budgetNum);
         $expenseTotal = $dataLayer->getTotalExpense($budgetNum);
@@ -70,8 +71,7 @@ class Controller
         $this->_f3->set('message', $_SESSION['message']);
 
         //If user decides to add an expense via modal
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            var_dump($_POST);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             //Adds funds
             if (isset($_POST['fundAmount'])) {
@@ -100,12 +100,12 @@ class Controller
             $interval = $_POST['interval'];
 
             //price validation
-            if(!$validator->validPrice($price)){
+            if (!$validator->validPrice($price)) {
                 $this->_f3->set('errors["price"]', "Price must be above $0.00");
             }
 
             //priority validation | spoof prevention
-            if(isset($priority)) {
+            if (isset($priority)) {
                 if ($validator->validPriorities($priority)) {
                     $this->_f3->set('errors["prioritySpoof"]', "Spoof attempt, prevented.");
                 }
@@ -117,38 +117,31 @@ class Controller
             }
 
             //subscription validation | spoof prevention
-            if(isset($subscription)) {
+            if (isset($subscription)) {
                 if ($validator->validSubscriptions($subscription)) {
                     $this->_f3->set('errors["subscriptionSpoof"]', "Spoof attempt, prevented.");
                 }
             }
 
             //interval validation | spoof prevention
-            if(isset($interval)) {
+            if (isset($interval)) {
                 if ($validator->validIntervals($interval)) {
                     $this->_f3->set('errors["intervalSpoof"]', "Spoof attempt, prevented.");
                 }
             }
 
-            //interval validation | empty
-//            if (!$validator->validInterval($interval)) {
-//                $this->_f3->set('errors["intervalEmpty"]', "Please choose an interval level.");
-//            }
 
             //if no errors set in Fat-free 'errors' hive
-            if(empty($this->_f3->get('errors'))){
+            if (empty($this->_f3->get('errors'))) {
 
                 //create a new expense object
                 if (isset($subscription) && isset($interval)) {
-//                    $expense = new Subscription($price, $description, $priority, $interval, $subscription);
                     $expense = new Subscription($price, $description, $priority);
                     $expense->setSubscription($subscription);
                     $expense->setRecurring($interval);
                 } else {
                     $expense = new Expense($price, $description, $priority);
                 }
-
-                print_r($expense);
 
                 //Insert object into database
                 $dataLayer->insertExpense($expense, $budgetNum);
@@ -481,7 +474,7 @@ class Controller
                     $this->_f3->reroute('/');
                 } else if ($_POST['delete'] == 'no') {
                     echo "not deleted";
-                    $this->_f3->reroute('/');
+                    $this->_f3->reroute('/edit');
                 }
             }
         }
@@ -490,6 +483,9 @@ class Controller
         echo $view->render('views/confirm.html');
     }
 
+    /**
+     * Confirm route for expense deletion
+     */
     function deleteExpense()
     {
         global $dataLayer;

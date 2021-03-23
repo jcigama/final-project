@@ -1,151 +1,151 @@
+<!--
+    Name: Alisa Llavore, Joseph Igama
+    Date: 03/23/2021
+-->
+
 <include href="views/header.html"></include>
-<div class="container pt-4">
-    <h1>Register</h1><br>
+<html>
+    <body>
+    <title>Expense Tracker | Register</title>
+    <div class="container pt-4">
+        <h1>Register</h1><br>
 
-    <h3>Create an Account</h3>
-    <form action="#" method="post">
-        <!-- Username -->
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control pl-2" id="username" name="username" value="{{ @username }}" placeholder="Enter a username">
+        <h3>Create an Account</h3>
+        <form action="#" method="post">
+            <!-- Username -->
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control pl-2" id="username" name="username" value="{{ @username }}" placeholder="Enter a username">
 
-            <!-- Inline warning -->
-            <div class="text-danger">
-                <check if="{{ isset(@errors['username']) }}">
-                    {{ @errors['username'] }}
-                </check>
-            </div>
-        </div>
-
-        <!-- Email-->
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name = "email" placeholder="Enter your email" value="{{ @userEmail }}">
-            <div class="text-danger">
-                <check if="{{ isset(@errors['email']) }}">
-                    {{ @errors['email'] }}
-                </check>
-            </div>
-        </div>
-
-        <!-- Password -->
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control pl-2" id="password" name="password" value="{{ @userPassword }}" placeholder="Enter a password">
-            <!-- Inline warning -->
-            <div class="text-danger">
-                <check if="{{ isset(@errors['password']) }}">
-                    {{ @errors['password'] }}
-                </check>
-            </div>
-        </div>
-
-        <!-- Password Confirmation-->
-        <div class="form-group">
-            <label for="confirmPassword">Confirm Password</label>
-            <input type="password" class="form-control pl-2" id="confirmPassword" name="confirmPassword" value="{{ @confirmPassword }}" placeholder="Confirm your password">
-            <!-- Inline warning -->
-            <div class="text-danger">
-                <check if="{{ isset(@errors['confirmPassword']) }}">
-                    {{ @errors['confirmPassword'] }}
-                </check>
-            </div>
-        </div>
-
-        <h3>Personal Information</h3>
-
-        <div class="form-group row">
-            <div class="col">
-                <label for="username">First name</label>
-                <input type="text" class="form-control pl-2" id="fname" name="fname" value="{{ @userFname }}" placeholder="Enter your first name">
                 <!-- Inline warning -->
                 <div class="text-danger">
-                    <check if="{{ isset(@errors['fname']) }}">
-                        {{ @errors['fname'] }}
+                    <check if="{{ isset(@errors['username']) }}">
+                        {{ @errors['username'] }}
                     </check>
                 </div>
             </div>
-            <div class="col">
-                <label for="username">Last name</label>
-                <input type="text" class="form-control pl-2" id="lname" name="lname" value="{{ @userLname }}" placeholder="Enter your last name">
-                <!-- Inline warning -->
+
+            <!-- Email-->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name = "email" placeholder="Enter your email" value="{{ @userEmail }}">
                 <div class="text-danger">
-                    <check if="{{ isset(@errors['lname']) }}">
-                        {{ @errors['lname'] }}
+                    <check if="{{ isset(@errors['email']) }}">
+                        {{ @errors['email'] }}
                     </check>
                 </div>
             </div>
-        </div>
 
-        <!-- Gender -->
-        <div class="form-group">
+            <!-- Password -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control pl-2" id="password" name="password" value="{{ @userPassword }}" placeholder="Enter a password">
+                <!-- Inline warning -->
+                <div class="text-danger">
+                    <check if="{{ isset(@errors['password']) }}">
+                        {{ @errors['password'] }}
+                    </check>
+                </div>
+            </div>
+
+            <!-- Password Confirmation-->
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" class="form-control pl-2" id="confirmPassword" name="confirmPassword" value="{{ @confirmPassword }}" placeholder="Confirm your password">
+                <!-- Inline warning -->
+                <div class="text-danger">
+                    <check if="{{ isset(@errors['confirmPassword']) }}">
+                        {{ @errors['confirmPassword'] }}
+                    </check>
+                </div>
+            </div>
+
+            <h3>Personal Information</h3>
+
+            <div class="form-group row">
+                <div class="col">
+                    <label for="username">First name</label>
+                    <input type="text" class="form-control pl-2" id="fname" name="fname" value="{{ @userFname }}" placeholder="Enter your first name">
+                    <!-- Inline warning -->
+                    <div class="text-danger">
+                        <check if="{{ isset(@errors['fname']) }}">
+                            {{ @errors['fname'] }}
+                        </check>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="username">Last name</label>
+                    <input type="text" class="form-control pl-2" id="lname" name="lname" value="{{ @userLname }}" placeholder="Enter your last name">
+                    <!-- Inline warning -->
+                    <div class="text-danger">
+                        <check if="{{ isset(@errors['lname']) }}">
+                            {{ @errors['lname'] }}
+                        </check>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gender -->
+            <div class="form-group">
+                <div class="row">
+
+                    <!-- Gender -->
+                    <div class="col">
+                        <p>Gender</p>
+                        <repeat group="{{ @genders }}" value="{{ @gender}}">
+                            <label class="radioFormat">
+                                <input type="radio" name="gender" id="{{ @gender }}" value="{{ @gender }}"
+                                <check if="{{ @gender == @userGender}}">checked</check>>
+
+                                {{ ucfirst(@gender) }}
+                            </label>
+                        </repeat>
+
+                        <input type="text" class="form-control pl-2 d-none" id="otherGenderInput" name="otherGenderInput" placeholder="enter other gender">
+                        <div class="text-danger">
+                            <check if="{{ isset(@errors['gender']) }}">
+                                {{ @errors['gender'] }}
+                            </check>
+                        </div>
+                    </div>
+
+                    <!-- Age -->
+                    <div class="col">
+                        <label for="age">Age</label>
+                        <input type="number" class="form-control pl-2 col-5" id="age" name="age" placeholder="Enter your age" value="{{ @userAge }}">
+                        <div class="text-danger">
+                            <check if="{{ isset(@errors['age']) }}">
+                                {{ @errors['age'] }}
+                            </check>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-right">
+                <button type="submit" class="btn btn-outline-dark">Submit</button>
+            </div>
+        </form>
+
+    </div>
+    <br><br>
+
+    <footer class="footer mt-auto pt-3 bg-light text-center">
+        <div class="container d-none d-sm-block">
             <div class="row">
-
-                <!-- Gender -->
-                <div class="col">
-                    <p>Gender</p>
-                    <repeat group="{{ @genders }}" value="{{ @gender}}">
-                        <label class="radioFormat">
-                            <input type="radio" name="gender" id="{{ @gender }}" value="{{ @gender }}"
-                            <check if="{{ @gender == @userGender}}">checked</check>>
-
-                            {{ ucfirst(@gender) }}
-                        </label>
-                    </repeat>
-<!--                    <label class="radioFormat">-->
-<!--                        <input type="radio" name="otherGender" id="otherGender">-->
-<!--                        Other-->
-<!--                    </label>-->
-                    <input type="text" class="form-control pl-2 d-none" id="otherGenderInput" name="otherGenderInput" placeholder="enter other gender">
-                    <div class="text-danger">
-                        <check if="{{ isset(@errors['gender']) }}">
-                            {{ @errors['gender'] }}
-                        </check>
-                    </div>
-                </div>
-
-                <!-- Age -->
-                <div class="col">
-                    <label for="age">Age</label>
-                    <input type="number" class="form-control pl-2 col-5" id="age" name="age" placeholder="Enter your age" value="{{ @userAge }}">
-                    <div class="text-danger">
-                        <check if="{{ isset(@errors['age']) }}">
-                            {{ @errors['age'] }}
-                        </check>
-                    </div>
+                <div class="col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">About us</h5>
+                    <p>Introducing <strong>404Found's</strong> expenses tracker. <br> Functional and minimal, to suit your essential budgeting needs.</p>
                 </div>
             </div>
         </div>
 
-        <div class="text-right">
-            <button type="submit" class="btn btn-outline-dark">Submit</button>
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            <span class="text-muted">Created by 404Found</span>
         </div>
-    </form>
+    </footer>
 
-</div>
-<br><br>
+    <script src="scripts/validation.js"></script>
 
-<footer class="footer mt-auto pt-3 bg-light text-center">
-    <!-- Grid container -->
-    <div class="container d-none d-sm-block">
-        <!--Grid row-->
-        <div class="row">
-
-            <!--Grid column-->
-            <div class="col-md-12 mb-4 mb-md-0">
-                <h5 class="text-uppercase">About us</h5>
-                <p>Introducing <strong>404Found's</strong> expenses tracker. <br> Functional and minimal, to suit your essential budgeting needs.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        <span class="text-muted">Created by 404Found</span>
-    </div>
-</footer>
-
-<script src="scripts/validation.js"></script>
-
-</body>
+    </body>
 </html>

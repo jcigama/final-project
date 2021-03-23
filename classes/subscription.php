@@ -15,21 +15,6 @@ class Subscription extends Expense {
     private $_subscription;
 
     /**
-     * Subscription constructor.
-     * @param $_price
-     * @param $_description
-     * @param $_priority
-     * @param $_recurring
-     * @param $_service
-     */
-//    public function __construct($_price, $_description, $_priority, $_recurring, $_subscription)
-//    {
-//        parent::__construct($_price, $_description, $_priority, $_recurring, $_subscription);
-//        $this->_recurring = $_recurring;
-//        $this->_subscription = $_subscription;
-//    }
-
-    /**
      * @return mixed
      */
     public function getRecurring()

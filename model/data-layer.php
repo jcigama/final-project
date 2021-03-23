@@ -27,7 +27,7 @@ class DataLayer
         //row data for name and starting amount
         $account = $_SESSION['account'];
 
-        if(isset($_SESSION['account'])){
+        if (isset($_SESSION['account'])) {
             $userNum = $account['userNum'];
         } else {
             $userNum = 0;
@@ -94,44 +94,14 @@ class DataLayer
         $statement->bindParam(":description", $expense->getDescription(), PDO::PARAM_STR);
         $statement->bindParam(":priority", $expense->getPriority(), PDO::PARAM_STR);
         $statement->bindParam(":budgetNum", $budgetNum, PDO::PARAM_INT);
-        if($expense instanceof Subscription){
+
+        if ($expense instanceof Subscription) {
             $subscription = $expense->getSubscription();
             $recurring = $expense->getRecurring();
         }
+
         $statement->bindParam(":subscription", $subscription, PDO::PARAM_STR);
         $statement->bindParam(":recurring", $recurring, PDO::PARAM_STR);
-
-//        if($expense instanceof Subscription){
-//            $statement->bindParam(":subscription", $expense->getSubscription(), PDO::PARAM_STR);
-//            $statement->bindParam(":recurring", $expense->getRecurring(), PDO::PARAM_STR);
-//        } else {
-//            $subscription = null;
-//            $recurring = null;
-//            $statement->bindParam(":subscription", $subscription, PDO::PARAM_STR);
-//            $statement->bindParam(":recurring", $recurring, PDO::PARAM_STR);
-//        }
-
-
-//        if ($expense instanceof Subscription) {
-//            $statement->bindParam(":price", $expense->getPrice(), PDO::PARAM_INT);
-//            $statement->bindParam(":description", $expense->getDescription(), PDO::PARAM_STR);
-//            $statement->bindParam(":priority", $expense->getPriority(), PDO::PARAM_STR);
-//            $statement->bindParam(":budgetNum", $budgetNum, PDO::PARAM_INT);
-//            $statement->bindParam(":subscription", $expense->getSubscription(), PDO::PARAM_STR);
-//            $statement->bindParam(":recurring", $expense->getRecurring(), PDO::PARAM_STR);
-//        } else {
-//            $subscription = "nothing";
-//            $recurring = "nothing";
-//            $statement->bindParam(":price", $expense->getPrice(), PDO::PARAM_INT);
-//            $statement->bindParam(":description", $expense->getDescription(), PDO::PARAM_STR);
-//            $statement->bindParam(":priority", $expense->getPriority(), PDO::PARAM_STR);
-//            $statement->bindParam(":budgetNum", $budgetNum, PDO::PARAM_INT);
-//            $statement->bindParam(":subscription", $subscription, PDO::PARAM_STR);
-//            $statement->bindParam(":recurring", $recurring, PDO::PARAM_STR);
-//        }
-
-
-
 
         //execute
         $statement->execute();
@@ -323,6 +293,10 @@ class DataLayer
         return $result;
     }
 
+    /**
+     * @param $expenseNum
+     * @return mixed
+     */
     function getExpenseDescription($expenseNum)
     {
         $sql = "SELECT description FROM expense WHERE expenseNum = :expenseNum";

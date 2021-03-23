@@ -1,8 +1,15 @@
+<!--
+    Name: Alisa Llavore, Joseph Igama
+    Date: 03/23/2021
+-->
+
 <include href="views/header.html"></include>
 
 <body>
+    <title>Expense Tracker | Budget ({{ @budgetName }})</title>
+
     <div class="container">
-        <!-- The Modal ("addExpense") -->
+        <!-- Modal ("addExpense") -->
         <div class="modal fade" id="addExpense">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -55,54 +62,6 @@
                                     </check>
                                 </div>
                             </div>
-                            <!-- Subscription -->
-<!--                            <div class="form-group d-none" id="subscriptionField">-->
-<!--                                <legend>Subscription</legend>-->
-<!--                                <select class="form-control" id="subscription" name="subscription">-->
-<!--                                    <repeat group="{{ @subscriptions }}" value="{{ @subscription }}">-->
-<!--                                        <option value="{{ @subscription }}"-->
-<!--                                        <check if="{{ @subscription == @userSubscription }}">selected</check>-->
-<!--                                        >-->
-<!--                                        {{ ucfirst(@subscription) }}-->
-<!--                                        </option>-->
-<!--                                    </repeat>-->
-<!--                                </select>-->
-
-<!--                                &lt;!&ndash;Inline error if spoofing is attempted&ndash;&gt;-->
-<!--                                <div class="text-danger">-->
-<!--                                    <check if="{{ isset(@errors['subscriptionSpoof']) }}">-->
-<!--                                        {{ @errors['subscriptionSpoof'] }}-->
-<!--                                    </check>-->
-<!--                                </div>-->
-
-<!--                            </div>-->
-
-<!--                            <div class="form-group d-none" id="subscriptionField">-->
-<!--                                <label>Subscription</label><br>-->
-<!--                                &lt;!&ndash;Displays priority choices retrieved from data-layer&ndash;&gt;-->
-<!--                                <repeat group="{{ @subscriptions }}" value="{{ @subscription }}">-->
-<!--                                    <check if="{{ @subscription == $userSubscription }}">-->
-<!--                                        <true>-->
-<!--                                            <label> <input type="radio" name="subscription" value="{{ @subscription }}" checked>-->
-<!--                                                {{ ucfirst(@subscription) }}-->
-<!--                                            </label>-->
-<!--                                        </true>-->
-<!--                                        <false>-->
-<!--                                            <label> <input type="radio" name="subscription" value="{{ @subscription }}" checked>-->
-<!--                                                {{ ucfirst(@subscription) }}-->
-<!--                                            </label>-->
-<!--                                        </false>-->
-<!--                                    </check>-->
-<!--                                    <br>-->
-<!--                                </repeat>-->
-
-<!--                                &lt;!&ndash;Inline error if spoofing is attempted&ndash;&gt;-->
-<!--                                <div class="text-danger">-->
-<!--                                    <check if="{{ isset(@errors['subscriptionSpoof']) }}">-->
-<!--                                        {{ @errors['subscriptionSpoof'] }}-->
-<!--                                    </check>-->
-<!--                                </div>-->
-<!--                            </div>-->
 
                             <!-- Intervals -->
                             <div class="form-group d-none" id="intervalField">
@@ -178,6 +137,7 @@
             </div>
         </div>
 
+        <!-- The Modal ("addFunds") -->
         <div class="modal fade" id="addFunds">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -207,6 +167,7 @@
             </div>
         </div>
 
+        <!-- The Modal ("remove") -->
         <div class="modal fade" id="remove">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -228,36 +189,21 @@
     </div>
 
     <div class="container text-center">
-        <check if="isset({{ @message }})">
-            <br>
-            <span class="text-danger"><u>Your expense, "{{ @message }}" has been deleted</u></span>
-        </check>
         <br>
-        <br>
-        <br>
+        <!-- Budget Heading -->
         <h1>Viewing Budget: {{ @budgetName }}</h1>
-        <h1>Budget Amount: <i>${{ @budgetAmount['baseFunds'] }}</i></h1>
-
-        <check if="{{ @budgetAmount['baseFunds'] - @expensesTotal[0]['total'] }} >= 0">
-            <true>
-                <h1 class="text-success">Balance: ${{ @budgetAmount['baseFunds'] - @expensesTotal[0]['total'] }}</h1>
-            </true>
-        </check>
-
-        <check if="{{ @budgetAmount['baseFunds'] - @expensesTotal[0]['total'] }} < 0">
-            <true>
-                <h1 class="text-danger">Balance: ${{ @budgetAmount['baseFunds'] - @expensesTotal[0]['total'] }}</h1>
-            </true>
-        </check>
+        <h1>Budget Funds: <i>${{ @budgetAmount['baseFunds'] }}</i></h1>
 
         <hr>
 
+        <!-- Expenses display -->
         <check if="empty({{ @expenses }})">
             <true>
                 <h1 class="text-center">No Expenses created.<br></h1>
                 <p class="text-center">Add new expense below.</p>
             </true>
             <false>
+                <p class="text-center">Expense(s) for {{ @budgetName }}.</p>
                 <form action="#" method="post">
                     <div class="row row-cols-1 row-cols-md-3 mb-3 justify-content-center text-center pt-3">
                         <repeat group="{{ @expenses }}" value="{{ @expense }}">
@@ -267,6 +213,13 @@
                                         <p><strong>Description: </strong>{{ @expense['description'] }} </p>
                                         <p><strong>Price: </strong>${{ @expense['price'] }}</p>
                                         <p><strong>Priority: </strong>{{ @expense['priority'] }}</p>
+                                        <check if="isset({{ @expense['recurring'] }})">
+                                            <hr>
+                                            <p><strong>Recurring Payment Interval: <br></strong>{{ @expense['recurring'] }}</p>
+                                        </check>
+                                        <check if="isset({{ @expense['recurring'] }})">
+                                            <p><strong>Subscription: </strong>{{ @expense['subscription'] }}</p>
+                                        </check>
                                         <button type="submit" id="removeBtn" class="w-100 btn-sm btn-outline-dark shadow" value="{{ @expense['expenseNum'] }}" name="expenseNum">Delete expense</button>
                                     </div>
                                 </div>
@@ -274,18 +227,34 @@
                         </repeat>
                     </div>
                 </form>
+                <hr>
+                <check if="{{ @budgetAmount['baseFunds'] - @expensesTotal[0]['total'] }} >= 0">
+                    <true>
+                        <h1 class="text-success">Balance: ${{ @budgetAmount['baseFunds'] - @expensesTotal[0]['total'] }}</h1>
+                    </true>
+                </check>
+
+                <check if="{{ @budgetAmount['baseFunds'] - @expensesTotal[0]['total'] }} < 0">
+                    <true>
+                        <h1 class="text-danger">Balance: ${{ @budgetAmount['baseFunds'] - @expensesTotal[0]['total'] }}</h1>
+                    </true>
+                </check>
+                <br>
+
             </false>
         </check>
 
+        <!-- Buttons -->
         <form action="#" method="post">
 
             <div class="row align-self-center">
+
                 <div class="col mb-1">
                     <button type="button" class="w-100 btn btn-lg btn-outline-dark shadow" data-toggle="modal" data-target="#addExpense">Create new expense</button>
                 </div>
 
                 <div class="col mb-1">
-                    <button type="button" class="w-100 btn btn-lg btn-outline-dark shadow" data-toggle="modal" data-target="#addFunds">Add funds to budget amount</button>
+                    <button type="button" class="w-100 btn btn-lg btn-outline-dark shadow" data-toggle="modal" data-target="#addFunds">Add funds to this budget</button>
                 </div>
 
                 <div class="col mb-1">
@@ -299,13 +268,18 @@
     </div>
     <br>
 
-    <footer class="bg-light text-center text-lg-start">
-
-        <!-- Copyright -->
+    <footer class="footer mt-auto pt-3 bg-light text-center">
+        <div class="container d-none d-sm-block">
+            <div class="row">
+                <div class="col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">About us</h5>
+                    <p>Introducing <strong>404Found's</strong> expenses tracker. <br> Functional and minimal, to suit your essential budgeting needs.</p>
+                </div>
+            </div>
+        </div>
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             <span class="text-muted">Created by 404Found</span>
         </div>
-        <!-- Copyright -->
     </footer>
 
     <script src="scripts/edit.js"></script>

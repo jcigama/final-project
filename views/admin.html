@@ -1,3 +1,8 @@
+<!--
+    Name: Alisa Llavore, Joseph Igama
+    Date: 03/23/2021
+-->
+
 <include href="views/header.html"></include>
 
 <head>
@@ -84,6 +89,8 @@
                 <th>description</th>
                 <th>priority</th>
                 <th>budgetNum</th>
+                <th>recurring</th>
+                <th>subscription</th>
             </tr>
             </thead>
 
@@ -95,6 +102,8 @@
                     <td>{{ @expense['description'] }}</td>
                     <td>{{ @expense['priority'] }}</td>
                     <td>{{ @expense['budgetNum'] }}</td>
+                    <td>{{ @expense['recurring'] }}</td>
+                    <td>{{ @expense['subscription'] }}</td>
                 </tr>
             </repeat>
             </tbody>

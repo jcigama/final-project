@@ -1,3 +1,8 @@
+<!--
+    Name: Alisa Llavore, Joseph Igama
+    Date: 03/23/2021
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,12 +15,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Expense Tracker</title>
+
 
     <!-- NAVBAR -->
     <nav class="shadow navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
 
+            <!-- ICON -->
             <a class="navbar-brand" href="{{ @BASE }}">
                 <img src="images/credit-card-8x.png" width="30" height="30" alt="Credit card">
                 Expense Tracker
@@ -25,6 +31,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
+            <!-- NAVBAR BUTTONS -->
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup" style="">
                 <div class="navbar-nav">
                     <check if="{{ isset(@SESSION.account) }}">
@@ -36,17 +43,13 @@
                             <a class="nav-item nav-link" href="register">Register</a>
                         </false>
                     </check>
-
-                    <a class="nav-item nav-link" href="admin">Database</a>
                 </div>
             </div>
-
         </div>
     </nav>
 
     <!-- HEADER -->
     <header id="header">
-
         <div class="text-center py-5 ">
             <check if="{{ isset(@SESSION.account) }}">
                 <true>
@@ -60,7 +63,5 @@
                 </true>
             </check>
         </div>
-
     </header>
-
 </head>
