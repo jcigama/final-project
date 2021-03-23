@@ -58,7 +58,6 @@ class Controller
         $budgetInfo = explode(",", $_SESSION['budgetNum']);
         $budgetNum = $budgetInfo[1];
         $budgetName = $budgetInfo[0];
-
         //Retrieve expenses of current budget
         $expenseData = $dataLayer->getExpense($budgetNum);
         $expenseTotal = $dataLayer->getTotalExpense($budgetNum);
@@ -138,8 +137,15 @@ class Controller
 
             //if no errors set in Fat-free 'errors' hive
             if(empty($this->_f3->get('errors'))){
+
                 //create a new expense object
-                $expense = new Expense($price, $description, $priority);
+                if (isset($subscription) && isset($interval)) {
+                    $expense = new Subscription($price, $description, $priority, $interval, $subscription);
+                } else {
+                    $expense = new Expense($price, $description, $priority);
+                }
+
+
 
                 //Insert object into database
                 $dataLayer->insertExpense($expense, $budgetNum);

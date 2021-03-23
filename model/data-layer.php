@@ -84,16 +84,31 @@ class DataLayer
      */
     function insertExpense($expense, $budgetNum)
     {
-        $sql = "INSERT INTO expense(price, description, priority, budgetNum) VALUES (:price, :description, :priority, :budgetNum)";
+        $sql = "INSERT INTO expense(price, description, priority, recurring, subsciption, budgetNum) VALUES (:price, :description, :priority, :recurring, :subscription, :budgetNum)";
 
         //prepare the statement
         $statement = $this->_dbh->prepare($sql);
 
         //bind the parameters
-        $statement->bindParam(":price", $expense->getPrice(), PDO::PARAM_INT);
-        $statement->bindParam(":description", $expense->getDescription(), PDO::PARAM_STR);
-        $statement->bindParam(":priority", $expense->getPriority(), PDO::PARAM_STR);
-        $statement->bindParam(":budgetNum", $budgetNum, PDO::PARAM_INT);
+
+        if ($expense instanceof Subscription) {
+            $statement->bindParam(":price", $expense->getPrice(), PDO::PARAM_INT);
+            $statement->bindParam(":description", $expense->getDescription(), PDO::PARAM_STR);
+            $statement->bindParam(":priority", $expense->getPriority(), PDO::PARAM_STR);
+            $statement->bindParam(":budgetNum", $budgetNum, PDO::PARAM_INT);
+            $statement->bindParam(":subscription", $expense->getSubscription(), PDO::PARAM_STR);
+            $statement->bindParam(":priority", $expense->getRecurring(), PDO::PARAM_STR);
+        } else {
+            $subscription = null;
+            $priority = null;
+            $statement->bindParam(":price", $expense->getPrice(), PDO::PARAM_INT);
+            $statement->bindParam(":description", $expense->getDescription(), PDO::PARAM_STR);
+            $statement->bindParam(":priority", $expense->getPriority(), PDO::PARAM_STR);
+            $statement->bindParam(":budgetNum", $budgetNum, PDO::PARAM_INT);
+            $statement->bindParam(":subscription", $subscription, PDO::PARAM_STR);
+            $statement->bindParam(":priority", $priority, PDO::PARAM_STR);
+        }
+
 
         //execute
         $statement->execute();

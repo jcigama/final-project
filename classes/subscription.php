@@ -12,7 +12,7 @@
 class Subscription extends Expense {
 
     private $_recurring;
-    private $_service;
+    private $_subscription;
 
     /**
      * Subscription constructor.
@@ -22,11 +22,11 @@ class Subscription extends Expense {
      * @param $_recurring
      * @param $_service
      */
-    public function __construct($_price, $_description, $_priority, $_recurring, $_service)
+    public function __construct($_price, $_description, $_priority, $_recurring, $_subscription)
     {
-        parent::__construct($_price, $_description, $_priority, $_recurring, $_service);
+        parent::__construct($_price, $_description, $_priority, $_recurring, $_subscription);
         $this->_recurring = $_recurring;
-        $this->_service = $_service;
+        $this->_subscription = $_subscription;
     }
 
     /**
@@ -48,16 +48,16 @@ class Subscription extends Expense {
     /**
      * @return mixed
      */
-    public function getService()
+    public function getSubscription()
     {
-        return $this->_service;
+        return $this->_subscription;
     }
 
     /**
-     * @param mixed $service
+     * @param mixed $subscription
      */
-    public function setService($service): void
+    public function setSubscription($subscription): void
     {
-        $this->_service = $service;
+        $this->_subscription = $subscription;
     }
 }
