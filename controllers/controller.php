@@ -474,7 +474,6 @@ class Controller
                 if ($_POST['delete'] == 'yes') {
                     $dataLayer->deleteExpense($expenseNum);
                     echo "deleted";
-                    $_SESSION['message'] = $expenseDescription['description'];
                     $this->_f3->reroute('/edit');
                 } else if ($_POST['delete'] == 'no') {
                     echo "not deleted";
