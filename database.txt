@@ -7,7 +7,6 @@ CREATE TABLE account (
     password VARCHAR(20),
     notification BIT,
     situation VARCHAR(20),
-    startingFunds DECIMAL(10, 2),
     fname VARCHAR(30),
     lname VARCHAR(30),
     gender VARCHAR(10),
