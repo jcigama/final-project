@@ -30,7 +30,6 @@ class Controller
 
         //If user wants to edit a budget, store budget number into a SESSION
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
-
             if (isset($_POST['budgetName'])) {
                 $_SESSION['budgetName'] = $_POST['budgetName'];
                 $this->_f3->reroute('confirm');
@@ -69,25 +68,26 @@ class Controller
         $this->_f3->set('expenses', $expenseData);
         $this->_f3->set('expensesTotal', $expenseTotal);
         $this->_f3->set('budgetAmount', $budgetAmount);
-
-
+        $this->_f3->set('message', $_SESSION['message']);
 
         //If user decides to add an expense via modal
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             var_dump($_POST);
 
+            //Adds funds
             if (isset($_POST['fundAmount'])) {
                 $addFunds = $budgetAmount['baseFunds'] + $_POST['fundAmount'];
-
                 $dataLayer->addFunds($budgetName, $addFunds);
                 $this->_f3->reroute('edit');
             }
 
+            //Directs user to delete prompt
             if (isset($_POST['budgetDelete'])) {
                 $_SESSION['budgetName'] = $budgetName . "," . $budgetNum;
                 $this->_f3->reroute('/confirm');
             }
 
+            //Deletes individual expense
             if (isset($_POST['expenseNum'])) {
                 $_SESSION['expenseNum'] = $_POST['expenseNum'];
                 $_SESSION['expenseDescription'] = $dataLayer->getExpenseDescription($_POST['expenseNum']);
@@ -465,8 +465,6 @@ class Controller
         $expenseNum = $_SESSION['expenseNum'];
         $expenseDescription = $_SESSION['expenseDescription'];
 
-        var_dump($expenseDescription);
-
         $this->_f3->set('expenseNum', $expenseNum);
         $this->_f3->set('expenseDescription', $expenseDescription);
 
@@ -476,6 +474,7 @@ class Controller
                 if ($_POST['delete'] == 'yes') {
                     $dataLayer->deleteExpense($expenseNum);
                     echo "deleted";
+                    $_SESSION['message'] = $expenseDescription['description'];
                     $this->_f3->reroute('/edit');
                 } else if ($_POST['delete'] == 'no') {
                     echo "not deleted";

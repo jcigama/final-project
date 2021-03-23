@@ -10,8 +10,11 @@
             </true>
             <false>
                 <h1 class="text-center">Current Budget(s)</h1>
+
             </false>
         </check>
+
+        <hr>
 
         <!--Modals-->
         <div class="container">
@@ -107,7 +110,7 @@
                                 <button type="submit" class="w-100 btn btn-lg"
                                         href="edit" name="budgetInfo" value="{{ @card['budgetName'] }},{{ @card['budgetNum'] }}">Edit Budget</button>
                                 <button type="submit" id="removeBtn" class="w-100 btn btn-lg"
-                                        name="budgetName" value="{{ @card['budgetName'] }},{{ @card['budgetNum'] }}">Delete</button></a>
+                                        name="budgetName" value="{{ @card['budgetName'] }},{{ @card['budgetNum'] }}">Remove Budget</button></a>
 
                             </div>
                         </div>
